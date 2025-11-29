@@ -1,0 +1,45 @@
+
+import React from 'react';
+
+export default function About() {
+    const stats = [
+        { label: 'Years of Experience', value: '15' },
+        { label: 'Customer Satisfaction', value: '1563' },        
+        { label: 'Projects Completed', value: '2987' },
+        { label: 'Team Members', value: '67' },
+      ];
+    return (
+<section id="about" className="py-24 px-6 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-3 mb-6 hover-scale">
+                <span className="w-10 h-px bg-[#D4D414]"></span>
+                <span>ABOUT US</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight gsap-target">
+                {'Discover the passion and expertise behind GR CAR LAB, your premier destination for professional car detailing'.split('').map((char, i) => (
+                  <span key={i} className="char">{char === ' ' ? '\u00A0' : char}</span>
+                ))}
+              </h2>
+              <p className="text-[#AAADB0] mb-8 leading-relaxed">
+                We combine expertise with cutting-edge technology to deliver exceptional results. Our skilled team uses premium products to ensure your vehicle receives world-class treatment.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-8">
+              {stats.map((stat, idx) => (
+                <div key={idx} className="text-center hover-scale">
+                  <div className="text-4xl md:text-5xl font-bold text-[#D4D414] mb-2 stat-number" data-value={stat.value}>
+                    0{stat.value === "99" ? "%" : "+"}
+                  </div>
+                  <div className="text-[#AAADB0] text-sm">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+    );
+}
