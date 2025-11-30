@@ -139,13 +139,13 @@ const Services = () => {
         gsap.from(card, {
           scrollTrigger: {
             trigger: card,
-            start: 'top 85%',
-            end: 'bottom 20%',
+            start: 'top 90%',
+            end: 'bottom 15%',
             toggleActions: 'play none none reverse'
           },
           opacity: 0.8,
-          y: 60,
-          rotationX: -15,
+          y: 15,
+          rotationX: -25,
           scale: 0.9,
           duration: 0.8,
           delay: index * 0.1,
@@ -171,13 +171,13 @@ const Services = () => {
           });
 
           gsap.to(button, {
-            x: 10,
+            x: 2,
             duration: 0.3,
             ease: 'power2.out'
           });
 
           gsap.to(card, {
-            y: -8,
+            y: -20,
             boxShadow: '0 20px 40px rgba(212, 212, 20, 0.2)',
             duration: 0.3,
             ease: 'power2.out'
@@ -219,33 +219,33 @@ const Services = () => {
   }, []);
 
   return (
-    <section id="services" className="py-24 px-6 bg-black" ref={servicesRef}>
+    <section id="services" className="services-section py-12 sm:py-16 md:py-20 lg:py-24 px-2 xs:px-3 sm:px-4 md:px-6 lg:px-6 bg-black" ref={servicesRef}>
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16 services-title">
-          <div className="text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-3 justify-center mb-6">
-            <span className="w-10 h-px bg-[#D4D414]"></span>
+        <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-16 services-title">
+          <div className="text-xs sm:text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
+            <span className="w-6 sm:w-8 md:w-10 h-px bg-[#D4D414]"></span>
             <span>OUR SERVICES</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
+          <h2 className="services-title-main text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 md:mb-6">
             Premium Car Care Services
           </h2>
-          <p className="text-[#AAADB0] max-w-3xl mx-auto text-lg">
+          <p className="services-description text-[#AAADB0] max-w-3xl mx-auto text-xs sm:text-sm md:text-base lg:text-lg">
             Expert detailing solutions with advanced technology, premium products, and meticulous attention to every detail
           </p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {servicesData.map((service, index) => (
             <div
               key={service.id}
               ref={el => cardsRef.current[index] = el}
-              className="bg-[#1A1A1A] rounded-2xl overflow-hidden border border-white/5 hover:border-[#D4D414]/30 transition-all duration-300 cursor-pointer"
+              className="service-card bg-[#1A1A1A] rounded-lg sm:rounded-xl lg:rounded-2xl overflow-hidden border border-white/5 hover:border-[#D4D414]/30 transition-all duration-300 cursor-pointer"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Service Image */}
-              <div className="relative h-56 overflow-hidden bg-[#222222]">
+              <div className="relative h-40 sm:h-48 md:h-52 lg:h-56 overflow-hidden bg-[#222222]">
                 <img
                   src={service.image}
                   alt={service.title}
@@ -254,33 +254,33 @@ const Services = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent opacity-60"></div>
                 
                 {/* Service Title Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <h3 className="service-title text-2xl font-bold text-white">
+                <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 lg:p-6">
+                  <h3 className="service-card-title text-lg sm:text-xl md:text-2xl font-bold text-white">
                     {service.title}
                   </h3>
                 </div>
               </div>
 
               {/* Service Content */}
-              <div className="p-6">
-                <p className="text-[#AAADB0] text-sm mb-4 leading-relaxed">
+              <div className="p-3 sm:p-4 md:p-5 lg:p-6">
+                <p className="service-card-description text-[#AAADB0] text-xs sm:text-sm md:text-sm lg:text-sm mb-3 sm:mb-4 leading-relaxed">
                   {service.description}
                 </p>
 
                 {/* Key Features */}
-                <ul className="space-y-2 mb-6">
+                <ul className="service-features space-y-1.5 sm:space-y-2 mb-4 sm:mb-6">
                   {service.details.slice(0, 3).map((detail, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-xs text-white/60">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4D414]"></span>
-                      {detail}
+                    <li key={idx} className="service-feature-item flex items-center gap-2 text-xs sm:text-xs md:text-xs lg:text-xs text-white/60">
+                      <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-[#D4D414] flex-shrink-0"></span>
+                      <span className="line-clamp-2">{detail}</span>
                     </li>
                   ))}
                 </ul>
 
                 {/* Learn More Button */}
-                <button className="service-button group flex items-center gap-2 text-[#D4D414] font-semibold text-sm hover:gap-3 transition-all">
+                <button className="service-button group flex items-center gap-2 text-[#D4D414] font-semibold text-xs sm:text-sm hover:gap-3 transition-all">
                   <span>Learn More</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-3 sm:w-4 h-3 sm:h-4" />
                 </button>
               </div>
             </div>
@@ -288,19 +288,19 @@ const Services = () => {
         </div>
 
         {/* Brand Partners Section */}
-        <div className="mt-24 pt-16 border-t border-white/10">
-          <h3 className="text-3xl font-bold text-center mb-12">
+        <div className="mt-16 sm:mt-20 md:mt-24 pt-12 sm:pt-14 md:pt-16 lg:pt-16 border-t border-white/10">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-10 md:mb-12">
             Premium Product Partners
           </h3>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="brand-partners-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             <a
               href="https://www.detailmax.in/ceramic-coatings/"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#1A1A1A] p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
+              className="brand-card bg-[#1A1A1A] p-6 sm:p-7 md:p-8 rounded-lg sm:rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
             >
-              <div className="text-4xl font-bold text-[#D4D414] mb-3">DETAIL MAX</div>
-              <p className="text-[#AAADB0] text-sm mb-4">Premium Ceramic Coating & PPF Solutions</p>
+              <div className="brand-name text-2xl sm:text-3xl md:text-4xl font-bold text-[#D4D414] mb-2 sm:mb-3">DETAIL MAX</div>
+              <p className="text-[#AAADB0] text-xs sm:text-sm mb-3 sm:mb-4">Premium Ceramic Coating & PPF Solutions</p>
               <span className="text-xs text-white/50 group-hover:text-[#D4D414] transition-colors">Visit Website →</span>
             </a>
             
@@ -308,10 +308,10 @@ const Services = () => {
               href="https://gtechniq.com/product-category/auto/ceramic-coatings/"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#1A1A1A] p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
+              className="brand-card bg-[#1A1A1A] p-6 sm:p-7 md:p-8 rounded-lg sm:rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
             >
-              <div className="text-4xl font-bold text-[#D4D414] mb-3">GTECHNIQ</div>
-              <p className="text-[#AAADB0] text-sm mb-4">Advanced Ceramic Coating Technology</p>
+              <div className="brand-name text-2xl sm:text-3xl md:text-4xl font-bold text-[#D4D414] mb-2 sm:mb-3">GTECHNIQ</div>
+              <p className="text-[#AAADB0] text-xs sm:text-sm mb-3 sm:mb-4">Advanced Ceramic Coating Technology</p>
               <span className="text-xs text-white/50 group-hover:text-[#D4D414] transition-colors">Visit Website →</span>
             </a>
             
@@ -319,10 +319,10 @@ const Services = () => {
               href="https://www.garwarehitechfilms.com/paint-protection-films"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#1A1A1A] p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
+              className="brand-card bg-[#1A1A1A] p-6 sm:p-7 md:p-8 rounded-lg sm:rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
             >
-              <div className="text-4xl font-bold text-[#D4D414] mb-3">GARWARE</div>
-              <p className="text-[#AAADB0] text-sm mb-4">Industry-Leading Paint Protection Films</p>
+              <div className="brand-name text-2xl sm:text-3xl md:text-4xl font-bold text-[#D4D414] mb-2 sm:mb-3">GARWARE</div>
+              <p className="text-[#AAADB0] text-xs sm:text-sm mb-3 sm:mb-4">Industry-Leading Paint Protection Films</p>
               <span className="text-xs text-white/50 group-hover:text-[#D4D414] transition-colors">Visit Website →</span>
             </a>
           </div>

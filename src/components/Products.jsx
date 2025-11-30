@@ -281,8 +281,8 @@ const Products = () => {
       
       // Animate button disappearing
       gsap.to(buttonRef.current, {
-        scale: 0,
-        opacity: 0,
+        scale: 1,
+        opacity: 1,
         duration: 0.4,
         ease: 'back.in(1.7)',
         onComplete: () => {
@@ -291,11 +291,10 @@ const Products = () => {
             cardsRef.current.slice(7).forEach((card, index) => {
               if (card) {
                 gsap.from(card, {
-                  opacity: 0,
+                  opacity: 1,
                   y: 60,
-                  scale: 0.9,
+                  scale: 1,
                   duration: 0.6,
-                  delay: index * 0.1,
                   ease: 'back.out(1.2)'
                 });
 
@@ -306,8 +305,8 @@ const Products = () => {
                 card.addEventListener('mouseenter', () => {
                   gsap.to(image, {
                     scale: 1.15,
-                    duration: 0.5,
-                    ease: 'power2.out'
+                    duration: 1,
+                    
                   });
 
                   gsap.to(cartIcon, {
@@ -318,7 +317,7 @@ const Products = () => {
                   });
 
                   gsap.to(card, {
-                    y: -8,
+                    y: -2,
                     boxShadow: '0 20px 40px rgba(212, 212, 20, 0.3)',
                     duration: 0.3,
                     ease: 'power2.out'
@@ -355,7 +354,7 @@ const Products = () => {
   };
 
   return (
-    <section id="products" className="py-24 px-6 bg-[#080805]" ref={productsRef}>
+    <section id="products" className="products-section py-24 px-6 bg-[#080805]" ref={productsRef}>
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16 products-title">
@@ -364,16 +363,16 @@ const Products = () => {
             <span>ACCESSORIES</span>
             <span className="w-10 h-px bg-[#D4D414]"></span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
+          <h2 className="products-title-main text-4xl md:text-6xl font-bold mb-6">
             Premium Car Accessories
           </h2>
-          <p className="text-[#AAADB0] max-w-3xl mx-auto text-lg">
+          <p className="products-description text-[#AAADB0] max-w-3xl mx-auto text-lg">
             Enhance your driving experience with our curated collection of quality accessories
           </p>
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+        <div className="products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {visibleProducts.map((product, index) => (
             <div
               key={product.id}
@@ -381,7 +380,7 @@ const Products = () => {
               className="group bg-[#1A1A1A] rounded-xl overflow-hidden border border-white/5 hover:border-[#D4D414]/30 transition-all duration-300 cursor-pointer"
             >
               {/* Product Image */}
-              <div className="relative h-36 md:h-44 overflow-hidden bg-[#222222]">
+              <div className="product-card-image relative h-36 md:h-44 overflow-hidden bg-[#222222]">
                 <img
                   src={product.image}
                   alt={product.name}
@@ -390,22 +389,22 @@ const Products = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 
                 {/* Category Badge */}
-                <div className="absolute top-2 left-2 bg-[#D4D414]/90 backdrop-blur-sm text-black text-xs font-bold px-2 py-1 rounded-full">
+                <div className="product-category-badge absolute top-2 left-2 bg-[#D4D414]/90 backdrop-blur-sm text-black text-xs font-bold px-2 py-1 rounded-full">
                   {product.category}
                 </div>
 
                 {/* Cart Icon */}
-                <div className="cart-icon absolute bottom-2 right-2 w-8 h-8 bg-[#D4D414] rounded-full flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity">
-                  <ShoppingCart className="w-4 h-4 text-black" />
+                <div className="cart-icon-container absolute bottom-2 right-2 w-8 h-8 bg-[#D4D414] rounded-full flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity">
+                  <ShoppingCart className="cart-icon w-4 h-4 text-black" />
                 </div>
               </div>
 
               {/* Product Info */}
-              <div className="p-3 md:p-4">
-                <h3 className="text-white font-semibold text-sm md:text-base mb-2 line-clamp-1 group-hover:text-[#D4D414] transition-colors">
+              <div className="product-card-content p-3 md:p-4">
+                <h3 className="product-card-title text-white font-semibold text-sm md:text-base mb-2 line-clamp-1 group-hover:text-[#D4D414] transition-colors">
                   {product.name}
                 </h3>
-                <p className="text-[#D4D414] font-bold text-xs md:text-sm">
+                <p className="product-card-price text-[#D4D414] font-bold text-xs md:text-sm">
                   {product.price}
                 </p>
               </div>
@@ -419,11 +418,11 @@ const Products = () => {
             <button
               ref={buttonRef}
               onClick={handleSeeMore}
-              className="group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
+              className="see-more-button group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
             >
               <span className="relative z-10 flex items-center gap-3 text-lg">
                 <span>See More Products</span>
-                <Plus className="plus-icon w-6 h-6" />
+                <Plus className="see-more-icon plus-icon w-6 h-6" />
               </span>
               
               {/* Animated background */}

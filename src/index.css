@@ -1,12 +1,35 @@
 @import "tailwindcss";
 
+/* Remove the Google @import lines and use local files instead */
+/* @import url('https://fonts.googleapis.com/...?family=Figtree');  <-- remove */
+
+@font-face {
+  font-family: 'Figtree';
+  src: url('./assets/figtree/static/Figtree-Regular.woff2') format('woff2'),
+       url('./assets/figtree/static/Figtree-Regular.woff') format('woff'),
+       url('./assets/figtree/static/Figtree-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Add bold/semibold/italic variants if you have them */
+@font-face {
+  font-family: 'Figtree';
+  src: url('./assets/figtree/static/Figtree-SemiBold.woff2') format('woff2'),
+       url('./assets/figtree/static/Figtree-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 html, body {
   margin: 0;
   padding: 0;
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Figtree', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -20,34 +43,47 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Prevent words being split mid-word across the app */
+body, h1, h2, h3, h4, h5, p, a, span, button, li {
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
 }
 
-a{
-  color:white;
+/* Remove or replace any rule that forces breaks like `word-wrap: break-word` */
+/* If you need to allow extremely long tokens to break, use a specific utility class instead: */
+.long-token-wrap { overflow-wrap: anywhere; }
+
+a {
+  font-weight: 500;
+  color: white;
+  text-decoration: inherit;
 }
-a:hover{
-  color:#bbbbbb;
+
+a {
+  color: white;
 }
+
+a:hover {
+  color: #bbbbbb;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -61,7 +97,37 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+/* ========================================
+   GSAP ANIMATIONS & UTILITY CLASSES
+   ======================================== */
+
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.char {
+  display: inline-block;
+}
+
+.char.active {
+  color: #D4D414;
+  animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }

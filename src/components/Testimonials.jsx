@@ -180,38 +180,32 @@ const Testimonials = () => {
   // Detect mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 1000);
     };
+    
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Group testimonials - 5 for desktop, 2 for mobile
+  // Group testimonials - 5 for desktop, 3 for tablet, 2 for mobile
   const cardsPerSet = isMobile ? 2 : 5;
   const testimonialSets = [];
   for (let i = 0; i < testimonials.length; i += cardsPerSet) {
     testimonialSets.push(testimonials.slice(i, i + cardsPerSet));
   }
+  //3 cards per set for tablet can be added similarly if needed
 
   useEffect(() => {
-    // Animate center box on load
-    gsap.from(centerRef.current, {
-      scale: 0,
-      rotation: -180,
-      opacity: 0,
-      duration: 1.2,
-      ease: 'back.out(1.7)',
-      delay: 0.3
-    });
+    
 
     // Desktop positions
     const desktopPositions = [
-      { x: -450, y: -200 }, // Top left
-      { x: 450, y: -200 },  // Top right
-      { x: -550, y: 150 },  // Bottom left
-      { x: 550, y: 150 },   // Bottom right
-      { x: 0, y: 150 }      // Bottom center
+      { x: -400, y: -200 }, // Top left
+      { x: 400, y: -200 },  // Top right
+      { x: -500, y: 150 },  // Bottom left
+      { x: 500, y: 150 },   // Bottom right
+      { x: 0, y: 0 }      // Bottom center
     ];
 
     // Mobile positions
@@ -236,12 +230,12 @@ const Testimonials = () => {
 
     // Animate first set in
     gsap.to(cardsRef.current.slice(0, cardsPerSet), {
-      opacity: 1,
+      opacity: 0,
       scale: 1,
-      duration: 0.8,
+      duration: 0.4,
       stagger: 0.15,
       ease: 'back.out(1.2)',
-      delay: 1
+      delay: 0.4
     });
 
     // Auto-rotate testimonials
@@ -255,7 +249,6 @@ const Testimonials = () => {
       gsap.to(currentCards, {
         opacity: 0,
         scale: 0.8,
-        y: '+=50',
         duration: 0.6,
         stagger: 0.08,
         ease: 'power2.in'
@@ -279,7 +272,7 @@ const Testimonials = () => {
         duration: 0.8,
         stagger: 0.15,
         ease: 'back.out(1.2)',
-        delay: 0.7
+        delay: 1
       });
 
       setActiveIndex((nextSet * cardsPerSet) % testimonials.length);
@@ -291,7 +284,7 @@ const Testimonials = () => {
   const currentSet = Math.floor(activeIndex / cardsPerSet);
 
   return (
-    <section className="py-32 px-6 bg-gradient-to-b from-black to-[#080805] relative overflow-hidden" ref={sectionRef}>
+    <section className="testimonials-section py-32 px-6 bg-gradient-to-b from-black to-[#080805] relative overflow-hidden" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-20">
@@ -300,31 +293,18 @@ const Testimonials = () => {
             <span>TESTIMONIALS</span>
             <span className="w-10 h-px bg-[#D4D414]"></span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
+          <h2 className="testimonials-title-main text-4xl md:text-6xl font-bold mb-6">
             What Our Clients Say
           </h2>
-          <p className="text-[#AAADB0] max-w-2xl mx-auto text-lg">
+          <p className="testimonials-description text-[#AAADB0] max-w-2xl mx-auto text-lg">
             Real experiences from our valued customers
           </p>
         </div>
 
         {/* Testimonials Container */}
-        <div className={`relative flex items-center justify-center ${isMobile ? 'min-h-[600px]' : 'h-[800px]'}`}>
+        <div className={`testimonials-container relative flex items-center justify-center ${isMobile ? 'min-h-[600px]' : 'h-[800px]'}`}>
           {/* Center Box */}
-          <div 
-            ref={centerRef}
-            className="absolute z-20 w-56 md:w-64 bg-gradient-to-br from-[#D4D414]/20 to-[#D4D414]/5 backdrop-blur-xl border-2 border-[#D4D414]/40 rounded-2xl p-6 md:p-8 shadow-2xl"
-          >
-            <div className="text-center">
-              <Users className="w-12 h-12 md:w-16 md:h-16 text-[#D4D414] mx-auto mb-4" />
-              <p className="text-white font-bold text-xl md:text-2xl mb-2">1500+</p>
-              <p className="text-white/80 text-sm md:text-base mb-1">Happy Customers</p>
-              <p className="text-[#D4D414] text-xs font-medium">We Have Served</p>
-              <div className="mt-4 pt-4 border-t border-white/20">
-                <p className="text-white/60 text-xs">Set {currentSet + 1} / {testimonialSets.length}</p>
-              </div>
-            </div>
-          </div>
+          
 
           {/* Testimonial Cards */}
           {testimonials.map((testimonial, index) => {

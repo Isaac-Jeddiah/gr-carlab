@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Search, ChevronDown, ChevronUp } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const Navbar = ({ setIsDrawerOpen }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
@@ -74,14 +75,14 @@ const Navbar = ({ setIsDrawerOpen }) => {
   };
 
   return (
-    <div className="relative z-20 px-8 md:px-12 py-6 flex items-center justify-between">
-      <div className="text-2xl font-bold tracking-tight hover-scale cursor-pointer">
-        <span className="text-white">GR CAR</span>
-        <span className="text-[#D4D414]"> LAB</span>
+    // Reduced top padding (pt-1) while keeping bottom padding; logo height unaffected
+    <div className="navbar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 pt-0 pb-3 sm:pb-3 md:pb-4 flex items-center justify-between">
+      <div className="navbar-logo hover-scale cursor-pointer">
+        <img src={logo} alt="GR CAR LAB" className="h-24 xs:h-28 sm:h-32 md:h-32 lg:h-36 w-auto object-contain" />
       </div>
       
-      <div className="flex items-center gap-4 ">
-        <div className="hidden md:flex items-center gap-4 mr-4">
+      <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+        <div className="hidden lg:flex items-center gap-3 md:gap-4 mr-2 md:mr-4">
           {/* Services Dropdown */}
           <div className="relative" ref={servicesRef}>
             <button
@@ -90,26 +91,26 @@ const Navbar = ({ setIsDrawerOpen }) => {
                 setIsMenuOpen(false);
                 setIsSearchOpen(false);
               }}
-              className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-5 py-2.5 rounded-xl text-sm font-medium focus:outline-none focus:border-white/40 transition-all hover:bg-white/15"
+              className="services-dropdown-button hidden lg:flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:border-white/40 transition-all hover:bg-white/15"
             >
-              <span>Services</span>
+              <span className="hidden md:inline">Services</span>
               {isServicesOpen ? (
-                <ChevronUp className="w-4 h-4" />
+                <ChevronUp className="w-3 sm:w-4 h-3 sm:h-4" />
               ) : (
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-3 sm:w-4 h-3 sm:h-4" />
               )}
             </button>
 
             {/* Services Dropdown Menu */}
             {isServicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50 max-h-96 overflow-y-auto">
+              <div className="dropdown-menu absolute top-full left-0 mt-2 w-56 sm:w-64 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl shadow-2xl overflow-hidden z-50 max-h-96 overflow-y-auto">
                 <div className="py-2">
                   {services.map((service, idx) => (
                     <a
                       key={idx}
                       href="#services"
                       onClick={() => setIsServicesOpen(false)}
-                      className="block px-5 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-sm"
+                      className="dropdown-menu-item block px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm"
                     >
                       {service}
                     </a>
@@ -121,7 +122,7 @@ const Navbar = ({ setIsDrawerOpen }) => {
 
           {/* Search Dropdown */}
           <div className="relative" ref={searchRef}>
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xlflex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-xl overflow-hidden transition-all">
+            <div className="search-bar-desktop hidden lg:flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl overflow-hidden transition-all">
               <input 
                 type="text"
                 value={searchQuery}
@@ -132,23 +133,23 @@ const Navbar = ({ setIsDrawerOpen }) => {
                   setIsMenuOpen(false);
                 }}
                 placeholder="Search..."
-                className="bg-transparent text-white placeholder-white/50 px-4 py-2.5 text-sm focus:outline-none w-48"
+                className="bg-transparent text-white placeholder-white/50 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm focus:outline-none w-32 sm:w-48"
               />
               <button 
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="bg-white/10 hover:bg-white/20 px-3 py-2.5 transition-all"
+                className="bg-white/10 hover:bg-white/20 px-2 sm:px-3 py-2 sm:py-2.5 transition-all"
               >
-                <Search className="w-4 h-4 text-white" />
+                <Search className="w-3 sm:w-4 h-3 sm:h-4 text-white" />
               </button>
             </div>
 
             {/* Search Dropdown - Shows Products */}
             {isSearchOpen && (
-              <div className="absolute top-full right-0 mt-2 w-72 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-2xl overflow-hidden z-50 max-h-96 overflow-y-auto">
-                <div className="p-3 border-b border-white/10">
+              <div className="dropdown-menu absolute top-full right-0 mt-2 w-56 sm:w-72 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl shadow-2xl overflow-hidden z-50 max-h-96 overflow-y-auto">
+                <div className="p-2 sm:p-3 border-b border-white/10">
                   <p className="text-xs text-white/50 uppercase tracking-wider">Products</p>
                 </div>
-                <div className="py-2 ">
+                <div className="py-2">
                   {products
                     .filter(product => 
                       searchQuery === '' || 
@@ -158,7 +159,7 @@ const Navbar = ({ setIsDrawerOpen }) => {
                       <button
                         key={idx}
                         onClick={() => handleSearch(product)}
-                        className="  w-full text-left block px-5 py-3  transition-all text-sm"
+                        className="dropdown-menu-item w-full text-left block px-3 sm:px-5 py-2 sm:py-3 transition-all text-xs sm:text-sm hover:bg-white/5"
                       >
                         {product}
                       </button>
@@ -166,7 +167,7 @@ const Navbar = ({ setIsDrawerOpen }) => {
                   {searchQuery && products.filter(product => 
                     product.toLowerCase().includes(searchQuery.toLowerCase())
                   ).length === 0 && (
-                    <div className="px-5 py-3  text-sm">
+                    <div className="px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm">
                       No products found
                     </div>
                   )}
@@ -179,47 +180,47 @@ const Navbar = ({ setIsDrawerOpen }) => {
         {/* Mobile Search Icon */}
         <button 
           onClick={() => setIsSearchOpen(!isSearchOpen)}
-          className="md:hidden p-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl hover:bg-white/10 rounded-full transition-all hover-scale"
+          className="lg:hidden p-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg hover:bg-white/10 transition-all hover-scale"
         >
-          <Search className="w-5 h-5 text-white" />
+          <Search className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
         </button>
 
         {/* Menu Dropdown (replacing hamburger) */}
-        <div className="relative" ref={menuRef}>
+        <div className="drawer-menu relative" ref={menuRef}>
           <button 
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
               setIsServicesOpen(false);
               setIsSearchOpen(false);
             }}
-            className="p-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl hover:bg-white/10 rounded-xl transition-all hover-scale"
+            className="drawer-close-button p-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg hover:bg-white/10 transition-all hover-scale"
           >
             {isMenuOpen ? (
-              <X className="w-6 h-6 text-white" />
+              <X className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
             ) : (
-              <Menu className="w-6 h-6 text-white" />
+              <Menu className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
             )}
           </button>
 
           {/* Menu Dropdown */}
           {isMenuOpen && (
-            <div className="absolute top-full right-0 mt-2 w-56 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl shadow-2xl overflow-hidden z-50">
-              <div className="py-2">
+            <div className="drawer-content absolute top-full right-0 mt-2 w-48 sm:w-56 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl shadow-2xl overflow-hidden z-50">
+              <div className="drawer-menu-items py-2">
                 {menuItems.map((item, idx) => (
                   <a
                     key={idx}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="block px-5 py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-sm border-b border-white/5 last:border-0"
+                    className="drawer-menu-link block px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm border-b border-white/5 last:border-0"
                   >
                     {item.name}
                   </a>
                 ))}
-                <div className="px-4 py-3 border-t border-white/10 mt-1">
+                <div className="drawer-bottom px-3 sm:px-4 py-2 sm:py-3 border-t border-white/10 mt-1">
                   <a
                     href="#contact"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block w-full text-center border border-white text-white px-4 py-2.5 rounded-full hover:bg-white hover:text-black transition-all text-sm font-medium"
+                    className="drawer-book-button block w-full text-center border border-white text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full hover:bg-white hover:text-black transition-all text-xs sm:text-sm font-medium"
                   >
                     Book Now
                   </a>
