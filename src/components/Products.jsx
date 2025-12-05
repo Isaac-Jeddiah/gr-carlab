@@ -404,9 +404,6 @@ const Products = () => {
                 <h3 className="product-card-title text-white font-semibold text-sm md:text-base mb-2 line-clamp-1 group-hover:text-[#D4D414] transition-colors">
                   {product.name}
                 </h3>
-                <p className="product-card-price text-[#D4D414] font-bold text-xs md:text-sm">
-                  {product.price}
-                </p>
               </div>
             </div>
           ))}

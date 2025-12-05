@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
@@ -13,6 +14,7 @@ const Services = () => {
     {
       id: 1,
       title: "Washing & Cleaning",
+      slug: 'premium-washing',
       image: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&h=400&fit=crop",
       description: "Complete exterior wash with pre-inspection, high-pressure cleaning, underbody wash, and premium polish. Bio-friendly products and expert care.",
       details: ["Pre Wash Inspection", "High Pressure Cleaning", "Underbody Wash", "Drying System", "Premium Polish"]
@@ -20,6 +22,7 @@ const Services = () => {
     {
       id: 2,
       title: "Car Detailing",
+      slug: 'interior-detailing',
       image: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=600&h=400&fit=crop",
       description: "Deep interior cleaning including vacuuming, roof cleaning, dashboard detailing, carpet & upholstery care, and genuine leather treatment.",
       details: ["Vacuuming", "Roof Cleaning", "Dashboard & Console", "Carpet & Upholstery", "Genuine Leather Care"]
@@ -27,6 +30,7 @@ const Services = () => {
     {
       id: 3,
       title: "Exterior Detailing",
+      slug: 'exterior-detailing',
       image: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=600&h=400&fit=crop",
       description: "Professional steam cleaning, foam wash, wheel detailing, and complete exterior restoration for a showroom finish.",
       details: ["Steam Cleaning", "Exterior Foam Wash", "Wheel Cleaning", "Trim Restoration", "Glass Treatment"]
@@ -34,6 +38,7 @@ const Services = () => {
     {
       id: 4,
       title: "Ceramic Coating",
+      slug: 'ceramic-coating',
       image: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&h=400&fit=crop",
       description: "Premium ceramic coating protection using DetailMax & GTECHNIQ products. Long-lasting shine, scratch resistance, and hydrophobic properties.",
       details: ["Paint Evaluation", "Surface Preparation", "Ceramic Application", "Curing Process", "9H Hardness"]
@@ -42,6 +47,7 @@ const Services = () => {
     {
       id: 5,
       title: "Paint Correction & Paint Protection Film (PPF)",
+      slug: 'ppf',
       image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=600&h=400&fit=crop",
       description: "Multi-stage paint correction to remove swirls, scratches, and oxidation. Compounding and polishing for flawless paint finish.",
       details: ["Paint Evaluation", "Decontamination", "Compounding", "Polishing", "Final Inspection"]
@@ -51,6 +57,7 @@ const Services = () => {
     {
       id: 6,
       title: "Paint Protection  Ceramic Coating and Applying PPF",
+      slug: 'paint-protection',
       image: "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&h=400&fit=crop",
       description: "Expert scratch and swirl mark removal through precision polishing. Restores paint depth and eliminates surface imperfections.",
       details: ["Paint Assessment", "Stage 1 Polish", "Stage 2 Refinement", "Hologram Removal", "Protection Layer"]
@@ -58,6 +65,7 @@ const Services = () => {
     {
       id: 7,
       title: "Underbody Coating",
+      slug: 'underbody-coating',
       image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=600&h=400&fit=crop",
       description: "Protective underbody coating against rust, corrosion, and road debris. Essential protection for long-term vehicle health.",
       details: ["Underbody Cleaning", "Rust Prevention", "Rubberized Coating", "Wheel Arch Protection", "Lifetime Shield"]
@@ -175,10 +183,10 @@ const Services = () => {
             <span className="w-6 sm:w-8 md:w-10 h-px bg-[#D4D414]"></span>
             <span>OUR SERVICES</span>
           </div>
-          <h2 className="services-title-main text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 md:mb-6">
+          <h2 className="services-title-main text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-4 md:mb-6">
             Premium Car Care Services
           </h2>
-          <p className="services-description text-[#AAADB0] max-w-3xl mx-auto text-xs sm:text-sm md:text-base lg:text-lg">
+          <p className="services-description text-[#AAADB0] max-w-3xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl">
             Expert detailing solutions with advanced technology, premium products, and meticulous attention to every detail
           </p>
         </div>
@@ -203,7 +211,7 @@ const Services = () => {
                 
                 {/* Service Title Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 lg:p-6">
-                  <h3 className="service-card-title text-lg sm:text-xl md:text-2xl font-bold text-white">
+                  <h3 className="service-card-title text-xl sm:text-2xl md:text-3xl font-bold text-white">
                     {service.title}
                   </h3>
                 </div>
@@ -211,7 +219,7 @@ const Services = () => {
 
               {/* Service Content */}
               <div className="p-3 sm:p-4 md:p-5 lg:p-6">
-                <p className="service-card-description text-[#AAADB0] text-xs sm:text-sm md:text-sm lg:text-sm mb-3 sm:mb-4 leading-relaxed">
+                <p className="service-card-description text-[#AAADB0] text-sm sm:text-base md:text-base lg:text-base mb-3 sm:mb-4 leading-relaxed">
                   {service.description}
                 </p>
 
@@ -226,10 +234,10 @@ const Services = () => {
                 </ul>
 
                 {/* Learn More Button */}
-                <button className="service-button group flex items-center gap-2 text-[#D4D414] font-semibold text-xs sm:text-sm hover:gap-3 transition-all">
+                <Link to={`/services/${service.slug || service.title.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`} className="service-button group inline-flex items-center gap-2 text-[#D4D414] font-semibold text-sm sm:text-base hover:gap-3 transition-all">
                   <span>Learn More</span>
-                  <ArrowRight className="w-3 sm:w-4 h-3 sm:h-4" />
-                </button>
+                  <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5" />
+                </Link>
               </div>
             </div>
           ))}

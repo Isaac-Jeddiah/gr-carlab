@@ -9,9 +9,12 @@ import Services from './components/Services.jsx';
 import Products from './components/Products.jsx';
 import Contact from './components/Contact.jsx';
 import Testimonials from './components/Testimonials.jsx';
+import ServicesPage from './components/ServicesPage.jsx';
+import servicesData from './components/servicesData.js';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-const App = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+const Home = ({ setIsDrawerOpen }) => {
+  //const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -183,7 +186,7 @@ const App = () => {
   ];
 
   return (
-    <div className="bg-black text-white font-sans overflow-x-hidden">
+    <div className="bg-black text-white overflow-x-hidden">
       <style>{`
         @keyframes arrowRotateX {
           0% { transform: rotateX(0deg); }
@@ -308,6 +311,19 @@ const App = () => {
       {/* Footer */}
       <Footer />
     </div>
+  );
+};
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/services/:slug" element={<ServicesPage data={servicesData} />} />
+        <Route path="*" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

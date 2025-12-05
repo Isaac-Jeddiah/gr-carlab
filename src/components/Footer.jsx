@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../assets/logo.png';
+import { ArrowRight } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -13,8 +14,10 @@ export default function Footer() {
               <p className="footer-description text-[#AAADB0] text-s sm:text-sm md:text-sm lg:text-sm mb-3 sm:mb-4">
                 Excellence in every detail, shine in every service. Your premier car detailing destination.
               </p>
-              <button className="footer-button border border-white text-white px-4 sm:px-6 md:px-6 lg:px-6 py-2 rounded-full text-s sm:text-sm md:text-sm lg:text-sm hover:bg-yellow hover:text-white transition-all hover-scale">
-                Book Now
+              
+              <button className="group relative w-full max-w-64 flex items-center justify-center gap-3 px-6 py-3 bg-black border-2 border-yellow-400 rounded-full transition-all duration-300 hover:rounded-2xl active:scale-95">
+                <span className="text-white font-semibold text-sm">Book Now</span>
+                <ArrowRight className="w-4 h-4 text-yellow-400" />
               </button>
             </div>
 
