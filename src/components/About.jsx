@@ -17,10 +17,8 @@ export default function About() {
                 <span className="w-10 h-px bg-[#D4D414]"></span>
                 <span>ABOUT US</span>
               </div>
-              <h2 className="about-title text-4xl md:text-5xl font-bold mb-6 leading-tight gsap-target">
-                {'Discover the passion and expertise behind GR CAR LAB, your premier destination for professional car detailing'.split('').map((char, i) => (
-                  <span key={i} className="char">{char === ' ' ? '\u00A0' : char}</span>
-                ))}
+              <h2 className="about-title text-4xl md:text-5xl font-bold mb-6 leading-tight break-words overflow-wrap-normal">
+                Discover the passion and expertise behind GR CAR LAB, your premier destination for professional car detailing
               </h2>
               <p className="about-description text-[#AAADB0] mb-8 leading-relaxed">
                 We combine expertise with cutting-edge technology to deliver exceptional results. Our skilled team uses premium products to ensure your vehicle receives world-class treatment.

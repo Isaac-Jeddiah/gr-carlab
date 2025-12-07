@@ -250,36 +250,36 @@ const Services = () => {
           </h3>
           <div className="brand-partners-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             <a
-              href="https://www.detailmax.in/ceramic-coatings/"
+              
               target="_blank"
               rel="noopener noreferrer"
               className="brand-card bg-[#1A1A1A] p-6 sm:p-7 md:p-8 rounded-lg sm:rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
             >
               <div className="brand-name text-2xl sm:text-3xl md:text-4xl font-bold text-[#D4D414] mb-2 sm:mb-3">DETAIL MAX</div>
               <p className="text-[#AAADB0] text-xs sm:text-sm mb-3 sm:mb-4">Premium Ceramic Coating & PPF Solutions</p>
-              <span className="text-xs text-white/50 group-hover:text-[#D4D414] transition-colors">Visit Website →</span>
+              
             </a>
             
             <a
-              href="https://gtechniq.com/product-category/auto/ceramic-coatings/"
+              
               target="_blank"
               rel="noopener noreferrer"
               className="brand-card bg-[#1A1A1A] p-6 sm:p-7 md:p-8 rounded-lg sm:rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
             >
               <div className="brand-name text-2xl sm:text-3xl md:text-4xl font-bold text-[#D4D414] mb-2 sm:mb-3">GTECHNIQ</div>
               <p className="text-[#AAADB0] text-xs sm:text-sm mb-3 sm:mb-4">Advanced Ceramic Coating Technology</p>
-              <span className="text-xs text-white/50 group-hover:text-[#D4D414] transition-colors">Visit Website →</span>
+             
             </a>
             
             <a
-              href="https://www.garwarehitechfilms.com/paint-protection-films"
+              
               target="_blank"
               rel="noopener noreferrer"
               className="brand-card bg-[#1A1A1A] p-6 sm:p-7 md:p-8 rounded-lg sm:rounded-xl border border-white/5 hover:border-[#D4D414]/30 transition-all text-center group"
             >
               <div className="brand-name text-2xl sm:text-3xl md:text-4xl font-bold text-[#D4D414] mb-2 sm:mb-3">GARWARE</div>
               <p className="text-[#AAADB0] text-xs sm:text-sm mb-3 sm:mb-4">Industry-Leading Paint Protection Films</p>
-              <span className="text-xs text-white/50 group-hover:text-[#D4D414] transition-colors">Visit Website →</span>
+             
             </a>
           </div>
         </div>

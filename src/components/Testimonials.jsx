@@ -232,10 +232,10 @@ const Testimonials = () => {
     gsap.to(cardsRef.current.slice(0, cardsPerSet), {
       opacity: 0,
       scale: 1,
-      duration: 0.4,
+      duration: 0.2,
       stagger: 0.15,
       ease: 'back.out(1.2)',
-      delay: 0.4
+      delay: 0.1
     });
 
     // Auto-rotate testimonials
@@ -249,7 +249,7 @@ const Testimonials = () => {
       gsap.to(currentCards, {
         opacity: 0,
         scale: 0.8,
-        duration: 0.6,
+        duration: 0.4,
         stagger: 0.08,
         ease: 'power2.in'
       });
@@ -359,8 +359,56 @@ const Testimonials = () => {
           {testimonialSets.map((_, index) => (
             <button
               key={index}
-              onClick={() => setActiveIndex(index * cardsPerSet)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              onClick={() => {
+                const currentSet = Math.floor(activeIndex / cardsPerSet);
+                if (index !== currentSet) {
+                  // Get current and next cards
+                  const currentCards = cardsRef.current.slice(currentSet * cardsPerSet, (currentSet + 1) * cardsPerSet);
+                  const nextCards = cardsRef.current.slice(index * cardsPerSet, (index + 1) * cardsPerSet);
+                  const positions = isMobile ? [
+                    { x: 0, y: -180 },
+                    { x: 0, y: 180 }
+                  ] : [
+                    { x: -400, y: -200 },
+                    { x: 400, y: -200 },
+                    { x: -500, y: 150 },
+                    { x: 500, y: 150 },
+                    { x: 0, y: 0 }
+                  ];
+
+                  // Instantly hide current cards
+                  gsap.killTweensOf(currentCards);
+                  gsap.to(currentCards, {
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0,
+                    immediate: true
+                  });
+
+                  // Position and animate in new cards
+                  nextCards.forEach((card, cardIndex) => {
+                    if (card) {
+                      gsap.set(card, {
+                        x: positions[cardIndex].x,
+                        y: positions[cardIndex].y,
+                        opacity: 0,
+                        scale: 0.8
+                      });
+                    }
+                  });
+
+                  gsap.to(nextCards, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: 'back.out(1.2)'
+                  });
+
+                  setActiveIndex(index * cardsPerSet);
+                }
+              }}
+              className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
                 currentSet === index 
                   ? 'bg-[#D4D414] w-8' 
                   : 'bg-white/20 hover:bg-white/40'

@@ -1,6 +1,4 @@
- import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Search, ChevronRight, Phone, Mail, MapPin } from 'lucide-react';
-import heroImage from './assets/car-hero.jpg';
+import React, { useState, useEffect, useRef } from 'react';
 import { gsap } from "gsap";
 import Footer from './components/Footer.jsx';
 import Hero from './components/Hero.jsx';
@@ -11,8 +9,11 @@ import Contact from './components/Contact.jsx';
 import Testimonials from './components/Testimonials.jsx';
 import ServicesPage from './components/ServicesPage.jsx';
 import servicesData from './components/servicesData.js';
+import AboutUsPage from './components/AboutPage.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import './App.css';
+import ContactUsPage from './components/ContactPage.jsx';
 const Home = ({ setIsDrawerOpen }) => {
   //const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const heroRef = useRef(null);
@@ -187,111 +188,7 @@ const Home = ({ setIsDrawerOpen }) => {
 
   return (
     <div className="bg-black text-white overflow-x-hidden">
-      <style>{`
-        @keyframes arrowRotateX {
-          0% { transform: rotateX(0deg); }
-          50% { transform: rotateX(180deg); }
-          100% { transform: rotateX(360deg); }
-        }
-
-        .gsap-target {
-          position: relative;
-          overflow: hidden;
-          display: inline-block;
-        }
-
-        .target-text {
-          display: inline-block;
-        }
-
-        .char {
-          display: inline-block;
-          opacity: 0;
-          transform: translateY(20px);
-        }
-
-        .arrow-hover:hover {
-          animation: arrowRotateX 0.6s ease-in-out;
-        }
-
-        .hover-scale {
-          transition: transform 0.3s ease-in-out;
-        }
-
-        .hover-scale:hover {
-          transform: scale(1.05);
-        }
-
-        .hover-card {
-          position: relative;
-          transition: all 0.3s ease;
-        }
-
-        .hover-card::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: 1rem;
-          padding: 2px;
-          background: transparent;
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          transition: all 0.3s ease;
-        }
-
-        .hover-card[data-border="top"]::before {
-          background: linear-gradient(to bottom, #D4D414 0%, transparent 50%);
-        }
-
-        .hover-card[data-border="right"]::before {
-          background: linear-gradient(to left, #D4D414 0%, transparent 50%);
-        }
-
-        .hover-card[data-border="bottom"]::before {
-          background: linear-gradient(to top, #D4D414 0%, transparent 50%);
-        }
-
-        .hover-card[data-border="left"]::before {
-          background: linear-gradient(to right, #D4D414 0%, transparent 50%);
-        }
-
-        .line-divider {
-          width: 80px;
-          height: 1px;
-          background: white;
-        }
-
-        .cta-button {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.75rem;
-          color: white;
-          padding: 1rem 0;
-          transition: all 0.3s ease;
-          cursor: pointer;
-        }
-
-        .cta-button::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 1px;
-          background: #D4D414;
-          transition: width 0.3s ease;
-        }
-
-        .cta-button:hover::after {
-          width: 100%;
-        }
-
-        .cta-button:hover {
-          color: #D4D414;
-        }
-      `}</style>
+      
 
       
 
@@ -321,6 +218,8 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
         <Route path="/services/:slug" element={<ServicesPage data={servicesData} />} />
+        <Route path="/contact" element={<ContactUsPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </BrowserRouter>

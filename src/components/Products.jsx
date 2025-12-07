@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ShoppingCart, Plus } from 'lucide-react';
+import { ShoppingCart, Plus, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -430,6 +431,25 @@ const Products = () => {
             </button>
           </div>
         )}
+
+        {/* Book Now CTA Section */}
+        <div className="mt-20 pt-12 border-t border-white/10">
+          <div className="text-center mb-8">
+            <p className="text-[#AAADB0] text-sm md:text-base mb-4">Ready to enhance your vehicle with premium products?</p>
+            <h3 className="text-2xl md:text-4xl font-bold mb-6">Professional Installation & Consultation</h3>
+            <p className="text-[#AAADB0] max-w-2xl mx-auto mb-8">Our expert team can help you select, install, and maintain these premium products for your car. Schedule a consultation with our specialists today.</p>
+          </div>
+          
+          <div className="flex justify-center">
+            <Link
+              to="/contact"
+              className="group relative bg-black border-2 border-yellow-400 text-yellow-400 font-bold px-10 py-4 rounded-full hover:bg-yellow-400 hover:text-black transition-all duration-300 flex items-center gap-3 hover-scale shadow-xl hover:shadow-[0_0_30px_rgba(212,212,20,0.4)]"
+            >
+              <span className="text-lg">Book Installation Service</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
 
         
         

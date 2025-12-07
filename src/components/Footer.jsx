@@ -1,8 +1,16 @@
 import React from 'react';
 import logo from '../assets/logo.png';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
+  const mainPages = [
+    { name: 'Home', path: '/home' },
+    { name: 'About', path: '/#about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Products', path: '/#products' },
+    { name: 'Contact', path: '/contact' }
+  ];
   return (
  <footer className="footer-section bg-black border-t border-white/5 py-8 sm:py-10 md:py-12 lg:py-12 px-2 s:px-3 sm:px-4 md:px-6 lg:px-6">
         <div className="max-w-7xl mx-auto">
@@ -24,10 +32,10 @@ export default function Footer() {
             <div>
               <h4 className="footer-heading font-semibold mb-3 sm:mb-4 text-sm sm:text-base md:text-base lg:text-base">Main Pages</h4>
               <div className="space-y-2">
-                {['Home', 'About', 'Services', 'Products', 'Contact'].map((item) => (
-                  <a key={item} href={`#${item.toLowerCase()}`} className="footer-link block text-s sm:text-sm md:text-sm lg:text-sm text-[#AAADB0] hover:text-[#D4D414] transition-colors hover-scale">
-                    {item}
-                  </a>
+                {mainPages.map((item) => (
+                  <Link key={item.name} to={item.path} className="footer-link block text-s sm:text-sm md:text-sm lg:text-sm text-[#AAADB0] hover:text-[#D4D414] transition-colors hover-scale">
+                    {item.name}
+                  </Link>
                 ))}
               </div>
             </div>
