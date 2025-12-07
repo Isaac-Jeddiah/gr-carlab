@@ -3,7 +3,7 @@ import { Phone, Mail, MessageCircle, Check } from 'lucide-react';
 import { gsap } from 'gsap';
 import car from '../assets/car_1.png';
 import { sendEmail, validateFormData } from '../services/emailService';
-import { NavBar } from './Nav';
+import NavBar from './Nav';
 import Footer from './Footer';
 export default function ContactUsPage() {
   const [formData, setFormData] = useState({
