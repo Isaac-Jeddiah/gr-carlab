@@ -193,7 +193,7 @@ const Home = ({ setIsDrawerOpen }) => {
       
 
       {/* Hero Section with Integrated Navbar */}
-      <Hero setIsDrawerOpen={setIsDrawerOpen}/>
+      <Hero />
      
       {/* About Section */}
       <About />

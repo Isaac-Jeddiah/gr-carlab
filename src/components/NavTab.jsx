@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import logo from "../assets/logo.png";
 
-const Navbar = ({ setIsDrawerOpen }) => {
+const Navbar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Check, Calendar, Car, Droplets, Clock, Briefcase, Users, Fuel } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Navbar from './NavBar';
+import Navbar from './NavTab';
 import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
