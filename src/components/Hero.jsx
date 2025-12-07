@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
-import Navbar from './NavBar.jsx';
+import Navbar from './NavBar';
 import herobg from '../assets/car-hero.jpg';
 const Hero = ({ setIsDrawerOpen }) => {
   
