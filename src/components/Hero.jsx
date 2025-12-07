@@ -3,7 +3,7 @@ import { ChevronRight } from 'lucide-react';
 
 import herobg from '../assets/car-hero.jpg';
 import Navbar from './NavBar';
-const Hero = ({ setIsDrawerOpen }) => {
+const Hero = () => {
   
   return (
     <section id="home" className="hero-section relative w-full min-h-screen">
@@ -19,7 +19,7 @@ const Hero = ({ setIsDrawerOpen }) => {
         </div>
 
         {/* Navbar Inside Hero */}
-        <Navbar />
+        
 
         {/* Hero Content */}
         <div className="relative z-10 px-2 xs:px-3 sm:px-6 md:px-10 lg:px-12 flex flex-col justify-between py-4 sm:py-6 md:py-8 min-h-[calc(90vh-60px)] sm:min-h-[calc(95vh-60px)] md:min-h-[calc(100vh-70px)] lg:min-h-[calc(115vh-80px)]">
