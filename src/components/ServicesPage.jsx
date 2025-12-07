@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Check, Calendar, Car, Droplets, Clock, Briefcase, Users, Fuel } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Navbar } from './navBar';
+import { NavBar } from './Nav';
 import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -78,7 +78,7 @@ const ServicesPage = ({ data = [] }) => {
   return (
     <div>
     <div className='bg-black'>
-      <Navbar />
+      <NavBar />
     <div className="bg-black text-white min-h-screen">
       <section ref={heroRef} className="container mx-auto px-4 py-12 lg:py-20">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">

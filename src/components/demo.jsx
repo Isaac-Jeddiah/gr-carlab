@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import logo from '../assets/logo.png';
 
-const Navbar = ({ setIsDrawerOpen }) => {
+const NavBar = ({ setIsDrawerOpen }) => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -77,9 +77,9 @@ const Navbar = ({ setIsDrawerOpen }) => {
   );
 
   return (
-    <div className="navbar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 pt-0 pb-3 sm:pb-3 md:pb-4 flex items-center justify-between">
+    <div className="NavBar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 pt-0 pb-3 sm:pb-3 md:pb-4 flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="navbar-logo hover-scale cursor-pointer">
+        <div className="NavBar-logo hover-scale cursor-pointer">
           <img src={logo} alt="GR CAR LAB" className="h-32 xs:h-26 sm:h-38 md:h-0 lg:h-52 w-auto object-contain" />
         </div>
         <button
@@ -263,4 +263,4 @@ const Navbar = ({ setIsDrawerOpen }) => {
   );
 };
 
-export default Navbar;
+export default NavBar;

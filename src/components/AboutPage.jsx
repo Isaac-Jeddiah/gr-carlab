@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {Navbar} from './navBar';
+import {NavBar} from './Nav';
 import Footer from './Footer';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -174,7 +174,7 @@ export default function AboutUsPage() {
             className="w-full h-full object-cover"
           />
           
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"> <Navbar /></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"> <NavBar /></div>
           
         </div>
         

@@ -192,7 +192,7 @@ const Home = ({ setIsDrawerOpen }) => {
 
       
 
-      {/* Hero Section with Integrated Navbar */}
+      {/* Hero Section with Integrated NavBar */}
       <Hero />
      
       {/* About Section */}

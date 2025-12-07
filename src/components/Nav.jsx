@@ -12,7 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import logo from "../assets/logo.png";
 
-const Navbar = () => {
+const NavBar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -169,10 +169,10 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 lg:-mt-10 -mt-5 pb-3 sm:pb-3 md:pb-4 flex items-center justify-between">
+    <div className="NavBar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 lg:-mt-10 -mt-5 pb-3 sm:pb-3 md:pb-4 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div
-          className="navbar-logo hover-scale cursor-pointer"
+          className="NavBar-logo hover-scale cursor-pointer"
           onClick={() => navigate("/home")}
         >
           <img
@@ -424,4 +424,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
