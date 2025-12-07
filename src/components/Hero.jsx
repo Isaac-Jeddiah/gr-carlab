@@ -1,8 +1,7 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
-
 import herobg from '../assets/car-hero.jpg';
-import Navbar from 'NavBar';
+import { Navbar } from 'NavBar';
 const Hero = () => {
   
   return (
