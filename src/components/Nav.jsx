@@ -24,7 +24,8 @@ const NavBar = () => {
   const searchPanelRef = useRef(null);
   const mobileServicesRef = useRef(null);
   const searchInputRef = useRef(null);
-{/*  const servicesData = [
+  {
+    /*  const servicesData = [
         
               {
                 slug: 'exterior-interior-detailing',
@@ -212,16 +213,33 @@ const NavBar = () => {
 
             export default servicesData;
 
-*/}
+*/
+  }
   const services = [
-   {id: 1, name: "Exterior and Interior Detailing", slug: "exterior-interior-detailing"},
-   {id: 2, name: "Engine Bay Detailing", slug: "engine-bay-detailing"},
-    {id: 3, name: "Washing and Deep Cleaning", slug: "washing-deep-cleaning"},
-    {id: 4, name: "Headlight Restoration", slug: "headlight-restoration"},
-    {id: 5, name: "Scratch and Water Spot Removal", slug: "scratch-water-spot-removal"},
-    {id: 6, name: "Ceramic Coating", slug: "ceramic-coating"},
-    {id: 7, name: "Paint Protection Film (PPF)", slug: "paint-protection-film"},
-    {id: 8, name: "Paint Correction and Polishing", slug: "paint-correction-polishing"},
+    {
+      id: 1,
+      name: "Exterior and Interior Detailing",
+      slug: "exterior-interior-detailing",
+    },
+    { id: 2, name: "Engine Bay Detailing", slug: "engine-bay-detailing" },
+    { id: 3, name: "Washing and Deep Cleaning", slug: "washing-deep-cleaning" },
+    { id: 4, name: "Headlight Restoration", slug: "headlight-restoration" },
+    {
+      id: 5,
+      name: "Scratch and Water Spot Removal",
+      slug: "scratch-water-spot-removal",
+    },
+    { id: 6, name: "Ceramic Coating", slug: "ceramic-coating" },
+    {
+      id: 7,
+      name: "Paint Protection Film (PPF)",
+      slug: "paint-protection-film",
+    },
+    {
+      id: 8,
+      name: "Paint Correction and Polishing",
+      slug: "paint-correction-polishing",
+    },
   ];
 
   const menuItems = [
@@ -301,6 +319,14 @@ const NavBar = () => {
           ease: "power2.out",
         }
       );
+      gsap.to(panel, {
+        y: 0,
+        opacity: 0, // opacity instead of autoAlpha
+        height: 0,
+        pointerEvents: "none",
+        duration: 0.2,
+        ease: "power2.in",
+      });
       if (searchInputRef.current)
         setTimeout(() => searchInputRef.current.focus(), 1);
     } else {
@@ -443,7 +469,11 @@ const NavBar = () => {
                   {filteredProducts.map((product, idx) => (
                     <button
                       key={idx}
-                      onClick={() =>{ navigate(`/products`); setIsSearchOpen(false); handleSearch(product)}}
+                      onClick={() => {
+                        navigate(`/products`);
+                        setIsSearchOpen(false);
+                        handleSearch(product);
+                      }}
                       className="dropdown-menu-item w-full text-left block px-3 sm:px-5 py-2 sm:py-3 transition-all text-xs sm:text-sm hover:bg-white/5"
                     >
                       {product}
@@ -482,8 +512,8 @@ const NavBar = () => {
             className="drawer-close-button p-2 w-9 h-9 sm:w-10 sm:h-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg hover:bg-white/10 transition-all hover-scale flex items-center justify-center"
             aria-label="Toggle menu"
             style={{
-              WebkitTransition: 'transform 0.3s ease-in-out',
-              transform: isMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'
+              WebkitTransition: "transform 0.3s ease-in-out",
+              transform: isMenuOpen ? "rotate(90deg)" : "rotate(0deg)",
             }}
           >
             {isMenuOpen ? (
@@ -549,13 +579,15 @@ const NavBar = () => {
                   )}
                 </div>
                 <div className="drawer-bottom px-3 sm:px-4 py-2 sm:py-3 border-t border-white/10 mt-1">
-                  <a
-                    href="#contact"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="drawer-book-button block w-full text-center border border-white text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full hover:bg-white hover:text-black transition-all text-xs sm:text-sm font-medium"
+                  <button
+                    onClick={() => {
+                      navigate("/contact");
+                      setIsMenuOpen(false);
+                    }}
+                    className="..."
                   >
                     Book Now
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -566,7 +598,6 @@ const NavBar = () => {
         <div
           ref={searchPanelRef}
           className=" lg:hidden absolute right-2 top-full bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl shadow-2xl z-50 overflow-hidden"
-          style={{ pointerEvents: isSearchOpen ? "auto" : "none" }}
           aria-hidden={!isSearchOpen}
         >
           <div className="py-2 px-2 sm:px-3 z-100 w-56 sm:w-72 overflow-hidden z-50 max-h-96 overflow-y-auto">
@@ -591,6 +622,7 @@ const NavBar = () => {
                 <button
                   key={idx}
                   onClick={() => {
+                    navigate(`/products`);
                     handleSearch(product);
                     setIsMenuOpen(false);
                     setSearchQuery("");
