@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Phone, Mail, MapPin, Check } from 'lucide-react';
 import { gsap } from 'gsap';
 import car from '../assets/car_1.png';
-import { sendEmail, validateFormData } from '../services/emailService';
+import { validateFormData } from '../services/emailService';
+import servicesData from './servicesData.js';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -10,7 +11,10 @@ export default function Contact() {
     lastName: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
+    vehicle: '',
+    serviceRequired: '',
+    preferredDate: ''
   });
   
   const [errors, setErrors] = useState({});
@@ -73,32 +77,18 @@ export default function Contact() {
   }, [isSubmitted]);
 
   const validateForm = () => {
-    const newErrors = {};
-    
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
+    // Reuse basic validation and add required fields
+    const newErrors = validateFormData(formData);
+    if (!formData.vehicle || !formData.vehicle.trim()) {
+      newErrors.vehicle = 'Vehicle Make & Model is required';
     }
-    
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+    if (!formData.serviceRequired || !formData.serviceRequired.trim()) {
+      newErrors.serviceRequired = 'Please select a service required';
     }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
+    if (!formData.preferredDate || !formData.preferredDate.trim()) {
+      newErrors.preferredDate = 'Preferred date is required';
     }
-    
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!/^[\d\s\-\+\(\)]+$/.test(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    }
-    
+
     return newErrors;
   };
 
@@ -117,15 +107,13 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validate form
-    const newErrors = validateFormData(formData);
-    
+    const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      
       // Shake animation for errors
       gsap.to(formRef.current, {
         x: [-10, 10, -10, 10, 0],
@@ -135,44 +123,40 @@ export default function Contact() {
       return;
     }
 
-    // Clear errors and show loading
-    setErrors({});
-    setIsLoading(true);
-    setShowAnimation(true);
-    
-    // Send email
-    const result = await sendEmail(formData);
-    
-    setTimeout(() => {
-      setShowAnimation(false);
-      setIsLoading(false);
-      
-      if (result.success) {
-        setSuccessMessage(result.message);
-        setIsSubmitted(true);
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          message: ''
-        });
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          gsap.to(successRef.current, {
-            scale: 0,
-            opacity: 0,
-            duration: 0.4,
-            ease: 'back.in(1.7)',
-            onComplete: () => setIsSubmitted(false)
-          });
-        }, 4500);
-      } else {
-        // Show error message
-        setErrors({ submit: result.message });
-      }
-    }, 2500);
+    // Build mailto link with all form data
+    const toEmail = '[Enter Gmail address]';
+    const subject = `GR CAR LAB Service Enquiry - ${formData.vehicle || 'New Enquiry'}`;
+    const bodyText = `Hello,
+
+I would like to enquire about GR CAR LAB services.
+
+--- CLIENT DETAILS ---
+Name: ${formData.firstName} ${formData.lastName}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+--- VEHICLE & SERVICE ---
+Vehicle: ${formData.vehicle}
+Service Interested: ${formData.serviceRequired}
+Preferred Date: ${formData.preferredDate}
+
+--- ADDITIONAL DETAILS ---
+${formData.message}
+
+Please advise on availability and pricing.
+
+Best regards,
+${formData.firstName} ${formData.lastName}`;
+
+    const mailto = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+
+    // Open mail client
+    window.location.href = mailto;
+
+    // Show a local confirmation and reset form
+    setSuccessMessage('Your email client should open to complete the enquiry.');
+    setIsSubmitted(true);
+    setFormData({ firstName: '', lastName: '', email: '', phone: '', message: '', vehicle: '', serviceRequired: '', preferredDate: '' });
   };
 
   return (
@@ -210,30 +194,30 @@ export default function Contact() {
                   <span>GET IN TOUCH</span>
                 </div>
                 <h2 className="contact-title text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-bold mb-4 sm:mb-6">
-                  Ready to Transform Your Vehicle?
+                  Schedule Your Service
                 </h2>
                 <p className="contact-description text-[#AAADB0] mb-6 sm:mb-8 text-xs sm:text-sm md:text-base lg:text-base">
-                  Contact us today to schedule your appointment or learn more about our services.
+                  Submit your enquiry below for service bookings, product details or price estimates. We'll respond promptly with personalised recommendations.
                 </p>
 
                 <div className="space-y-3 sm:space-y-4 md:space-y-4 lg:space-y-4">
-                  <a href="tel:+919876543210" className="contact-info-item flex items-center gap-3 sm:gap-4 text-[#AAADB0] hover:text-[#D4D414] transition-colors hover-scale">
+                  <a href="tel:[Enter mobile number]" className="contact-info-item flex items-center gap-3 sm:gap-4 text-[#AAADB0] hover:text-[#D4D414] transition-colors hover-scale">
                     <div className="contact-icon-container w-10 sm:w-12 md:w-12 lg:w-12 h-10 sm:h-12 md:h-12 lg:h-12 bg-[#D4D414]/10 rounded-full flex items-center justify-center hover-scale">
                       <Phone className="contact-icon w-4 sm:w-5 md:w-5 lg:w-5 h-4 sm:h-5 md:h-5 lg:h-5 text-[#D4D414]" />
                     </div>
-                    <span className="text-xs sm:text-sm md:text-base lg:text-base">+91 98765 43210</span>
+                    <span className="text-xs sm:text-sm md:text-base lg:text-base">[Enter mobile number]</span>
                   </a>
-                  <a href="mailto:info@grcarlab.com" className="contact-info-item flex items-center gap-3 sm:gap-4 text-[#AAADB0] hover:text-[#D4D414] transition-colors hover-scale">
+                  <a href="mailto:[Enter Gmail address]" className="contact-info-item flex items-center gap-3 sm:gap-4 text-[#AAADB0] hover:text-[#D4D414] transition-colors hover-scale">
                     <div className="contact-icon-container w-10 sm:w-12 md:w-12 lg:w-12 h-10 sm:h-12 md:h-12 lg:h-12 bg-[#D4D414]/10 rounded-full flex items-center justify-center hover-scale">
                       <Mail className="contact-icon w-4 sm:w-5 md:w-5 lg:w-5 h-4 sm:h-5 md:h-5 lg:h-5 text-[#D4D414]" />
                     </div>
-                    <span className="text-xs sm:text-sm md:text-base lg:text-base">info@grcarlab.com</span>
+                    <span className="text-xs sm:text-sm md:text-base lg:text-base">[Enter Gmail address]</span>
                   </a>
                   <div className="contact-info-item flex items-start gap-3 sm:gap-4 text-[#AAADB0] hover-scale">
                     <div className="contact-icon-container w-10 sm:w-12 md:w-12 lg:w-12 h-10 sm:h-12 md:h-12 lg:h-12 bg-[#D4D414]/10 rounded-full flex items-center justify-center hover-scale flex-shrink-0">
                       <MapPin className="contact-icon w-4 sm:w-5 md:w-5 lg:w-5 h-4 sm:h-5 md:h-5 lg:h-5 text-[#D4D414]" />
                     </div>
-                    <span className="text-xs sm:text-sm md:text-base lg:text-base">Tiruppur, Tamil Nadu, India</span>
+                    <span className="text-xs sm:text-sm md:text-base lg:text-base">[Enter full workshop address]</span>
                   </div>
                 </div>
               </div>
@@ -290,13 +274,51 @@ export default function Contact() {
                   </div>
 
                   <div>
+                    <input
+                      type="text"
+                      name="vehicle"
+                      placeholder="Vehicle Make & Model (e.g., Toyota Innova)"
+                      value={formData.vehicle}
+                      onChange={handleChange}
+                      className={`contact-input w-full bg-black/50 border ${errors.vehicle ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 text-sm sm:text-base md:text-base lg:text-base text-white placeholder-white/40 focus:border-[#D4D414] focus:outline-none transition-all`}
+                    />
+                    {errors.vehicle && <p className="text-red-500 text-xs mt-1">{errors.vehicle}</p>}
+                  </div>
+
+                  <div>
+                    <select
+                      name="serviceRequired"
+                      value={formData.serviceRequired}
+                      onChange={handleChange}
+                      className={`contact-input w-full bg-black/50 border ${errors.serviceRequired ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 text-sm sm:text-base md:text-base lg:text-base text-white placeholder-white/40 focus:border-[#D4D414] focus:outline-none transition-all`}
+                    >
+                      <option value="">Select Service Required</option>
+                      {servicesData.map((s) => (
+                        <option key={s.slug} value={s.title}>{s.title}</option>
+                      ))}
+                    </select>
+                    {errors.serviceRequired && <p className="text-red-500 text-xs mt-1">{errors.serviceRequired}</p>}
+                  </div>
+
+                  <div>
+                    <input
+                      type="date"
+                      name="preferredDate"
+                      value={formData.preferredDate}
+                      onChange={handleChange}
+                      className={`contact-input w-full bg-black/50 border ${errors.preferredDate ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 text-sm sm:text-base md:text-base lg:text-base text-white placeholder-white/40 focus:border-[#D4D414] focus:outline-none transition-all`}
+                    />
+                    {errors.preferredDate && <p className="text-red-500 text-xs mt-1">{errors.preferredDate}</p>}
+                  </div>
+
+                  <div>
                     <textarea 
                       name="message"
-                      placeholder="Your Message"
+                      placeholder="Additional Notes"
                       value={formData.message}
                       onChange={handleChange}
                       rows="4"
-                      className={`contact-textarea w-full bg-black/50 border ${errors.message ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 text-xs sm:text-sm md:text-base lg:text-base text-white placeholder-white/40 sm:placeholder-white/50 focus:border-[#D4D414] focus:outline-none transition-all resize-none`}
+                      className={`contact-textarea w-full bg-black/50 border ${errors.message ? 'border-red-500' : 'border-white/10'} rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 text-sm sm:text-base md:text-base lg:text-base text-white placeholder-white/40 sm:placeholder-white/50 focus:border-[#D4D414] focus:outline-none transition-all resize-none`}
                     />
                     {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                   </div>

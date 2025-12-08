@@ -3,75 +3,13 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
+import servicesData from './servicesData.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Services = () => {
   const servicesRef = useRef(null);
   const cardsRef = useRef([]);
-
-  const servicesData = [
-    {
-      id: 1,
-      title: "Washing & Cleaning",
-      slug: 'premium-washing',
-      image: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=600&h=400&fit=crop",
-      description: "Complete exterior wash with pre-inspection, high-pressure cleaning, underbody wash, and premium polish. Bio-friendly products and expert care.",
-      details: ["Pre Wash Inspection", "High Pressure Cleaning", "Underbody Wash", "Drying System", "Premium Polish"]
-    },
-    {
-      id: 2,
-      title: "Car Detailing",
-      slug: 'interior-detailing',
-      image: "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?w=600&h=400&fit=crop",
-      description: "Deep interior cleaning including vacuuming, roof cleaning, dashboard detailing, carpet & upholstery care, and genuine leather treatment.",
-      details: ["Vacuuming", "Roof Cleaning", "Dashboard & Console", "Carpet & Upholstery", "Genuine Leather Care"]
-    },
-    {
-      id: 3,
-      title: "Exterior Detailing",
-      slug: 'exterior-detailing',
-      image: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=600&h=400&fit=crop",
-      description: "Professional steam cleaning, foam wash, wheel detailing, and complete exterior restoration for a showroom finish.",
-      details: ["Steam Cleaning", "Exterior Foam Wash", "Wheel Cleaning", "Trim Restoration", "Glass Treatment"]
-    },
-    {
-      id: 4,
-      title: "Ceramic Coating",
-      slug: 'ceramic-coating',
-      image: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=600&h=400&fit=crop",
-      description: "Premium ceramic coating protection using DetailMax & GTECHNIQ products. Long-lasting shine, scratch resistance, and hydrophobic properties.",
-      details: ["Paint Evaluation", "Surface Preparation", "Ceramic Application", "Curing Process", "9H Hardness"]
-    },
-    
-    {
-      id: 5,
-      title: "Paint Correction & Paint Protection Film (PPF)",
-      slug: 'ppf',
-      image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=600&h=400&fit=crop",
-      description: "Multi-stage paint correction to remove swirls, scratches, and oxidation. Compounding and polishing for flawless paint finish.",
-      details: ["Paint Evaluation", "Decontamination", "Compounding", "Polishing", "Final Inspection"]
-    },
-    
-  
-    {
-      id: 6,
-      title: "Paint Protection  Ceramic Coating and Applying PPF",
-      slug: 'paint-protection',
-      image: "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=600&h=400&fit=crop",
-      description: "Expert scratch and swirl mark removal through precision polishing. Restores paint depth and eliminates surface imperfections.",
-      details: ["Paint Assessment", "Stage 1 Polish", "Stage 2 Refinement", "Hologram Removal", "Protection Layer"]
-    },
-    {
-      id: 7,
-      title: "Underbody Coating",
-      slug: 'underbody-coating',
-      image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=600&h=400&fit=crop",
-      description: "Protective underbody coating against rust, corrosion, and road debris. Essential protection for long-term vehicle health.",
-      details: ["Underbody Cleaning", "Rust Prevention", "Rubberized Coating", "Wheel Arch Protection", "Lifetime Shield"]
-    },
-   
-  ];
 
   useEffect(() => {
     // Animate section title on scroll
@@ -82,7 +20,7 @@ const Services = () => {
         end: 'bottom 20%',
         toggleActions: 'play none none reverse'
       },
-      opacity: 0.5,
+      opacity: 1,
       y: 50,
       duration: 1,
       ease: 'power3.out'
@@ -281,6 +219,72 @@ const Services = () => {
               <p className="text-[#AAADB0] text-xs sm:text-sm mb-3 sm:mb-4">Industry-Leading Paint Protection Films</p>
              
             </a>
+          </div>
+        </div>
+
+        {/* How We Work Section */}
+        <div className="mt-20 sm:mt-24 md:mt-32 pt-16 sm:pt-20 md:pt-24 border-t border-white/10">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6">
+            How We Work on Your Car
+          </h3>
+          <p className="text-center text-gray-400 text-base sm:text-lg mb-12 sm:mb-16 md:mb-20 max-w-2xl mx-auto">
+            Our systematic 6-step process ensures your vehicle receives meticulous care from start to finish
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {/* Step 1 */}
+            <div className="workflow-card bg-[#1A1A1A] p-6 sm:p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/50 transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#D4D414]/20 flex items-center justify-center text-[#D4D414] font-bold text-xl">1</div>
+                <h4 className="text-xl sm:text-2xl font-bold">Know Requirements</h4>
+              </div>
+              <p className="text-gray-400 text-sm sm:text-base">We understand your expectations and vehicle condition to plan the perfect service approach.</p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="workflow-card bg-[#1A1A1A] p-6 sm:p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/50 transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#D4D414]/20 flex items-center justify-center text-[#D4D414] font-bold text-xl">2</div>
+                <h4 className="text-xl sm:text-2xl font-bold">Thorough Inspection</h4>
+              </div>
+              <p className="text-gray-400 text-sm sm:text-base">Complete vehicle assessment with detailed documentation of current condition and areas needing attention.</p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="workflow-card bg-[#1A1A1A] p-6 sm:p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/50 transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#D4D414]/20 flex items-center justify-center text-[#D4D414] font-bold text-xl">3</div>
+                <h4 className="text-xl sm:text-2xl font-bold">Detailed Job Sheet</h4>
+              </div>
+              <p className="text-gray-400 text-sm sm:text-base">Prepare a comprehensive plan with recommended services, pricing, timeline, and products to be used.</p>
+            </div>
+
+            {/* Step 4 */}
+            <div className="workflow-card bg-[#1A1A1A] p-6 sm:p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/50 transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#D4D414]/20 flex items-center justify-center text-[#D4D414] font-bold text-xl">4</div>
+                <h4 className="text-xl sm:text-2xl font-bold">Customer Brief</h4>
+              </div>
+              <p className="text-gray-400 text-sm sm:text-base">Explain the plan, timeline, and products in detail to ensure complete clarity and alignment.</p>
+            </div>
+
+            {/* Step 5 */}
+            <div className="workflow-card bg-[#1A1A1A] p-6 sm:p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/50 transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#D4D414]/20 flex items-center justify-center text-[#D4D414] font-bold text-xl">5</div>
+                <h4 className="text-xl sm:text-2xl font-bold">Execute Services</h4>
+              </div>
+              <p className="text-gray-400 text-sm sm:text-base">Carry out the agreed services with trained technicians using advanced methods and premium products.</p>
+            </div>
+
+            {/* Step 6 */}
+            <div className="workflow-card bg-[#1A1A1A] p-6 sm:p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/50 transition-all">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#D4D414]/20 flex items-center justify-center text-[#D4D414] font-bold text-xl">6</div>
+                <h4 className="text-xl sm:text-2xl font-bold">Quality Check & Handover</h4>
+              </div>
+              <p className="text-gray-400 text-sm sm:text-base">Final inspection and walkthrough with you to ensure complete satisfaction with results.</p>
+            </div>
           </div>
         </div>
       </div>

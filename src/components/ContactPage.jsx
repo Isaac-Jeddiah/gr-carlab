@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Phone, Mail, MessageCircle, Check } from 'lucide-react';
 import { gsap } from 'gsap';
 import car from '../assets/car_1.png';
-import { sendEmail, validateFormData } from '../services/emailService';
+import { validateFormData } from '../services/emailService';
+import servicesData from './servicesData';
 import NavBar from './Nav';
 import Footer from './Footer';
 export default function ContactUsPage() {
@@ -187,16 +188,12 @@ export default function ContactUsPage() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Validate form using emailService validator
-    const newErrors = validateFormData(formData);
-    
+
+    const newErrors = validateForm();
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      
-      // Shake animation for errors
       gsap.to(formRef.current, {
         x: [-10, 10, -10, 10, 0],
         duration: 0.4,
@@ -205,44 +202,37 @@ export default function ContactUsPage() {
       return;
     }
 
-    // Clear errors and show loading
-    setErrors({});
-    setIsLoading(true);
-    setShowAnimation(true);
-    
-    // Send email via service
-    const result = await sendEmail(formData);
-    
-    setTimeout(() => {
-      setShowAnimation(false);
-      setIsLoading(false);
-      
-      if (result.success) {
-        setSuccessMessage(result.message);
-        setIsSubmitted(true);
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          message: ''
-        });
-        
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-          gsap.to(successRef.current, {
-            scale: 0,
-            opacity: 0,
-            duration: 0.4,
-            ease: 'back.in(1.7)',
-            onComplete: () => setIsSubmitted(false)
-          });
-        }, 4500);
-      } else {
-        // Show error message
-        setErrors({ submit: result.message });
-      }
-    }, 2500);
+    // Build mailto link with all form data
+    const toEmail = 'isaacjeddiah@gmail.com';
+    const subject = `GR CAR LAB Service Enquiry - ${formData.vehicle || 'New Enquiry'}`;
+    const bodyText = `Hello,
+
+I would like to enquire about GR CAR LAB services.
+
+--- CLIENT DETAILS ---
+Name: ${formData.firstName} ${formData.lastName}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+--- VEHICLE & SERVICE ---
+Vehicle: ${formData.vehicle}
+Service Interested: ${formData.serviceRequired}
+Preferred Date: ${formData.preferredDate}
+
+--- ADDITIONAL DETAILS ---
+${formData.message}
+
+Please advise on availability and pricing.
+
+Best regards,
+${formData.firstName} ${formData.lastName}`;
+
+    const mailto = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+    window.location.href = mailto;
+
+    setSuccessMessage('Your email client should open to complete the enquiry.');
+    setIsSubmitted(true);
+    setFormData({ firstName: '', lastName: '', email: '', phone: '', message: '', vehicle: '', serviceRequired: '', preferredDate: '' });
   };
 
   return (
@@ -261,7 +251,7 @@ export default function ContactUsPage() {
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">Get In Touch</h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique duis cursus
+            We're here to help. Contact us to schedule your detailing appointment, request a quote, or ask about our premium services. Fast responses and personalised care for every vehicle.
           </p>
           <div className="w-2 h-2 bg-yellow-400 rounded-full mx-auto mt-6"></div>
         </div>
@@ -339,16 +329,58 @@ export default function ContactUsPage() {
               </div>
             </div>
 
-            <div>
-              <textarea
-                name="message"
-                placeholder="Write Your Message Here..."
-                value={formData.message}
-                onChange={handleChange}
-                rows="6"
-                className={`w-full px-6 py-4 bg-gray-900 border ${errors.message ? 'border-red-500' : 'border-gray-800'} rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors resize-none`}
-              ></textarea>
-              {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+            <div className="grid grid-cols-1 gap-6">
+              <div>
+                <input
+                  type="text"
+                  name="vehicle"
+                  placeholder="Vehicle Make & Model (e.g., Toyota Innova)"
+                  value={formData.vehicle}
+                  onChange={handleChange}
+                  className={`w-full px-6 py-4 bg-gray-900 border ${errors.vehicle ? 'border-red-500' : 'border-gray-800'} rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                />
+                {errors.vehicle && <p className="text-red-500 text-sm mt-1">{errors.vehicle}</p>}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <select
+                    name="serviceRequired"
+                    value={formData.serviceRequired}
+                    onChange={handleChange}
+                    className={`w-full px-6 py-4 bg-gray-900 border ${errors.serviceRequired ? 'border-red-500' : 'border-gray-800'} rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                  >
+                    <option value="">Select Service Required</option>
+                    {servicesData.map(s => (
+                      <option key={s.slug} value={s.title}>{s.title}</option>
+                    ))}
+                  </select>
+                  {errors.serviceRequired && <p className="text-red-500 text-sm mt-1">{errors.serviceRequired}</p>}
+                </div>
+
+                <div>
+                  <input
+                    type="date"
+                    name="preferredDate"
+                    value={formData.preferredDate}
+                    onChange={handleChange}
+                    className={`w-full px-6 py-4 bg-gray-900 border ${errors.preferredDate ? 'border-red-500' : 'border-gray-800'} rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                  />
+                  {errors.preferredDate && <p className="text-red-500 text-sm mt-1">{errors.preferredDate}</p>}
+                </div>
+              </div>
+
+              <div>
+                <textarea
+                  name="message"
+                  placeholder="Additional Notes"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows="6"
+                  className={`w-full px-6 py-4 bg-gray-900 border ${errors.message ? 'border-red-500' : 'border-gray-800'} rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors resize-none`}
+                ></textarea>
+                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+              </div>
             </div>
 
             <button
@@ -369,8 +401,8 @@ export default function ContactUsPage() {
             onMouseLeave={(e) => gsap.to(e.currentTarget, { y: 0, duration: 0.3 })}
           >
             <Phone className="w-8 h-8 text-yellow-400 mx-auto mb-4" />
-            <h3 className="text-white font-medium mb-2">+1 (123) 456-7890</h3>
-            <p className="text-gray-500 text-sm">Lorem ipsum dolor sit amet consectetur</p>
+            <h3 className="text-white font-medium mb-2">[Enter mobile number]</h3>
+            <p className="text-gray-500 text-sm">Call to book appointments or get immediate assistance</p>
           </div>
 
           <div 
@@ -380,8 +412,8 @@ export default function ContactUsPage() {
             onMouseLeave={(e) => gsap.to(e.currentTarget, { y: 0, duration: 0.3 })}
           >
             <Mail className="w-8 h-8 text-yellow-400 mx-auto mb-4" />
-            <h3 className="text-white font-medium mb-2">info@rydex.com</h3>
-            <p className="text-gray-500 text-sm">Lorem ipsum dolor sit amet consectetur</p>
+            <h3 className="text-white font-medium mb-2">[Enter Gmail address]</h3>
+            <p className="text-gray-500 text-sm">Email us for quotes, service details and availability</p>
           </div>
 
           <div 
@@ -392,7 +424,7 @@ export default function ContactUsPage() {
           >
             <MessageCircle className="w-8 h-8 text-yellow-400 mx-auto mb-4" />
             <h3 className="text-white font-medium mb-2">Chat With Us</h3>
-            <p className="text-gray-500 text-sm">Lorem ipsum dolor sit amet consectetur</p>
+            <p className="text-gray-500 text-sm">Chat for quick questions and scheduling help</p>
           </div>
         </div>
       </div>

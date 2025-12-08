@@ -39,56 +39,34 @@ const Hero = () => {
           </div>
 
           <div className="space-y-4 sm:space-y-6 md:space-y-8 pb-8 sm:pb-12 md:pb-16 lg:pb-24">
-            <h1 className="hero-title text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              <span className="block gsap-target">
-                {"Excellence in Every Detail,".split("").map((char, i) => (
-                  <span key={i} className="char">
-                    {char === " " ? "\u00A0" : char}
-                  </span>
-                ))}
-              </span>
-              <span className="hero-subtitle block text-[#D4D414] gsap-target">
-                {"Shine in Every Service".split("").map((char, i) => (
-                  <span key={i} className="char">
-                    {char === " " ? "\u00A0" : char}
-                  </span>
-                ))}
-              </span>
+            <h1 className="hero-title text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight">
+              <span className="block gsap-target">Welcome to GR CAR LAB</span>
+              <span className="hero-subtitle block text-[#D4D414] gsap-target">Precision Care for Every Car</span>
             </h1>
-            <p className="hero-description text-xs sm:text-sm md:text-base lg:text-lg text-white/80 max-w-2xl leading-relaxed">
-              Transform your vehicle with our professional detailing services.
-              Meticulous attention to detail, premium products, exceptional
-              results.
+            <p className="hero-description text-sm sm:text-base md:text-lg lg:text-lg text-white/80 max-w-3xl leading-relaxed">
+              Committed to premium detailing delivered with care and expertise. We refine every surface to restore shine, protect value, and delight our customers.
             </p>
           </div>
 
           {/* CTA Buttons */}
-          <div className="hero-cta-container grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-white/20">
+          <div className="hero-cta-container w-full grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-white/20">
             <a
               href="#services"
-              className="hero-cta-button text-white group flex flex-col sm:flex-row items-center justify-between px-3 xs:px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 border-r-0 md:border-r border-b sm:border-b-0 md:border-b-0 border-white/20 hover:bg-white/5 transition-all"
+              className="hero-cta-button text-white group flex flex-row items-center justify-between px-6 py-4 sm:py-5 md:py-6 border-r-0 md:border-r border-b sm:border-b-0 md:border-b-0 border-white/20 hover:bg-white/5 transition-all"
             >
-              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-white font-medium gsap-target text-center sm:text-left">
-                {"See Our Services".split("").map((char, i) => (
-                  <span key={i} className="char">
-                    {char === " " ? "\u00A0" : char}
-                  </span>
-                ))}
+              <span className="flex-1 text-lg sm:text-base md:text-lg lg:text-xl text-white font-large gsap-target text-left whitespace-nowrap">
+                See Our Services
               </span>
-              <ChevronRight className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6 arrow-hover group-hover:translate-x-2 transition-transform mt-2 sm:mt-0" />
+              <ChevronRight className="w-5 sm:w-6 md:w-7 h-5 sm:h-6 md:h-7 arrow-hover group-hover:translate-x-2 transition-transform" />
             </a>
             <a
               href="/contact"
-              className="hero-cta-button group flex flex-col sm:flex-row items-center justify-between px-3 xs:px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 hover:bg-white/5 transition-all"
+              className="hero-cta-button group flex flex-row items-center justify-between px-6 py-4 sm:py-5 md:py-6 hover:bg-white/5 transition-all"
             >
-              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-white font-medium gsap-target text-center sm:text-left">
-                {"Get in Touch".split("").map((char, i) => (
-                  <span key={i} className="char">
-                    {char === " " ? "\u00A0" : char}
-                  </span>
-                ))}
+              <span className="flex-1 text-lg sm:text-base md:text-lg lg:text-xl text-white font-large gsap-target text-left whitespace-nowrap">
+                Get in Touch
               </span>
-              <ChevronRight className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6 arrow-hover group-hover:translate-x-2 transition-transform mt-2 sm:mt-0" />
+              <ChevronRight className="w-5 sm:w-6 md:w-7 h-5 sm:h-6 md:h-7 arrow-hover group-hover:translate-x-2 transition-transform" />
             </a>
           </div>
         </div>

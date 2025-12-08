@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Footer() {
+  
   const mainPages = [
     { name: 'Home', path: '/home' },
     { name: 'About', path: '/#about' },
@@ -22,11 +23,13 @@ export default function Footer() {
               <p className="footer-description text-[#AAADB0] text-s sm:text-sm md:text-sm lg:text-sm mb-3 sm:mb-4">
                 Excellence in every detail, shine in every service. Your premier car detailing destination.
               </p>
-              
-              <button className="group relative w-full max-w-64 flex items-center justify-center gap-3 px-6 py-3 bg-black border-2 border-yellow-400 rounded-full transition-all duration-300 hover:rounded-2xl active:scale-95">
+              <Link to={'/contact'}>
+              <button className="group relative w-full max-w-64 flex items-center justify-center gap-3 px-6 py-3 bg-black border-2 border-yellow-400 rounded-full transition-all duration-300 hover:rounded-2xl active:scale-95"
+              >
                 <span className="text-white font-semibold text-sm">Book Now</span>
                 <ArrowRight className="w-4 h-4 text-yellow-400" />
               </button>
+              </Link>
             </div>
 
             <div>
@@ -54,11 +57,11 @@ export default function Footer() {
             <div>
               <h4 className="footer-heading font-semibold mb-3 sm:mb-4 text-sm sm:text-base md:text-base lg:text-base">Visit Us</h4>
               <p className="text-s sm:text-sm md:text-sm lg:text-sm mb-3 sm:mb-4">
-                Tiruppur, Tamil Nadu, India
+                [Enter full workshop address]
               </p>
               <div className="space-y-2">
-                <p className="text-s sm:text-sm md:text-sm lg:text-sm text-[#AAADB0] hover-scale">+91 98765 43210</p>
-                <p className="text-s sm:text-sm md:text-sm lg:text-sm text-[#AAADB0] hover-scale">info@grcarlab.com</p>
+                <p className="text-s sm:text-sm md:text-sm lg:text-sm text-[#AAADB0] hover-scale">[Enter mobile number]</p>
+                <p className="text-s sm:text-sm md:text-sm lg:text-sm text-[#AAADB0] hover-scale">[Enter Gmail address]</p>
               </div>
             </div>
           </div>

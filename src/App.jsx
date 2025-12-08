@@ -7,7 +7,9 @@ import Services from './components/Services.jsx';
 import Products from './components/Products.jsx';
 import Contact from './components/Contact.jsx';
 import Testimonials from './components/Testimonials.jsx';
+import WhyUs from './components/WhyUs.jsx';
 import ServicesPage from './components/ServicesPage.jsx';
+import ProductPage from './components/ProductPage.jsx';
 import servicesData from './components/servicesData.js';
 import AboutUsPage from './components/AboutPage.jsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -199,6 +201,8 @@ const Home = ({ setIsDrawerOpen }) => {
       <About />
       {/* Services Section */}
       <Services />
+      {/* Why Choose Us Section */}
+      <WhyUs />
       {/* Products Section */}
       <Products />
       {/* Testimonials Section */}
@@ -219,6 +223,7 @@ const App = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/services/:slug" element={<ServicesPage data={servicesData} />} />
         <Route path="/contact" element={<ContactUsPage />} />
+        <Route path="/products" element={<ProductPage />} />
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="*" element={<Home />} />
       </Routes>
