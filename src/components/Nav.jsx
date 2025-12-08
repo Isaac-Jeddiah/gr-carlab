@@ -36,9 +36,9 @@ const NavBar = () => {
   ];
 
   const menuItems = [
-    { name: "Home", href: "/home" },
+    { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Products", href: "/home/#products" },
+    { name: "Products", href: "/#products" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -173,7 +173,7 @@ const NavBar = () => {
       <div className="flex items-center gap-3">
         <div
           className="NavBar-logo hover-scale cursor-pointer"
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
         >
           <img
             src={logo}

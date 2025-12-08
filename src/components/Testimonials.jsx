@@ -5,7 +5,6 @@ import { Quote, Star, Heart, Award, Sparkles, Users } from 'lucide-react';
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const cardsRef = useRef([]);
-  const centerRef = useRef(null);
   const sectionRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
