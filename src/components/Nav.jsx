@@ -17,6 +17,7 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isOpening, setIsOpening] = useState(false);
 
   const servicesRef = useRef(null);
   const menuRef = useRef(null);
@@ -281,6 +282,7 @@ const NavBar = () => {
         setIsMenuOpen(false);
       }
       if (
+        !isOpening &&
         searchRef.current &&
         !searchRef.current.contains(event.target) &&
         searchPanelRef.current &&
@@ -300,7 +302,7 @@ const NavBar = () => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [isOpening]);
 
   useEffect(() => {
     const panel = searchPanelRef.current;
@@ -308,30 +310,25 @@ const NavBar = () => {
     gsap.killTweensOf(panel);
 
     if (isSearchOpen) {
+      setIsOpening(true);
       gsap.fromTo(
         panel,
         { y: -100, autoAlpha: 0, height: 0 },
         {
-          y: -50,
+          y: 0,
           autoAlpha: 1,
           height: "auto",
           duration: 0.28,
           ease: "power2.out",
+          onComplete: () => {
+            setIsOpening(false);
+            if (searchInputRef.current) searchInputRef.current.focus();
+          },
         }
       );
-      gsap.to(panel, {
-        y: 0,
-        opacity: 0, // opacity instead of autoAlpha
-        height: 0,
-        pointerEvents: "none",
-        duration: 0.2,
-        ease: "power2.in",
-      });
-      if (searchInputRef.current)
-        setTimeout(() => searchInputRef.current.focus(), 1);
     } else {
       gsap.to(panel, {
-        y: 0,
+        y: -100,
         autoAlpha: 0,
         height: 0,
         duration: 0.2,

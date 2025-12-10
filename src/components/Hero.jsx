@@ -23,9 +23,9 @@ const Hero = () => {
         <div className="relative z-10 px-2 xs:px-3 sm:px-6 md:px-10 lg:px-12 flex flex-col justify-between py-4 sm:py-6 md:py-8 min-h-[calc(90vh-60px)] sm:min-h-[calc(95vh-60px)] md:min-h-[calc(100vh-70px)] lg:min-h-[calc(115vh-80px)]">
           <div className="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-0 pt-4 sm:pt-6 md:pt-8">
             <div className="hero-label text-xs sm:text-sm md:text-sm lg:text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-2 sm:gap-3 hover-scale">
-              <span className="hero-label-line w-6 sm:w-8 md:w-10 h-px bg-[#D4D414]"></span>
+              <span className="hero-label-line w-40 sm:w-8 md:w-10 h-px bg-[#D4D414]"></span>
               <span className="gsap-target text-xs sm:text-sm">
-                {"PREMIUM DETAILING".split("").map((char, i) => (
+                {"PREMIUM DETAILING             ".split("").map((char, i) => (
                   <span key={i} className="char">
                     {char === " " ? "\u00A0" : char}
                   </span>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from './Nav';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +25,19 @@ const products = [
 const ProductPage = () => {
   const [selected, setSelected] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selected]);
+
   return (
     <div className="bg-black text-white min-h-screen">
       <Nav />
