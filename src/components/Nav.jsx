@@ -370,14 +370,9 @@ const NavBar = () => {
                   {isServicesOpen && (
                     <div className="bg-white/3 py-2">
                       {services.map((service) => (
-                        <Link
-                          key={service.id}
-                          to={`/services/${service.slug}`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="drawer-service-link block px-5 sm:px-7 py-2 sm:py-2.5 text-white/70 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm"
-                        >
+                        <button onClick={navigate('/services')}>
                           {service.name}
-                        </Link>
+                        </button>
                       ))}
                     </div>
                   )}
