@@ -602,7 +602,7 @@ const NavBar = () => {
         >
           <div className="py-2 px-2 sm:px-3 z-100 w-56 sm:w-72 overflow-hidden z-50 max-h-96 overflow-y-auto">
             <p className="text-xs text-white/50 uppercase mb-2">
-              Search Products
+              Search Products 
             </p>
             <div className="flex items-center gap-2 bg-black/30 rounded-lg px-3 py-2 mb-2">
               <input

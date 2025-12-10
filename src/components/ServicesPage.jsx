@@ -226,7 +226,7 @@ const ServicesPage = () => {
               {/* Service Image */}
               <div className="relative h-40 sm:h-48 md:h-52 lg:h-56 overflow-hidden bg-[#222222]">
                 <img
-                  src={service.image}
+                  src={service.images[0]}
                   alt={service.title}
                   className="service-image w-full h-full object-cover"
                 />

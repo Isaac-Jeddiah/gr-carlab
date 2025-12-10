@@ -7,9 +7,9 @@ export default function Footer() {
   
   const mainPages = [
     { name: 'Home', path: '/home' },
-    { name: 'About', path: '/#about' },
+    { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
-    { name: 'Products', path: '/#products' },
+    { name: 'Products', path: '/products' },
     { name: 'Contact', path: '/contact' }
   ];
   return (

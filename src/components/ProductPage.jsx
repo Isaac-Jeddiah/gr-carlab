@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 import Nav from './Nav';
 import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
 
 const products = [
-  { id: 1, title: 'Car Perfumes and Air Fresheners', short: 'Long lasting scents and refillable options.', brands: ['Brand A','Brand B'], priceRange: '₹199 - ₹999', image: '/src/assets/car-hero.jpg', description: 'Long lasting scents, refillable bottles, available in multiple fragrances.' },
-  { id: 2, title: '7D Mats and ATM Mats', short: 'Full coverage floor protection with premium finishes.', brands: ['Brand M','Brand N'], priceRange: '₹999 - ₹4,999', image: '/src/assets/car-hero.jpg', description: 'Premium 7D and ATM mats tailored to vehicle models for full coverage protection.' },
-  { id: 3, title: 'Boot Mats', short: 'Tailored protection for the luggage area.', brands: ['Brand X'], priceRange: '₹799 - ₹3,499', image: '/src/assets/car-hero.jpg', description: 'Custom-fit boot mats to protect the luggage area from spills and wear.' },
-  { id: 4, title: 'Windshield Wipers', short: 'High performance blades for clear vision in all conditions.', brands: ['Bosch','Valeo'], priceRange: '₹399 - ₹1,499', image: '/src/assets/car-hero.jpg', description: 'Durable wiper blades offering clear vision during rain and harsh weather.' },
-  { id: 5, title: 'Fog Lamps and Headlight Lamps', short: 'Improved visibility and stylish upgrades.', brands: ['Philips','OSRAM'], priceRange: '₹499 - ₹6,999', image: '/src/assets/car-hero.jpg', description: 'Wide selection of fog and headlight lamps for enhanced visibility and style.' },
-  { id: 6, title: 'Rain Guards and Door Guards', short: 'Weather protection and door edge safety.', brands: ['Brand R'], priceRange: '₹299 - ₹1,499', image: '/src/assets/car-hero.jpg', description: 'Durable rain guards and door edge protectors to defend against weather and chips.' },
-  { id: 7, title: 'Android Stereos, Amplifiers and Woofers', short: 'Multimedia upgrades with Bluetooth and navigation.', brands: ['Pioneer','Sony'], priceRange: '₹2,999 - ₹39,999', image: '/src/assets/car-hero.jpg', description: 'High-end multimedia units with navigation, Bluetooth and performance audio components.' },
-  { id: 8, title: 'Speakers and Sound Systems', short: 'Brand options for crisp audio and powerful bass.', brands: ['JBL','Infinity'], priceRange: '₹1,499 - ₹29,999', image: '/src/assets/car-hero.jpg', description: 'Speakers and full sound systems for improved in-car audio experience.' },
-  { id: 9, title: 'Car Covers', short: 'Weatherproof protection for outdoor and indoor storage.', brands: ['Brand C'], priceRange: '₹999 - ₹7,999', image: '/src/assets/car-hero.jpg', description: 'Breathable, weatherproof car covers for long-term protection.' },
-  { id: 10, title: 'Towing Cables', short: 'Robust safety rated cables for emergencies.', brands: ['Brand T'], priceRange: '₹499 - ₹3,499', image: '/src/assets/car-hero.jpg', description: 'High-strength towing cables rated for safety and emergency use.' },
-  { id: 11, title: 'LED Door Lights and Interior Lighting', short: 'Decorative and functional illumination.', brands: ['Brand L'], priceRange: '₹299 - ₹2,499', image: '/src/assets/car-hero.jpg', description: 'Stylish LED lights for doors and interiors to enhance look and visibility.' },
-  { id: 12, title: 'Headrest and Backrest Cushions', short: 'Comfort and ergonomic support for long drives.', brands: ['Brand H'], priceRange: '₹399 - ₹2,999', image: '/src/assets/car-hero.jpg', description: 'Comfort cushions with ergonomic support for long journeys.' },
-  { id: 13, title: 'Seat Belt Pads and Armrests', short: 'Comfort accessories for driver and passengers.', brands: ['Brand S'], priceRange: '₹199 - ₹1,499', image: '/src/assets/car-hero.jpg', description: 'Soft pads and armrests to improve comfort and reduce irritation.' },
-  { id: 14, title: 'Dashboard Covers', short: 'Protects instrument panel from UV damage and glare.', brands: ['Brand D'], priceRange: '₹499 - ₹3,999', image: '/src/assets/car-hero.jpg', description: 'Custom-fit dashboard covers to reduce glare and protect from UV.' },
-  { id: 15, title: 'Dash Cameras', short: 'Front and dual channel options for security and incident recording.', brands: ['70mai','BlackVue'], priceRange: '₹2,499 - ₹19,999', image: '/src/assets/car-hero.jpg', description: 'Quality dashcams with single or dual channel recording and parking mode.' },
-  { id: 16, title: 'Tyre Inflators', short: 'Portable inflators for roadside convenience.', brands: ['Brand I'], priceRange: '₹899 - ₹4,499', image: '/src/assets/car-hero.jpg', description: 'Portable and electric tyre inflators for emergency and maintenance use.' }
+  { id: 1, title: 'Car Perfumes and Air Fresheners', short: 'Long lasting scents and refillable options.', brands: ['All brands'], image: '/src/assets/car-hero.jpg', description: 'Long lasting scents, refillable bottles, available in multiple fragrances.' },
+  { id: 2, title: '7D Mats and ATM Mats', short: 'Full coverage floor protection with premium finishes.', brands: ['All brands'], image: '/src/assets/car-hero.jpg', description: 'Premium 7D and ATM mats tailored to vehicle models for full coverage protection.' },
+  { id: 3, title: 'Boot Mats', short: 'Tailored protection for the luggage area.', brands: ['Brand X'],  image: '/src/assets/car-hero.jpg', description: 'Custom-fit boot mats to protect the luggage area from spills and wear.' },
+  { id: 4, title: 'Windshield Wipers', short: 'High performance blades for clear vision in all conditions.', brands: ['Bosch','Valeo'],  image: '/src/assets/car-hero.jpg', description: 'Durable wiper blades offering clear vision during rain and harsh weather.' },
+  { id: 5, title: 'Fog Lamps and Headlight Lamps', short: 'Improved visibility and stylish upgrades.', brands: ['Philips','OSRAM'], image: '/src/assets/car-hero.jpg', description: 'Wide selection of fog and headlight lamps for enhanced visibility and style.' },
+  { id: 6, title: 'Rain Guards and Door Guards', short: 'Weather protection and door edge safety.', brands: ['Brand R'], image: '/src/assets/car-hero.jpg', description: 'Durable rain guards and door edge protectors to defend against weather and chips.' },
+  { id: 7, title: 'Android Stereos, Amplifiers and Woofers', short: 'Multimedia upgrades with Bluetooth and navigation.', brands: ['Pioneer','Sony'], image: '/src/assets/car-hero.jpg', description: 'High-end multimedia units with navigation, Bluetooth and performance audio components.' },
+  { id: 8, title: 'Speakers and Sound Systems', short: 'Brand options for crisp audio and powerful bass.', brands: ['JBL','Infinity'], image: '/src/assets/car-hero.jpg', description: 'Speakers and full sound systems for improved in-car audio experience.' },
+  { id: 9, title: 'Car Covers', short: 'Weatherproof protection for outdoor and indoor storage.', brands: ['Brand C'], image: '/src/assets/car-hero.jpg', description: 'Breathable, weatherproof car covers for long-term protection.' },
+  { id: 10, title: 'Towing Cables', short: 'Robust safety rated cables for emergencies.', brands: ['Brand T'], image: '/src/assets/car-hero.jpg', description: 'High-strength towing cables rated for safety and emergency use.' },
+  { id: 11, title: 'LED Door Lights and Interior Lighting', short: 'Decorative and functional illumination.', brands: ['Brand L'], image: '/src/assets/car-hero.jpg', description: 'Stylish LED lights for doors and interiors to enhance look and visibility.' },
+  { id: 12, title: 'Headrest and Backrest Cushions', short: 'Comfort and ergonomic support for long drives.', brands: ['Brand H'], image: '/src/assets/car-hero.jpg', description: 'Comfort cushions with ergonomic support for long journeys.' },
+  { id: 13, title: 'Seat Belt Pads and Armrests', short: 'Comfort accessories for driver and passengers.', brands: ['Brand S'], image: '/src/assets/car-hero.jpg', description: 'Soft pads and armrests to improve comfort and reduce irritation.' },
+  { id: 14, title: 'Dashboard Covers', short: 'Protects instrument panel from UV damage and glare.', brands: ['Brand D'], image: '/src/assets/car-hero.jpg', description: 'Custom-fit dashboard covers to reduce glare and protect from UV.' },
+  { id: 15, title: 'Dash Cameras', short: 'Front and dual channel options for security and incident recording.', brands: ['70mai','BlackVue'], image: '/src/assets/car-hero.jpg', description: 'Quality dashcams with single or dual channel recording and parking mode.' },
+  { id: 16, title: 'Tyre Inflators', short: 'Portable inflators for roadside convenience.', brands: ['Brand I'], image: '/src/assets/tyre-inflator.jpg', description: 'Portable and electric tyre inflators for emergency and maintenance use.' }
 ];
 
 const ProductPage = () => {
   const [selected, setSelected] = useState(null);
-
+  const navigate = useNavigate();
   return (
     <div className="bg-black text-white min-h-screen">
       <Nav />
@@ -62,7 +63,7 @@ const ProductPage = () => {
                   <p className="text-gray-300 mb-4">{selected.description}</p>
                   <p className="text-sm text-gray-400 mb-4"><strong>Available brands:</strong> {selected.brands.join(', ')}</p>
                   <div className="flex gap-3 items-center">
-                    <button className="bg-yellow-400 text-black px-5 py-3 rounded-full font-semibold">Enquire / Buy</button>
+                    <button onClick={() => navigate('/contact')} className="bg-yellow-400 text-black px-5 py-3 rounded-full font-semibold">Enquire / Buy</button>
                     <button onClick={() => setSelected(null)} className="text-gray-400 hover:text-white">Close</button>
                   </div>
                 </div>
