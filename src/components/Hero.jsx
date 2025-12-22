@@ -39,9 +39,9 @@ const Hero = () => {
           </div>
 
           <div className="space-y-4 sm:space-y-6 md:space-y-8 pb-8 sm:pb-12 md:pb-16 lg:pb-24">
-            <h1 className="hero-title text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight">
-              <span className="block gsap-target">Welcome to GR CAR LAB</span>
-              <span className="hero-subtitl block text-[#D4D414] gsap-target">Precision Care for Every Car</span>
+            <h1 className="hero-title  font-bold leading-tight">
+              <span className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl block gsap-target">Welcome to GR CAR LAB</span>
+              <span className="text-l xs:text-2xl sm:text-2xl md:text-3xl lg:text-4xl block text-[#D4D414] gsap-target">Precision Care for Every Car</span>
             </h1>
             <p className="hero-description text-sm sm:text-base md:text-lg lg:text-lg text-white/80 max-w-3xl leading-relaxed">
               Committed to premium detailing delivered with care and expertise. We refine every surface to restore shine, protect value, and delight our customers.
