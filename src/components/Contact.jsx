@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Phone, Mail, MapPin, Check } from "lucide-react";
+import { Phone, Mail, MapPin, Check, Calendar } from "lucide-react";
 import { gsap } from "gsap";
 import car from "../assets/car_1.png";
 import { validateFormData } from "../services/emailService";
@@ -379,7 +379,7 @@ ${formData.firstName} ${formData.lastName}`;
                     )}
                   </div>
 
-                  <div>
+                  <div className="relative">
                     <input
                       type="date"
                       name="preferredDate"
@@ -390,8 +390,9 @@ ${formData.firstName} ${formData.lastName}`;
                         errors.preferredDate
                           ? "border-red-500"
                           : "border-white/10"
-                      } rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 text-sm sm:text-base md:text-base lg:text-base text-white placeholder-white focus:border-[#D4D414] focus:outline-none transition-all`}
+                      } rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 pr-10 text-sm sm:text-base md:text-base lg:text-base text-white placeholder-white focus:border-[#D4D414] focus:outline-none transition-all`}
                     />
+                    <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/50 pointer-events-none" />
                     {errors.preferredDate && (
                       <p className="text-red-500 text-xs mt-1">
                         {errors.preferredDate}

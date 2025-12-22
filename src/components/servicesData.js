@@ -21,6 +21,7 @@ import engineBayDetailing4 from "../assets/images/engine-bay-detailing-4.jpg";
 import engineBayDetailing5 from "../assets/images/engine-bay-detailing-5.jpg";
 import scratchWaterSpotRemoval1 from "../assets/images/scratch-water-spot-removal-1.jpg";
 import scratchWaterSpotRemoval2 from "../assets/images/scratch-water-spot-removal-2.jpg";
+import scratchWaterSpotRemoval3 from "../assets/images/scratch-water-spot-removal-3.jpg";
 
 const servicesData = [
   {
@@ -433,6 +434,7 @@ const servicesData = [
     images: [
       scratchWaterSpotRemoval1,
       scratchWaterSpotRemoval2,
+      scratchWaterSpotRemoval3,
     ],
     details: ["Spot assessment", "Polish & finish", "Protective sealant"],
     benefits: ["Removes blemishes", "Restores paint finish", "Cost effective"],
