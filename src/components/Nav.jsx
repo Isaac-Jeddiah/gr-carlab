@@ -101,13 +101,13 @@ const NavBar = () => {
         setIsSearchOpen(false);
       }
       if (
-        mobileServicesRef.current &&
-        !mobileServicesRef.current.contains(event.target) &&
-        servicesRef.current &&
-        !servicesRef.current.contains(event.target)
-      ) {
-        setIsServicesOpen(false);
-      }
+  isServicesOpen &&
+  mobileServicesRef.current &&
+  !mobileServicesRef.current.contains(event.target)
+) {
+  setIsServicesOpen(false);
+}
+
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -191,7 +191,7 @@ const NavBar = () => {
   );
 
   return (
-    <div className="NavBar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 lg:-mt-10 -mt-5 pb-3 sm:pb-3 md:pb-4 flex items-center justify-between">
+    <div className="NavBar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 sm:pb-3 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div
           className="NavBar-logo hover-scale cursor-pointer"
@@ -200,7 +200,7 @@ const NavBar = () => {
           <img
             src={logo}
             alt="GR CAR LAB"
-            className="h-32 xs:h-26 sm:h-38 md:h-20  lg:h-52 w-auto object-contain"
+            className="h-16 xs:h-13 sm:h-19 md:h-10 py-0 mb-0 lg:h-26 w-auto object-contain"
           />
         </div>
       </div>
@@ -355,28 +355,42 @@ const NavBar = () => {
                   )
                 )}
                 {/* Services Section - Mobile Only */}
-                <div className="hidden max-lg:block border-t border-white/10">
-                  <button
-                    onClick={() => setIsServicesOpen(!isServicesOpen)}
-                    className="w-full px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm flex items-center justify-between"
-                  >
-                    <span>Services</span>
-                    {isServicesOpen ? (
-                      <ChevronUp className="w-3 h-3" />
-                    ) : (
-                      <ChevronDown className="w-3 h-3" />
-                    )}
-                  </button>
-                  {isServicesOpen && (
-                    <div className="bg-white/3 py-2">
-                      {services.map((service) => (
-                        <button onClick={navigate('/services')}>
-                          {service.name}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+<div className="hidden max-lg:block border-t border-white/10">
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      setIsServicesOpen((prev) => !prev);
+    }}
+    className="w-full px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm flex items-center justify-between"
+  >
+    <span>Services</span>
+    {isServicesOpen ? (
+      <ChevronUp className="w-3 h-3" />
+    ) : (
+      <ChevronDown className="w-3 h-3" />
+    )}
+  </button>
+
+  <div
+    ref={mobileServicesRef}
+    className="overflow-hidden"
+  >
+    {services.map((service) => (
+      <Link
+        key={service.id}
+        to={`/services/${service.slug}`}
+        onClick={() => {
+          setIsServicesOpen(false);
+          setIsMenuOpen(false);
+        }}
+        className="block px-4 py-2 text-xs sm:text-sm text-white/80 hover:text-white hover:bg-white/5 transition-all"
+      >
+        {service.name}
+      </Link>
+    ))}
+  </div>
+</div>
+
                 <div className="drawer-bottom px-3 sm:px-4 py-2 sm:py-3 border-t border-white/10 mt-1">
                   <button
                     onClick={() => {
