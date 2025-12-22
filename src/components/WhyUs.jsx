@@ -57,7 +57,7 @@ const WhyUs = () => {
         toggleActions: "play none none reverse",
       },
       opacity: 0,
-
+      scale: 0.8,
       duration: 0.2,
       ease: "ease3.out",
     });
@@ -69,7 +69,7 @@ const WhyUs = () => {
         toggleActions: "play none none reverse",
       },
       opacity: 1,
-      scale: 1.2,
+      scale: 1,
       duration: 1,
       ease: "ease3.in",
     });

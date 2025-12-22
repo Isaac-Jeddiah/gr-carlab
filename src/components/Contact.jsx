@@ -384,6 +384,7 @@ ${formData.firstName} ${formData.lastName}`;
                       type="date"
                       name="preferredDate"
                       value={formData.preferredDate}
+                      placeholder="Preferred Service Date"
                       onChange={handleChange}
                       className={`contact-input w-full bg-black/50 border ${
                         errors.preferredDate
