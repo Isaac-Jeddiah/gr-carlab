@@ -1,3 +1,27 @@
+import exteriorInteriorDetailing1 from "../assets/images/exterior-interior-detailing-1.jpg";
+import exteriorInteriorDetailing2 from "../assets/images/exterior-interior-detailing-2.jpg";
+import exteriorInteriorDetailing3 from "../assets/images/exterior-interior-detailing-3.jpg";
+import washingDeepCleaning1 from "../assets/images/washing-deep-cleaning-1.jpg";
+import washingDeepCleaning2 from "../assets/images/washing-deep-cleaning-2.jpg";
+import washingDeepCleaning3 from "../assets/images/washing-deep-cleaning-3.jpg";
+import ceramicCoating1 from "../assets/images/ceramic-coating-1.jpg";
+import ceramicCoating2 from "../assets/images/ceramic-coating-2.jpg";
+import ceramicCoating3 from "../assets/images/ceramic-coating-3.jpg";
+import paintProtectionFilm1 from "../assets/images/paint-protection-film-1.jpg";
+import paintProtectionFilm2 from "../assets/images/paint-protection-film-2.jpg";
+import paintProtectionFilm3 from "../assets/images/paint-protection-film-3.jpg";
+import paintCorrectionPolishing1 from "../assets/images/paint-correction-polishing-1.jpg";
+import paintCorrectionPolishing2 from "../assets/images/paint-correction-polishing-2.jpg";
+import paintCorrectionPolishing3 from "../assets/images/paint-correction-polishing-3.jpg";
+import headlightRestoration1 from "../assets/images/headlight-restoration-1.jpg";
+import headlightRestoration2 from "../assets/images/headlight-restoration-2.jpg";
+import headlightRestoration3 from "../assets/images/headlight-restoration-3.jpg";
+import engineBayDetailing3 from "../assets/images/engine-bay-detailing-3.jpg";
+import engineBayDetailing4 from "../assets/images/engine-bay-detailing-4.jpg";
+import engineBayDetailing5 from "../assets/images/engine-bay-detailing-5.jpg";
+import scratchWaterSpotRemoval1 from "../assets/images/scratch-water-spot-removal-1.jpg";
+import scratchWaterSpotRemoval2 from "../assets/images/scratch-water-spot-removal-2.jpg";
+
 const servicesData = [
   {
     slug: "exterior-interior-detailing",
@@ -7,9 +31,9 @@ const servicesData = [
       "A complete exterior and interior detailing service that deeply cleans, deodorises and restores all surfaces while removing dirt, stains and odours for a fresh, well-maintained finish.",
 
     images: [
-      "/src/assets/images/exterior-interior-detailing-1.jpg",
-      "/src/assets/images/exterior-interior-detailing-2.jpg",
-      "/src/assets/images/exterior-interior-detailing-3.jpg",
+      exteriorInteriorDetailing1,
+      exteriorInteriorDetailing2,
+      exteriorInteriorDetailing3,
     ],
     details: [
       "Deep interior shampoo & steam",
@@ -68,9 +92,9 @@ const servicesData = [
       "A multi-stage washing and deep cleaning process using foam, pressure wash and underbody cleaning to safely remove road grime and buildup without harming paint or components.",
 
     images: [
-      "/src/assets/images/washing-deep-cleaning-1.jpg",
-      "/src/assets/images/washing-deep-cleaning-2.jpg",
-      "/src/assets/images/washing-deep-cleaning-3.jpg",
+      washingDeepCleaning1,
+      washingDeepCleaning2,
+      washingDeepCleaning3,
     ],
     details: ["Multi-stage foam", "High-pressure rinse", "Underbody clean"],
     benefits: [
@@ -125,9 +149,9 @@ const servicesData = [
       "A professional ceramic coating that delivers long-lasting gloss and surface protection while helping resist dirt, UV exposure and environmental contaminants.",
 
     images: [
-      "/src/assets/images/ceramic-coating-1.jpg",
-      "/src/assets/images/ceramic-coating-2.jpg",
-      "/src/assets/images/ceramic-coating-3.jpg",
+      ceramicCoating1,
+      ceramicCoating2,
+      ceramicCoating3,
     ],
     details: [
       "Paint prep & decon",
@@ -183,9 +207,9 @@ const servicesData = [
       "High-grade paint protection film applied to vulnerable areas to help prevent stone chips, scratches and everyday wear while maintaining the original paint look.",
 
     images: [
-      "/src/assets/images/paint-protection-film-1.jpg",
-      "/src/assets/images/paint-protection-film-2.jpg",
-      "/src/assets/images/paint-protection-film-3.jpg",
+      paintProtectionFilm1,
+      paintProtectionFilm2,
+      paintProtectionFilm3,
     ],
     details: [
       "Precision cut film",
@@ -301,9 +325,9 @@ const servicesData = [
       "A headlight restoration service that removes oxidation and haze to improve clarity, light output and overall driving safety.",
 
     images: [
-      "/src/assets/images/headlight-restoration-1.jpg",
-      "/src/assets/images/headlight-restoration-2.jpg",
-      "/src/assets/images/headlight-restoration-3.jpg",
+      headlightRestoration1,
+      headlightRestoration2,
+      headlightRestoration3,
     ],
     details: ["Oxidation removal", "Polish & clarity", "Protective sealant"],
     benefits: [
@@ -354,9 +378,9 @@ const servicesData = [
       "A safe engine bay detailing service that carefully cleans and dresses visible components to improve appearance while protecting sensitive parts.",
 
     images: [
-      "/src/assets/images/engine-bay-detailing-3.jpg",
-      "/src/assets/images/engine-bay-detailing-4.jpg",
-      "/src/assets/images/engine-bay-detailing-5.jpg",
+      engineBayDetailing3,
+      engineBayDetailing4,
+      engineBayDetailing5,
     ],
     details: ["Safe degrease", "Component protection", "Trim dressing"],
     benefits: [
