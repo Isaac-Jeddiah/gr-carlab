@@ -5,6 +5,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import NavBar from "./Nav";
 import Footer from "./Footer";
 import { contactConfig, getGoogleMapsUrl } from "../config/contactConfig";
+import aboutHeroImg from "../assets/about-hero.jpg";
+import aboutMissionImg from "../assets/about-mission.jpg";
+import aboutStatsImg from "../assets/about-stats.jpg";
+import aboutShowroomImg from "../assets/about-showroom.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -205,11 +209,12 @@ export default function AboutUsPage() {
         className="relative min-h-screen flex items-center"
       >
         <div className="absolute inset-0">
-          <img
-            src="src/assets/about-hero.jpg"
-            alt="Luxury Car"
-            className="w-full h-full object-cover"
-          />
+          <div
+            className="w-full h-full bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${aboutHeroImg})`,
+            }}
+          ></div>
 
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent">
             {" "}
@@ -248,11 +253,12 @@ export default function AboutUsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="mission-image relative rounded-3xl overflow-hidden">
-              <img
-                src="src/assets/about-mission.jpg"
-                alt="Car Detailing Process"
-                className="w-full h-[400px] lg:h-[500px] object-cover"
-              />
+              <div
+                className="w-full h-[400px] lg:h-[500px] bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${aboutMissionImg})`,
+                }}
+              ></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>
 
@@ -335,11 +341,12 @@ export default function AboutUsPage() {
               ref={(el) => (statCards.current[2] = el)}
               className="relative rounded-2xl overflow-hidden sm:col-span-2 lg:col-span-1 lg:row-span-2"
             >
-              <img
-                src="src/assets/about-stats.jpg"
-                alt="Luxury Car Detail"
-                className="w-full h-full object-cover min-h-[250px] lg:min-h-[300px]"
-              />
+              <div
+                className="w-full h-full bg-cover bg-center min-h-[250px] lg:min-h-[300px]"
+                style={{
+                  backgroundImage: `url(${aboutStatsImg})`,
+                }}
+              ></div>
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
             </div>
 
@@ -460,11 +467,12 @@ export default function AboutUsPage() {
             </div>
 
             <div className="showroom-image relative rounded-3xl overflow-hidden order-1 lg:order-2 h-[400px] lg:h-[600px]">
-              <img
-                src="src/assets/about-showroom.jpg"
-                alt="Showroom"
-                className="w-full h-full object-cover"
-              />
+              <div
+                className="w-full h-full bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${aboutShowroomImg})`,
+                }}
+              ></div>
               <div className="absolute top-8 right-8 pointer-events-none">
                 <div className="w-12 h-12 bg-yellow-400 rounded-full"></div>
               </div>
