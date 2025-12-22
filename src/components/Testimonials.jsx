@@ -353,11 +353,14 @@ const Testimonials = () => {
 
                 {/* User Info */}
                 <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name}
+                  <div
                     className="w-12 h-12 rounded-full border-2 border-[#D4D414]/40"
-                  />
+                    style={{
+                      backgroundImage: `url(${testimonial.image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
+                  ></div>
                   <div>
                     <h4 className="text-white font-semibold text-sm">{testimonial.name}</h4>
                     <p className="text-[#AAADB0] text-xs">{testimonial.role}</p>

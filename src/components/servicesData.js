@@ -268,9 +268,9 @@ const servicesData = [
       "A paint correction and polishing service that removes swirl marks, light scratches and surface defects to restore clarity, smoothness and overall finish.",
 
     images: [
-      "/src/assets/images/paint-correction-polishing-1.jpg",
-      "/src/assets/images/paint-correction-polishing-2.jpg",
-      "/src/assets/images/paint-correction-polishing-3.jpg",
+      paintCorrectionPolishing1,
+      paintCorrectionPolishing2,
+      paintCorrectionPolishing3,
     ],
     details: ["Swirl removal", "Scratch correction", "Polish & finish"],
     benefits: [
@@ -431,8 +431,8 @@ const servicesData = [
       "A targeted cosmetic service that removes water spots, light scratches and visible blemishes to restore a cleaner and more even paint finish.",
 
     images: [
-      "/src/assets/images/scratch-water-spot-removal-1.jpg",
-      "/src/assets/images/scratch-water-spot-removal-2.jpg",
+      scratchWaterSpotRemoval1,
+      scratchWaterSpotRemoval2,
     ],
     details: ["Spot assessment", "Polish & finish", "Protective sealant"],
     benefits: ["Removes blemishes", "Restores paint finish", "Cost effective"],
