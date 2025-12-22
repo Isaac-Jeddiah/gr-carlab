@@ -1,6 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { Quote, Star, Heart, Award, Sparkles, Users } from 'lucide-react';
+import rajeshKumar from '../assets/testimonial-rajesh-kumar.jpg';
+import priyaSharma from '../assets/testimonial-priya-sharma.jpg';
+import arjunMehta from '../assets/testimonial-arjun-mehta.jpg';
+import snehaReddy from '../assets/testimonial-sneha-reddy.jpg';
+import vikramSingh from '../assets/testimonial-vikram-singh.jpg';
+import ananyaIyer from '../assets/testimonial-ananya-iyer.jpg';
+import karthikNair from '../assets/testimonial-karthik-nair.jpg';
+import deepikaPatel from '../assets/testimonial-deepika-patel.jpg';
+import rahulKapoor from '../assets/testimonial-rahul-kapoor.jpg';
+import meeraKrishnan from '../assets/testimonial-meera-krishnan.jpg';
+import siddharthJoshi from '../assets/testimonial-siddharth-joshi.jpg';
+import kavyaMenon from '../assets/testimonial-kavya-menon.jpg';
+import adityaGupta from '../assets/testimonial-aditya-gupta.jpg';
+import ishitaBose from '../assets/testimonial-ishita-bose.jpg';
+import rohanDesai from '../assets/testimonial-rohan-desai.jpg';
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -13,7 +28,7 @@ const Testimonials = () => {
       id: 1,
       name: "Rajesh Kumar",
       role: "BMW Owner",
-      image: "src/assets/testimonial-rajesh-kumar.jpg",
+      image: rajeshKumar,
       text: "Absolutely phenomenal service! My car looks better than showroom condition. The ceramic coating is outstanding.",
       rating: 5,
       icon: Star,
@@ -24,7 +39,7 @@ const Testimonials = () => {
       id: 2,
       name: "Priya Sharma",
       role: "Mercedes Owner",
-      image: "src/assets/testimonial-priya-sharma.jpg",
+      image: priyaSharma,
       text: "The attention to detail is remarkable. Interior detailing brought my car's leather seats back to life. Highly recommend!",
       rating: 5,
       icon: Heart,
@@ -35,7 +50,7 @@ const Testimonials = () => {
       id: 3,
       name: "Arjun Mehta",
       role: "Audi Owner",
-      image: "src/assets/testimonial-arjun-mehta.jpg",
+      image: arjunMehta,
       text: "Professional team with exceptional workmanship. The paint correction removed all swirl marks. Worth every penny!",
       rating: 5,
       icon: Award,
@@ -46,7 +61,7 @@ const Testimonials = () => {
       id: 4,
       name: "Sneha Reddy",
       role: "Porsche Owner",
-      image: "src/assets/testimonial-sneha-reddy.jpg",
+      image: snehaReddy,
       text: "The PPF installation was flawless. Protected my investment perfectly. These guys are true professionals!",
       rating: 5,
       icon: Sparkles,
@@ -57,7 +72,7 @@ const Testimonials = () => {
       id: 5,
       name: "Vikram Singh",
       role: "Range Rover Owner",
-      image: "src/assets/testimonial-vikram-singh.jpg",
+      image: vikramSingh,
       text: "Best car detailing experience ever! Engine detailing was thorough and my SUV runs smoother. 5 stars!",
       rating: 5,
       icon: Quote,
@@ -68,7 +83,7 @@ const Testimonials = () => {
       id: 6,
       name: "Ananya Iyer",
       role: "Tesla Owner",
-      image: "src/assets/testimonial-ananya-iyer.jpg",
+      image: ananyaIyer,
       text: "Eco-friendly products and amazing results! The ceramic coating makes washing so easy. Truly impressed!",
       rating: 5,
       icon: Star,
@@ -79,7 +94,7 @@ const Testimonials = () => {
       id: 7,
       name: "Karthik Nair",
       role: "Jaguar Owner",
-      image: "src/assets/testimonial-karthik-nair.jpg",
+      image: karthikNair,
       text: "Impeccable service from start to finish. Headlight restoration brought them back to crystal clear. Fantastic!",
       rating: 5,
       icon: Heart,
@@ -90,7 +105,7 @@ const Testimonials = () => {
       id: 8,
       name: "Deepika Patel",
       role: "Lexus Owner",
-      image: "src/assets/testimonial-deepika-patel.jpg",
+      image: deepikaPatel,
       text: "Outstanding craftsmanship! The leather conditioning made my seats feel brand new. Will definitely return!",
       rating: 5,
       icon: Award,
@@ -101,7 +116,7 @@ const Testimonials = () => {
       id: 9,
       name: "Rahul Kapoor",
       role: "Volvo Owner",
-      image: "src/assets/testimonial-rahul-kapoor.jpg",
+      image: rahulKapoor,
       text: "Premium service at reasonable prices. Underbody coating gives me peace of mind. Highly professional team!",
       rating: 5,
       icon: Sparkles,
@@ -112,7 +127,7 @@ const Testimonials = () => {
       id: 10,
       name: "Meera Krishnan",
       role: "Mini Cooper Owner",
-      image: "src/assets/testimonial-meera-krishnan.jpg",
+      image: meeraKrishnan,
       text: "Transformed my car completely! The exterior detailing and wheel care are exceptional. Love the results!",
       rating: 5,
       icon: Quote,
@@ -123,7 +138,7 @@ const Testimonials = () => {
       id: 11,
       name: "Siddharth Joshi",
       role: "Maserati Owner",
-      image: "src/assets/testimonial-siddharth-joshi.jpg",
+      image: siddharthJoshi,
       text: "Unparalleled attention to detail. The paint protection is top-notch. My car has never looked this good!",
       rating: 5,
       icon: Star,
@@ -134,7 +149,7 @@ const Testimonials = () => {
       id: 12,
       name: "Kavya Menon",
       role: "Bentley Owner",
-      image: "src/assets/testimonial-kavya-menon.jpg",
+      image: kavyaMenon,
       text: "Luxury service for luxury cars! Odor elimination worked wonders. My car smells and looks amazing now!",
       rating: 5,
       icon: Heart,
@@ -145,7 +160,7 @@ const Testimonials = () => {
       id: 13,
       name: "Aditya Gupta",
       role: "Ferrari Owner",
-      image: "src/assets/testimonial-aditya-gupta.jpg",
+      image: adityaGupta,
       text: "World-class detailing! The scratch removal was perfect. These experts know how to handle supercars!",
       rating: 5,
       icon: Award,
@@ -156,7 +171,7 @@ const Testimonials = () => {
       id: 14,
       name: "Ishita Bose",
       role: "Lamborghini Owner",
-      image: "src/assets/testimonial-ishita-bose.jpg",
+      image: ishitaBose,
       text: "Absolutely brilliant! GTECHNIQ ceramic coating exceeded expectations. Shine is incredible after 6 months!",
       rating: 5,
       icon: Sparkles,
@@ -167,7 +182,7 @@ const Testimonials = () => {
       id: 15,
       name: "Rohan Desai",
       role: "Rolls Royce Owner",
-      image: "src/assets/testimonial-rohan-desai.jpg",
+      image: rohanDesai,
       text: "Exquisite service worthy of the finest automobiles. Every detail perfected. Simply the best in the business!",
       rating: 5,
       icon: Quote,

@@ -2,6 +2,22 @@ import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
+import carPerfumesAndAirFresheners from "../assets/images_products/car-perfumes-and-air-fresheners.jpg";
+import matsAndAtmMats from "../assets/images_products/7d-mats-and-atm-mats.jpg";
+import bootMats from "../assets/images_products/boot-mats.jpg";
+import windshieldWipers from "../assets/images_products/windshield-wipers.jpg";
+import fogLampsAndHeadlightLamps from "../assets/images_products/fog-lamps-and-headlight-lamps.jpg";
+import rainGuardsAndDoorGuards from "../assets/images_products/rain-guards-and-door-guards.jpg";
+import androidStereosAmplifiersAndWoofers from "../assets/images_products/android-stereos-amplifiers-and-woofers.jpg";
+import speakersAndSoundSystems from "../assets/images_products/speakers-and-sound-systems.jpg";
+import carCovers from "../assets/images_products/car-covers.jpg";
+import towingCables from "../assets/images_products/towing-cables.jpg";
+import ledDoorLightsAndInteriorLighting from "../assets/images_products/led-door-lights-and-interior-lighting.jpg";
+import headrestAndBackrestCushions from "../assets/images_products/headrest-and-backrest-cushions.jpg";
+import seatBeltPadsAndArmrests from "../assets/images_products/seat-belt-pads-and-armrests.jpg";
+import dashboardCovers from "../assets/images_products/dashboard-covers.jpg";
+import dashCameras from "../assets/images_products/dash-cameras.jpg";
+import tyreInflators from "../assets/images_products/tyre-inflators.jpg";
 
 const products = [
   {
@@ -9,7 +25,7 @@ const products = [
     title: "Car Perfumes and Air Fresheners",
     short: "Long lasting scents and refillable options.",
     brands: ["All brands"],
-    image: "/src/assets/images_products/car-perfumes-and-air-fresheners.jpg",
+    image: carPerfumesAndAirFresheners,
     description:
       "Long lasting scents, refillable bottles, available in multiple fragrances.",
     category: "Interior",
@@ -19,7 +35,7 @@ const products = [
     title: "7D Mats and ATM Mats",
     short: "Full coverage floor protection with premium finishes.",
     brands: ["All brands"],
-    image: "/src/assets/images_products/7d-mats-and-atm-mats.jpg",
+    image: matsAndAtmMats,
     description:
       "Premium 7D and ATM mats tailored to vehicle models for full coverage protection.",
     category: "Interior",
@@ -29,7 +45,7 @@ const products = [
     title: "Boot Mats",
     short: "Tailored protection for the luggage area.",
     brands: ["Brand X"],
-    image: "/src/assets/images_products/boot-mats.jpg",
+    image: bootMats,
     description:
       "Custom-fit boot mats to protect the luggage area from spills and wear.",
     category: "Interior",
@@ -39,7 +55,7 @@ const products = [
     title: "Windshield Wipers",
     short: "High performance blades for clear vision in all conditions.",
     brands: ["Bosch", "Valeo"],
-    image: "/src/assets/images_products/windshield-wipers.jpg",
+    image: windshieldWipers,
     description:
       "Durable wiper blades offering clear vision during rain and harsh weather.",
     category: "Exterior",
@@ -49,7 +65,7 @@ const products = [
     title: "Fog Lamps and Headlight Lamps",
     short: "Improved visibility and stylish upgrades.",
     brands: ["Philips", "OSRAM"],
-    image: "/src/assets/images_products/fog-lamps-and-headlight-lamps.jpg",
+    image: fogLampsAndHeadlightLamps,
     description:
       "Wide selection of fog and headlight lamps for enhanced visibility and style.",
     category: "Lighting",
@@ -59,7 +75,7 @@ const products = [
     title: "Rain Guards and Door Guards",
     short: "Weather protection and door edge safety.",
     brands: ["Brand R"],
-    image: "/src/assets/images_products/rain-guards-and-door-guards.jpg",
+    image: rainGuardsAndDoorGuards,
     description:
       "Durable rain guards and door edge protectors to defend against weather and chips.",
     category: "Safety",
@@ -69,8 +85,7 @@ const products = [
     title: "Android Stereos, Amplifiers and Woofers",
     short: "Multimedia upgrades with Bluetooth and navigation.",
     brands: ["Pioneer", "Sony"],
-    image:
-      "/src/assets/images_products/android-stereos-amplifiers-and-woofers.jpg",
+    image: androidStereosAmplifiersAndWoofers,
     description:
       "High-end multimedia units with navigation, Bluetooth and performance audio components.",
     category: "Electronics",
@@ -80,7 +95,7 @@ const products = [
     title: "Speakers and Sound Systems",
     short: "Brand options for crisp audio and powerful bass.",
     brands: ["JBL", "Infinity"],
-    image: "/src/assets/images_products/speakers-and-sound-systems.jpg",
+    image: speakersAndSoundSystems,
     description:
       "Speakers and full sound systems for improved in-car audio experience.",
     category: "Electronics",
@@ -90,7 +105,7 @@ const products = [
     title: "Car Covers",
     short: "Weatherproof protection for outdoor and indoor storage.",
     brands: ["Brand C"],
-    image: "/src/assets/images_products/car-covers.jpg",
+    image: carCovers,
     description:
       "Breathable, weatherproof car covers for long-term protection.",
     category: "Protection",
@@ -100,7 +115,7 @@ const products = [
     title: "Towing Cables",
     short: "Robust safety rated cables for emergencies.",
     brands: ["Brand T"],
-    image: "/src/assets/images_products/towing-cables.jpg",
+    image: towingCables,
     description:
       "High-strength towing cables rated for safety and emergency use.",
     category: "Safety",
@@ -110,8 +125,7 @@ const products = [
     title: "LED Door Lights and Interior Lighting",
     short: "Decorative and functional illumination.",
     brands: ["Brand L"],
-    image:
-      "/src/assets/images_products/led-door-lights-and-interior-lighting.jpg",
+    image: ledDoorLightsAndInteriorLighting,
     description:
       "Stylish LED lights for doors and interiors to enhance look and visibility.",
     category: "Interior",
@@ -121,7 +135,7 @@ const products = [
     title: "Headrest and Backrest Cushions",
     short: "Comfort and ergonomic support for long drives.",
     brands: ["Brand H"],
-    image: "/src/assets/images_products/headrest-and-backrest-cushions.jpg",
+    image: headrestAndBackrestCushions,
     description: "Comfort cushions with ergonomic support for long journeys.",
     category: "Comfort",
   },
@@ -130,7 +144,7 @@ const products = [
     title: "Seat Belt Pads and Armrests",
     short: "Comfort accessories for driver and passengers.",
     brands: ["Brand S"],
-    image: "/src/assets/images_products/seat-belt-pads-and-armrests.jpg",
+    image: seatBeltPadsAndArmrests,
     description:
       "Soft pads and armrests to improve comfort and reduce irritation.",
     category: "Comfort",
@@ -140,7 +154,7 @@ const products = [
     title: "Dashboard Covers",
     short: "Protects instrument panel from UV damage and glare.",
     brands: ["Brand D"],
-    image: "/src/assets/images_products/dashboard-covers.jpg",
+    image: dashboardCovers,
     description:
       "Custom-fit dashboard covers to reduce glare and protect from UV.",
     category: "Interior",
@@ -151,7 +165,7 @@ const products = [
     short:
       "Front and dual channel options for security and incident recording.",
     brands: ["70mai", "BlackVue"],
-    image: "/src/assets/images_products/dash-cameras.jpg",
+    image: dashCameras,
     description:
       "Quality dashcams with single or dual channel recording and parking mode.",
     category: "Electronics",
@@ -161,7 +175,7 @@ const products = [
     title: "Tyre Inflators",
     short: "Portable inflators for roadside convenience.",
     brands: ["Brand I"],
-    image: "/src/assets/images_products/tyre-inflators.jpg",
+    image: tyreInflators,
     description:
       "Portable and electric tyre inflators for emergency and maintenance use.",
     category: "Tools",
@@ -201,13 +215,14 @@ const ProductPage = () => {
               className="bg-zinc-900 rounded-2xl p-4 hover:shadow-lg transition-shadow cursor-pointer group"
               onClick={() => setSelected(p)}
             >
-              <div className="h-40 overflow-hidden rounded-lg mb-4 bg-black">
-                <img
-                  src={p.image}
-                  alt={p.title}
-                  className="w-full h-full object-cover transform transition-transform duration-300 ease-out group-hover:scale-105"
-                />
-              </div>
+              <div
+                className="h-40 overflow-hidden rounded-lg mb-4 bg-black transform transition-transform duration-300 ease-out group-hover:scale-105"
+                style={{
+                  backgroundImage: `url(${p.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              ></div>
               <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
               <p className="text-gray-400 text-sm mb-2">{p.short}</p>
               <div className="text-sm text-gray-300">
@@ -233,13 +248,14 @@ const ProductPage = () => {
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="h-64 bg-black rounded-lg overflow-hidden">
-                  <img
-                    src={selected.image}
-                    alt={selected.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <div
+                  className="h-64 bg-black rounded-lg overflow-hidden"
+                  style={{
+                    backgroundImage: `url(${selected.image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                ></div>
                 <div>
                   <p className="text-gray-300 mb-4">{selected.description}</p>
                   <p className="text-sm text-gray-400 mb-4">
