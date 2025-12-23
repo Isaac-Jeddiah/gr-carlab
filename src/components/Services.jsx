@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +11,11 @@ import {
   MessageSquare,
   Wrench,
   CheckCircle,
+  Sparkles, 
+  Droplets, 
+  Shield, 
+  Camera, 
+  ThumbsUp 
 } from "lucide-react";
 import { setupGSAP } from "../utils/gsapSetup";
 import AnimatedOnScroll from "./AnimatedOnScroll";
@@ -62,7 +67,159 @@ const Services = () => {
       icon: CheckCircle,
     },
   ];
+  const StackedWorkflowCards = () => {
+  const containerRef = useRef(null);
+  const cardsRef = useRef([]);
+  const [activeCard, setActiveCard] = useState(0);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const containerRect = container.getBoundingClientRect();
+      const containerTop = containerRect.top;
+      const containerHeight = containerRect.height;
+      const windowHeight = window.innerHeight;
+
+      // Calculate scroll progress within the container
+      const scrollStart = windowHeight * 0.3;
+      const scrollEnd = windowHeight * 0.7;
+      
+      if (containerTop > scrollStart) {
+        setActiveCard(0);
+        return;
+      }
+
+      if (containerTop < -containerHeight + scrollEnd) {
+        setActiveCard(workflowSteps.length - 1);
+        return;
+      }
+
+      // Calculate which card should be active based on scroll position
+      const progress = Math.abs(containerTop - scrollStart) / (containerHeight - windowHeight);
+      const cardIndex = Math.min(
+        Math.floor(progress * workflowSteps.length),
+        workflowSteps.length - 1
+      );
+      
+      setActiveCard(Math.max(0, cardIndex));
+
+      // Apply transforms to each card
+      cardsRef.current.forEach((card, index) => {
+        if (!card) return;
+
+        const isActive = index === cardIndex;
+        const isPast = index < cardIndex;
+        const isFuture = index > cardIndex;
+
+        if (isPast) {
+          // Cards that have been scrolled past - stack at top
+          const stackOffset = (cardIndex - index) * 20;
+          card.style.transform = `translateY(-${stackOffset}px) scale(${0.95 - (cardIndex - index) * 0.05})`;
+          card.style.opacity = '0.6';
+          card.style.zIndex = index.toString();
+        } else if (isActive) {
+          // Current active card
+          card.style.transform = 'translateY(0) scale(1)';
+          card.style.opacity = '1';
+          card.style.zIndex = workflowSteps.length.toString();
+        } else if (isFuture) {
+          // Future cards - hidden below
+          const offset = (index - cardIndex) * 100;
+          card.style.transform = `translateY(${offset}px) scale(0.95)`;
+          card.style.opacity = '0';
+          card.style.zIndex = (workflowSteps.length - index).toString();
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="bg-black text-white py-16 sm:py-20 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* Section Header */}
+        <div className="border-t border-white/10 pt-16 sm:pt-20 md:pt-24 mb-16">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4">
+            How We Work on Your Car
+          </h3>
+          <p className="text-center text-gray-400 text-base sm:text-lg mb-14 max-w-2xl mx-auto">
+            A clear six-step process designed to ensure transparency, quality
+            and consistent results.
+          </p>
+        </div>
+
+        {/* Stacked Cards Container */}
+        <div
+          ref={containerRef}
+          className="relative"
+          style={{ minHeight: `${workflowSteps.length * 60}vh` }}
+        >
+          <div className="sticky top-20 md:top-32 h-[70vh] md:h-[60vh] flex items-center justify-center">
+            <div className="relative w-full max-w-4xl mx-auto">
+              {workflowSteps.map(({ step, title, description, icon: Icon }, index) => (
+                <div
+                  key={step}
+                  ref={(el) => (cardsRef.current[index] = el)}
+                  className="absolute inset-0 w-full"
+                  style={{
+                    transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+                    transform: index === 0 ? 'translateY(0) scale(1)' : 'translateY(100px) scale(0.95)',
+                    opacity: index === 0 ? '1' : '0',
+                  }}
+                >
+                  <div className="bg-gradient-to-br from-[#1A1A1A] to-[#0D0D0D] p-8 sm:p-12 md:p-16 rounded-2xl border border-white/10 hover:border-[#D4D414]/50 transition-all shadow-2xl">
+                    {/* Step Number */}
+                    <div className="inline-block px-4 py-2 rounded-full bg-[#D4D414]/20 text-[#D4D414] text-sm font-bold mb-6">
+                      Step {step}
+                    </div>
+
+                    {/* Icon and Title */}
+                    <div className="flex items-start gap-6 mb-6">
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#D4D414]/20 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-8 h-8 sm:w-10 sm:h-10 text-[#D4D414]" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+                          {title}
+                        </h4>
+                        <p className="text-gray-400 text-base sm:text-lg md:text-xl leading-relaxed">
+                          {description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Progress Indicator */}
+                    <div className="mt-8 flex items-center gap-2">
+                      {workflowSteps.map((_, idx) => (
+                        <div
+                          key={idx}
+                          className={`h-1 rounded-full flex-1 transition-all duration-500 ${
+                            idx <= index ? 'bg-[#D4D414]' : 'bg-white/20'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="text-center mt-16 text-gray-500 text-sm">
+          Scroll to see each step
+        </div>
+      </div>
+    </div>
+  );
+};
   useEffect(() => {
     setupGSAP();
     // Animate section title on scroll
@@ -250,36 +407,7 @@ const Services = () => {
         </div>
 
         {/* How We Work Section */}
-        <div className="pt-16 sm:pt-20 md:pt-24 border-t border-white/10">
-          <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4">
-            How We Work on Your Car
-          </h3>
-
-          <p className="text-center text-gray-400 text-base sm:text-lg mb-14 max-w-2xl mx-auto">
-            A clear six-step process designed to ensure transparency, quality
-            and consistent results.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {workflowSteps.map(({ step, title, description, icon: Icon }) => (
-              <div
-                key={step}
-                className="bg-[#1A1A1A] p-6 sm:p-8 rounded-xl border border-white/5 hover:border-[#D4D414]/50 transition-all"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-[#D4D414]/20 flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-[#D4D414]" />
-                  </div>
-                  <h4 className="text-xl sm:text-2xl font-bold">{title}</h4>
-                </div>
-
-                <p className="text-gray-400 text-sm sm:text-base leading-relaxed">
-                  {description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <StackedWorkflowCards />
         </AnimatedOnScroll>
       </div>
     </section>

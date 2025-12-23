@@ -180,17 +180,6 @@ const Testimonials = () => {
       color: "from-orange-500/20 to-amber-500/20",
       borderColor: "border-orange-500/30"
     },
-    {
-      id: 15,
-      name: "Rohan Desai",
-      role: "Rolls Royce Owner",
-      image: rohanDesai,
-      text: "Exquisite service worthy of the finest automobiles. Every detail perfected. Simply the best in the business!",
-      rating: 5,
-      icon: Quote,
-      color: "from-emerald-500/20 to-teal-500/20",
-      borderColor: "border-emerald-500/30"
-    }
   ];
 
   // Detect mobile

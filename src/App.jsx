@@ -1,3 +1,4 @@
+// App.jsx - UPDATED VERSION
 import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Footer from "./components/Footer.jsx";
@@ -14,47 +15,79 @@ import servicesData from "./components/servicesData.js";
 import AboutUsPage from "./components/AboutPage.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from "./components/Nav.jsx";
+import { setupGSAP } from "./utils/gsapSetup";
+
+// Import the scroll animation components
+import {
+  ClipPathReveal,
+  ScaleReveal,
+  ParallaxFade,
+  SlideFromLeft,
+  SlideFromRight,
+  FadeSlideUp,
+  BlurReveal,
+  RotateIn,
+} from "./components/ScrollAnimations.jsx";
 
 import "./App.css";
 import ContactUsPage from "./components/ContactPage.jsx";
-import NavBar from "./components/Nav.jsx";
-import AnimatedOnScroll from "./components/AnimatedOnScroll.jsx";
-import { setupGSAP } from "./utils/gsapSetup";
-const Home = ({ setIsDrawerOpen }) => {
-  //const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+const Home = () => {
   return (
-    <AnimatedOnScroll options={{ duration: 0.8 }}>
-      <div className="bg-black text-white overflow-x-hidden">
-        {/* Hero Section with Integrated NavBar */}
-        <Hero />
-        {/* Services Section */}
+    <div className="bg-black text-white overflow-x-hidden">
+      {/* Hero - No animation wrapper (loads immediately) */}
+      <Hero />
+
+      {/* Services - Clip Path Reveal (Curtain effect) */}
+      <SlideFromRight>
         <Services />
-        {/* About Section */}
+      </SlideFromRight>
+
+      {/* About - Scale Reveal (Zoom in) */}
+      <ScaleReveal>
         <About />
-        {/* Why Choose Us Section */}
+      </ScaleReveal>
+
+      {/* Why Choose Us - Slide From Left */}
+      <SlideFromLeft>
         <WhyUs />
-        {/* Products Section */}
+      </SlideFromLeft>
+
+      {/* Products - Parallax Fade with 3D depth */}
+      <ParallaxFade>
         <Products />
-        {/* Testimonials Section */}
+      </ParallaxFade>
+
+      {/* Testimonials - Slide From Right */}
+      <SlideFromRight>
         <Testimonials />
-        {/* Contact Section */}
+      </SlideFromRight>
+
+      {/* Contact - Blur Reveal (Modern glassmorphism) */}
+      <BlurReveal>
         <Contact />
-        {/* Footer */}
+      </BlurReveal>
+
+      {/* Footer - Simple Fade Slide Up */}
+      <FadeSlideUp>
         <Footer />
-      </div>
-    </AnimatedOnScroll>
+      </FadeSlideUp>
+    </div>
   );
 };
 
 const App = () => {
-  React.useEffect(() => { setupGSAP(); }, []);
+  React.useEffect(() => {
+    setupGSAP();
+  }, []);
 
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route
           path="/services"
           element={
@@ -62,7 +95,9 @@ const App = () => {
               <div className="bg-black">
                 <NavBar />
               </div>
-              <Services />
+              <ScaleReveal>
+                <Services />
+              </ScaleReveal>
               <Footer />
             </>
           }
@@ -70,18 +105,16 @@ const App = () => {
         <Route
           path="/services/:slug"
           element={
-            <>
+            <FadeSlideUp>
               <ServicesPage data={servicesData} />
-            </>
+            </FadeSlideUp>
           }
         />
         <Route path="/contact" element={<ContactUsPage />} />
-        <Route path="/products" element={<ProductPage />} />
         <Route path="/about" element={<AboutUsPage />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/products" element={<ProductPage />} />
       </Routes>
     </BrowserRouter>
   );
 };
-
 export default App;

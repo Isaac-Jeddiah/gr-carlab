@@ -1,219 +1,259 @@
-// Hero.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronRight } from "lucide-react";
-import gsap from "gsap";
-
-import heroBg from "../assets/car-background.jpg";   // background only
-import heroCar from "../assets/car-hero1.png"; // cut-out car (right side)
-import NavBar from "../components/Nav";
-import AnimatedOnScroll from "./AnimatedOnScroll";
-
+import heroBg from "../assets/car-background.jpg";
+import heroCar from "../assets/car-hero1.png";
+import NavBar from "./Nav";
 
 const Hero = () => {
   const heroRef = useRef(null);
+  const bgRef = useRef(null);
+  const carRef = useRef(null);
+  const requestRef = useRef(null);
+  const mousePos = useRef({ x: 0.5, y: 0.5 });
+  const currentPos = useRef({ x: 0.5, y: 0.5 });
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Smooth interpolation for parallax
+  const lerp = (start, end, factor) => start + (end - start) * factor;
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    // Initial load animation
+    const timer = setTimeout(() => setIsLoaded(true), 100);
 
-      // bg reveal
-      tl.fromTo(
-        ".hero-bg",
-        { scale: 1.05, filter: "blur(8px) brightness(0.5)" },
-        { scale: 1, filter: "blur(0px) brightness(1)", duration: 1 }
-      );
+    // Animate text elements on load
+    const chars = document.querySelectorAll('.text-char');
+    const words = document.querySelectorAll('.text-word');
+    
+    chars.forEach((char, i) => {
+      setTimeout(() => {
+        char.style.opacity = '1';
+        char.style.transform = 'translateY(0) rotateX(0)';
+      }, 800 + i * 30);
+    });
 
-      // label chars
-      tl.from(".hero-label .char", {
-        y: 20,
-        opacity: 0,
-        stagger: 0.03,
-        duration: 0.6
-      }, "-=0.6");
+    words.forEach((word, i) => {
+      setTimeout(() => {
+        word.style.opacity = '1';
+        word.style.transform = 'translateY(0)';
+      }, 600 + i * 80);
+    });
 
-      // typewriter main title
-      const fullTitle = "Welcome to GR CAR LAB";
-      const titleElement = document.querySelector(".hero-main-title");
-      if (titleElement) {
-        titleElement.textContent = "";
-        tl.add(() => {
-          let index = 0;
-          const interval = setInterval(() => {
-            titleElement.textContent = fullTitle.slice(0, index + 1);
-            index++;
-            if (index === fullTitle.length) clearInterval(interval);
-          }, 60);
-        }, "-=0.3");
-      }
+    return () => clearTimeout(timer);
+  }, []);
 
-      // subtitle
-      tl.from(".hero-sub-title", {
-        y: 30,
-        opacity: 0,
-        duration: 0.6
-      }, "-=0.1");
-
-      // description
-      tl.from(".hero-description", {
-        y: 30,
-        opacity: 0,
-        duration: 0.6
-      }, "-=0.3");
-
-      // CTA
-      tl.from(".hero-cta-container", {
-        y: 40,
-        opacity: 0,
-        duration: 0.7
-      }, "-=0.2");
-    }, heroRef);
-
-    // PARALLAX
-    const handleParallax = (event) => {
+  useEffect(() => {
+    const handleMove = (event) => {
       const section = heroRef.current;
       if (!section) return;
 
       const rect = section.getBoundingClientRect();
-      const clientX =
-        "touches" in event ? event.touches[0].clientX : event.clientX;
-      const clientY =
-        "touches" in event ? event.touches[0].clientY : event.clientY;
+      const clientX = 'touches' in event ? event.touches[0].clientX : event.clientX;
+      const clientY = 'touches' in event ? event.touches[0].clientY : event.clientY;
 
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
+      mousePos.current.x = (clientX - rect.left) / rect.width;
+      mousePos.current.y = (clientY - rect.top) / rect.height;
+    };
 
-      const xPercent = (x / rect.width - 0.5) * 2; // -1..1
-      const yPercent = (y / rect.height - 0.5) * 2;
+    // Smooth animation loop
+    const animate = () => {
+      currentPos.current.x = lerp(currentPos.current.x, mousePos.current.x, 0.05);
+      currentPos.current.y = lerp(currentPos.current.y, mousePos.current.y, 0.05);
 
-      // check viewport width to clamp motion
-      const isMobile = window.innerWidth < 640;
-      const bgX = isMobile ? -6 : -10;
-      const bgY = isMobile ? -4 : -6;
-      const carX = isMobile ? 10 : 22;
-      const carY = isMobile ? 8 : 14;
-      const textX = isMobile ? -3 : -6;
-      const textY = isMobile ? -2 : -4;
+      const xOffset = (currentPos.current.x - 0.5) * 2;
+      const yOffset = (currentPos.current.y - 0.5) * 2;
 
-      gsap.to(".hero-bg", {
-        x: xPercent * bgX,
-        y: yPercent * bgY,
-        duration: 0.4,
-        ease: "power2.out"
-      });
+      const isMobile = window.innerWidth < 768;
+      const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
 
-      gsap.to(".hero-car", {
-        x: xPercent * carX,
-        y: yPercent * carY,
-        duration: 0.4,
-        ease: "power2.out"
-      });
+      // Background - subtle depth
+      
 
-      gsap.to(".hero-text-block", {
-        x: xPercent * textX,
-        y: yPercent * textY,
-        duration: 0.4,
-        ease: "power2.out"
-      });
+      // Car - strong 3D effect from left
+      if (carRef.current) {
+        const carMoveX = isMobile ? 40 : isTablet ? 60 : 80;
+        const carMoveY = isMobile ? 20 : isTablet ? 30 : 40;
+        const rotateY = xOffset * (isMobile ? 8 : 15);
+        const rotateX = -yOffset * (isMobile ? 4 : 8);
+        const translateZ = Math.abs(xOffset) * (isMobile ? 20 : 40);
+        
+        carRef.current.style.transform = `
+          translate3d(${xOffset * carMoveX}px, ${yOffset * carMoveY}px, ${translateZ}px)
+          rotateY(${rotateY}deg)
+          rotateX(${rotateX}deg)
+          scale(${1 + Math.abs(xOffset) * 0.05})
+        `;
+      }
+
+      
+
+      requestRef.current = requestAnimationFrame(animate);
     };
 
     const section = heroRef.current;
     if (section) {
-      section.addEventListener("mousemove", handleParallax);
-      section.addEventListener("touchmove", handleParallax, { passive: true });
+      section.addEventListener('mousemove', handleMove);
+      section.addEventListener('touchmove', handleMove, { passive: true });
+      requestRef.current = requestAnimationFrame(animate);
     }
 
     return () => {
-      ctx.revert();
       if (section) {
-        section.removeEventListener("mousemove", handleParallax);
-        section.removeEventListener("touchmove", handleParallax);
+        section.removeEventListener('mousemove', handleMove);
+        section.removeEventListener('touchmove', handleMove);
+      }
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
       }
     };
   }, []);
 
+  const splitText = (text) => {
+    return text.split('').map((char, i) => (
+      <span
+        key={i}
+        className="text-char inline-block"
+        style={{
+          opacity: 0,
+          transform: 'translateY(100px) rotateX(-90deg)',
+          transition: 'all 0.6s cubic-bezier(0.22, 1, 0.36, 1)',
+          transformOrigin: 'top center',
+        }}
+      >
+        {char === ' ' ? '\u00A0' : char}
+      </span>
+    ));
+  };
+
+  const splitWords = (text) => {
+    return text.split(' ').map((word, i) => (
+      <span
+        key={i}
+        className="text-word inline-block mr-2 md:mr-3"
+        style={{
+          opacity: 0,
+          transform: 'translateY(60px)',
+          transition: 'all 0.8s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+      >
+        {word}
+      </span>
+    ));
+  };
+
   return (
-    <section id="home" ref={heroRef} className="hero-section relative w-full min-h-screen">
-      <div className="hero-content relative rounded-lg sm:rounded-2xl lg:rounded-3xl overflow-hidden mx-4 xs:mx-2 sm:mx-8 md:mx-6 lg:mx-16 my-3 sm:my-3 md:my-4 lg:my-6 min-h-[90vh] sm:min-h-[95vh] md:min-h-[100vh] lg:min-h-[115vh]">
-        <AnimatedOnScroll options={{ from: { y: 40, opacity: 0 }, duration: 1 }}>
-          {/* BG */}
-          <div
-            className="hero-bg absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroBg})` }}
+    // Hero section
+    <div className="relative rounded-4xl mt-10 bg-black mb-10 ml-8 mr-8  h-screen overflow-hidden">
+    <section
+      ref={heroRef}
+      className="relative w-full h-screen overflow-hidden bg-black"
+      style={{ perspective: '100000px' }}
+    >
+      {/* Full Background with 3D depth */}
+      <div
+        ref={bgRef}
+        className="absolute inset-0 w-full h-full transition-transform will-change-transform"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          scale: 1.1,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+      </div>
+
+      {/* Car from left with 3D transform */}
+      <div
+        ref={carRef}
+        className="absolute left-[-20%] lg:left-[-20%] sm:left-[-80%] md:left-[-30%] bottom-0 w-full h-full pointer-events-none transition-transform will-change-transform"
+        style={{
+          transformStyle: 'preserve-3d',
+          transform: 'translate3d(0, 0, 0)',
+        }}
+      >
+        <img
+          src={heroCar}
+          alt="Hero car"
+          className="absolute bottom-0 left-0 h-[70%] md:h-[80%] lg:h-[90%] w-auto max-w-none object-contain"
+          style={{
+            filter: 'drop-shadow(20px 20px 40px rgba(0,0,0,0.5))',
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? 'translateX(0)' : 'translateX(-50%)',
+            transition: 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+        />
+      </div>
+
+      {/* Navigation */}
+      <NavBar/>
+
+      {/* Content */}
+      <div
+        
+        className="relative z-40 h-full w-full flex flex-col justify-between px-4 sm:px-6 md:px-8 lg:px-12 py-20 md:py-24 lg:py-32 transition-transform will-change-transform"
+      >
+        {/* Top Label */}
+        <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
+          <div className="flex items-center gap-3 text-[#D4D414] text-xs sm:text-sm tracking-wider uppercase">
+            <span className="w-8 md:w-12 h-px bg-[#D4D414]" />
+            <span></span>
+          </div>
+          <div className="text-right text-xs sm:text-sm text-white/70 max-w-xs hidden lg:block">
+            Expert car care with cutting-edge technology
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="w-full">
+          <h1 className="font-bold leading-tight">
+            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white">
+              {splitText('Welcome to GR CAR LAB')}
+            </span>
+            <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#D4D414] mt-2 md:mt-4">
+              {splitWords('Precision Care for Every Car')}
+            </span>
+          </h1>
+          <p
+            className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl leading-relaxed"
+            style={{
+              opacity: isLoaded ? 1 : 0,
+              transform: isLoaded ? 'translateY(0)' : 'translateY(40px)',
+              transition: 'all 1s cubic-bezier(0.22, 1, 0.36, 1) 1.2s',
+            }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-black/60 to-black/40" />
-          </div>
+            Committed to premium detailing delivered with care and expertise. We refine every surface to restore shine, protect value, and delight our customers.
+          </p>
+        </div>
 
-          {/* CAR – keep inside container, same width as bg */}
-          <img
-            src={heroCar}
-            alt="Hero car"
-            className="
-              hero-car pointer-events-none
-              absolute bottom-0 right-0
-              w-full sm:w-[105%] md:w-[100%] max-w-none
-            "
-          />
-
-          {/* NavBar */}
-          <NavBar />
-
-          {/* Content (unchanged layout) */}
-          <div className="hero-text-block relative z-10 px-2 xs:px-3 sm:px-6 md:px-10 lg:px-12 flex flex-col justify-between py-4 sm:py-6 md:py-8 min-h-[calc(90vh-60px)] sm:min-h-[calc(95vh-60px)] md:min-h-[calc(100vh-70px)] lg:min-h-[calc(115vh-80px)]">
-            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-0 pt-4 sm:pt-6 md:pt-8">
-              <div className="hero-label text-xs sm:text-sm md:text-sm lg:text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-2 sm:gap-3 hover-scale">
-                <span className="hero-label-line w-40 sm:w-8 md:w-10 h-px bg-[#D4D414]" />
-                <span className="gsap-target text-xs sm:text-sm">
-                  {"PREMIUM DETAILING             ".split("").map((char, i) => (
-                    <span key={i} className="char">
-                      {char === " " ? "\u00A0" : char}
-                    </span>
-                  ))}
-                </span>
-              </div>
-              <div className="hero-side-text text-right text-xs sm:text-sm md:text-sm text-white/70 max-w-xs hidden lg:block">
-                Expert car care with cutting-edge technology and eco-friendly
-                solutions
-              </div>
-            </div>
-
-            <div className="space-y-4 sm:space-y-6 md:space-y-8 pb-8 sm:pb-12 md:pb-16 lg:pb-24">
-              <h1 className="hero-title font-bold leading-tight">
-                <span className="hero-main-title text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl block gsap-target">
-                  Welcome to GR CAR LAB
-                </span>
-                <span className="hero-sub-title text-l xs:text-2xl sm:text-2xl md:text-3xl lg:text-4xl block text-[#D4D414] gsap-target">
-                  Precision Care for Every Car
-                </span>
-              </h1>
-              <p className="hero-description text-sm sm:text-base md:text-lg lg:text-lg text-white/80 max-w-3xl leading-relaxed">
-                Committed to premium detailing delivered with care and expertise. We refine every surface to restore shine, protect value, and delight our customers.
-              </p>
-            </div>
-
-            <div className="hero-cta-container w-full grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-white/20">
-              <a
-                href="#services"
-                className="hero-cta-button text-white group flex flex-row items-center justify-between px-6 py-4 sm:py-5 md:py-6 border-r-0 md:border-r border-b sm:border-b-0 md:border-b-0 border-white/20 hover:bg-white/5 transition-all"
-              >
-                <span className="flex-1 text-lg sm:text-base md:text-lg lg:text-xl text-white font-large gsap-target text-left whitespace-nowrap">
-                  See Our Services
-                </span>
-                <ChevronRight className="w-5 sm:w-6 md:w-7 h-5 sm:h-6 md:h-7 arrow-hover group-hover:translate-x-2 transition-transform" />
-              </a>
-              <a
-                href="/contact"
-                className="hero-cta-button group flex flex-row items-center justify-between px-6 py-4 sm:py-5 md:py-6 hover:bg-white/5 transition-all"
-              >
-                <span className="flex-1 text-lg sm:text-base md:text-lg lg:text-xl text-white font-large gsap-target text-left whitespace-nowrap">
-                  Get in Touch
-                </span>
-                <ChevronRight className="w-5 sm:w-6 md:w-7 h-5 sm:h-6 md:h-7 arrow-hover group-hover:translate-x-2 transition-transform" />
-              </a>
-            </div>
-          </div>
-        </AnimatedOnScroll>
+        {/* CTA Buttons */}
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 gap-0 border-t border-white/20 w-full"
+          style={{
+            opacity: isLoaded ? 1 : 0,
+            transform: isLoaded ? 'translateY(0)' : 'translateY(40px)',
+            transition: 'all 1s cubic-bezier(0.22, 1, 0.36, 1) 1.4s',
+          }}
+        >
+          <a
+            href="#services"
+            className="group flex items-center justify-between px-6 py-5 md:py-6 border-b sm:border-b-0 sm:border-r border-white/20 hover:bg-white/5 transition-all"
+          >
+            <span className="text-base md:text-lg lg:text-xl text-white">See Our Services</span>
+            <ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-2 transition-transform" />
+          </a>
+          <a
+            href="#contact"
+            className="group flex items-center justify-between px-6 py-5 md:py-6 hover:bg-white/5 transition-all"
+          >
+            <span className="text-base md:text-lg lg:text-xl text-white">Get in Touch</span>
+            <ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-2 transition-transform" />
+          </a>
+        </div>
       </div>
     </section>
+    </div>
   );
 };
 

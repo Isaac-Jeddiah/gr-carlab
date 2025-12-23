@@ -428,7 +428,7 @@ ${formData.firstName} ${formData.lastName}`;
                         value={formData.preferredDate}
                         onChange={handleChange}
                         placeholder="Preferred Service Date"
-                        className={`w-full px-6 py-4 bg-gray-900 border ${
+                        className={`w-full appearance-none px-6 py-4 bg-gray-900 border ${
                           errors.preferredDate
                             ? "border-red-500"
                             : "border-gray-800"
