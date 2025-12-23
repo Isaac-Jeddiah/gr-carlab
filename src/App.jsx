@@ -39,10 +39,10 @@ const Home = () => {
       {/* Hero - No animation wrapper (loads immediately) */}
       <Hero />
 
-      {/* Services - Clip Path Reveal (Curtain effect) */}
-      <SlideFromRight>
+      {/* Services - Slide From Right */}
+      
         <Services />
-      </SlideFromRight>
+    
 
       {/* About - Scale Reveal (Zoom in) */}
       <ScaleReveal>
@@ -55,9 +55,9 @@ const Home = () => {
       </SlideFromLeft>
 
       {/* Products - Parallax Fade with 3D depth */}
-      <ParallaxFade>
+      
         <Products />
-      </ParallaxFade>
+    
 
       {/* Testimonials - Slide From Right */}
       <SlideFromRight>
