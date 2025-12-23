@@ -12,8 +12,8 @@ import {
   Wrench,
   CheckCircle,
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { setupGSAP } from "../utils/gsapSetup";
+import AnimatedOnScroll from "./AnimatedOnScroll";
 
 const Services = () => {
   const servicesRef = useRef(null);
@@ -64,6 +64,7 @@ const Services = () => {
   ];
 
   useEffect(() => {
+    setupGSAP();
     // Animate section title on scroll
     gsap.from(".services-title", {
       scrollTrigger: {
@@ -171,6 +172,7 @@ const Services = () => {
       ref={servicesRef}
     >
       <div className="max-w-7xl mx-auto">
+        <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.9 }}>
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-16 services-title">
           <div className="text-xs sm:text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
@@ -278,6 +280,7 @@ const Services = () => {
             ))}
           </div>
         </div>
+        </AnimatedOnScroll>
       </div>
     </section>
   );

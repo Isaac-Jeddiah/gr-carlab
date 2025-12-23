@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { setupGSAP } from "../utils/gsapSetup";
+import AnimatedOnScroll from "./AnimatedOnScroll";
 
 export default function About() {
   const stats = [
@@ -13,6 +13,7 @@ export default function About() {
   ];
 
   useEffect(() => {
+    setupGSAP();
     // Title animation
     const titleChars = gsap.utils.toArray(".gsap-target .char");
     gsap.set(titleChars, { opacity: 0, y: 20 });
@@ -67,6 +68,7 @@ export default function About() {
   return (
     <section id="about" className="py-24 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
+        <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.8 }}>
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <div className="about-label text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-3 mb-6 hover-scale">
@@ -102,6 +104,7 @@ export default function About() {
             ))}
           </div>
         </div>
+        </AnimatedOnScroll>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../assets/logo.png";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import AnimatedOnScroll from "./AnimatedOnScroll";
 import { contactConfig, getPrimaryPhone } from "../config/contactConfig";
 
 export default function Footer() {
@@ -15,8 +16,8 @@ export default function Footer() {
   return (
     <footer className="footer-section bg-black border-t border-white/5 py-8 sm:py-10 md:py-12 lg:py-12 px-2 s:px-3 sm:px-4 md:px-6 lg:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="footer-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-8 lg:gap-8 mb-6 sm:mb-8 md:mb-8 lg:mb-8">
-          <div>
+        <AnimatedOnScroll options={{ from: { y: 15, opacity: 0 }, duration: 0.6 }}>
+        <div className="footer-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-8 lg:gap-8 mb-6 sm:mb-8 md:mb-8 lg:mb-8">          <div>
             <div className="footer-logo mb-3 sm:mb-4 hover-scale cursor-pointer">
               <img
                 src={logo}
@@ -119,6 +120,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
+        </AnimatedOnScroll>
       </div>
     </footer>
   );

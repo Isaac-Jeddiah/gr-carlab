@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import car from "../assets/car_1.png";
 import { validateFormData } from "../services/emailService";
 import servicesData from "./servicesData.js";
+import AnimatedOnScroll from "./AnimatedOnScroll";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -179,6 +180,7 @@ ${formData.firstName} ${formData.lastName}`;
       className="contact-section py-12 sm:py-16 md:py-20 lg:py-24 px-2 xs:px-3 sm:px-4 md:px-6 lg:px-6 bg-[#080805]"
     >
       <div className="max-w-7xl mx-auto">
+        <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.8 }}>
         <div className="contact-container bg-gradient-to-br from-[#1A1A1A] to-[#080805] rounded-xl sm:rounded-2xl md:rounded-3xl lg:rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 border border-white/5">
           {/* Success Message */}
           {isSubmitted && (
@@ -429,6 +431,7 @@ ${formData.firstName} ${formData.lastName}`;
             </div>
           )}
         </div>
+        </AnimatedOnScroll>
       </div>
 
       <style jsx>{`

@@ -99,3 +99,9 @@ button:focus-visible {
     transform: scale(1);
   }
 }
+
+/* Performance helper for animated elements */
+.animated-on-scroll {
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}

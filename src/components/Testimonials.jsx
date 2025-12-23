@@ -17,6 +17,8 @@ import adityaGupta from '../assets/testimonial-aditya-gupta.jpg';
 import ishitaBose from '../assets/testimonial-ishita-bose.jpg';
 import rohanDesai from '../assets/testimonial-rohan-desai.jpg';
 
+import AnimatedOnScroll from './AnimatedOnScroll';
+
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const cardsRef = useRef([]);
@@ -300,6 +302,7 @@ const Testimonials = () => {
   return (
     <section className="testimonials-section py-32 px-6 bg-gradient-to-b from-black to-[#080805] relative overflow-hidden" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
+        <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.9 }}>
         {/* Section Header */}
         <div className="text-center mb-20">
           <div className="text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-3 justify-center mb-6">
@@ -314,6 +317,7 @@ const Testimonials = () => {
             Real experiences from our valued customers
           </p>
         </div>
+        </AnimatedOnScroll>
 
         {/* Testimonials Container */}
         <div className={`testimonials-container relative flex items-center justify-center ${isMobile ? 'min-h-[600px]' : 'h-[800px]'}`}>

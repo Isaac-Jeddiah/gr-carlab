@@ -14,6 +14,7 @@ import logo from "../assets/logo.png";
 
 const NavBar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,7 +26,7 @@ const NavBar = () => {
   const searchPanelRef = useRef(null);
   const mobileServicesRef = useRef(null);
   const searchInputRef = useRef(null);
-  
+
   const services = [
     {
       id: 1,
@@ -100,14 +101,16 @@ const NavBar = () => {
       ) {
         setIsSearchOpen(false);
       }
-      if (
-  isServicesOpen &&
-  mobileServicesRef.current &&
-  !mobileServicesRef.current.contains(event.target)
-) {
-  setIsServicesOpen(false);
-}
+     if (
+        mobileServicesRef.current &&
+        !mobileServicesRef.current.contains(event.target)
+      ) {
+        setIsMobileServicesOpen(false);
+      }
+    };
 
+    const handleMobileServicesClick = () => {
+      setIsMobileServicesOpen((prevState) => !prevState);
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -355,41 +358,39 @@ const NavBar = () => {
                   )
                 )}
                 {/* Services Section - Mobile Only */}
-<div className="hidden max-lg:block border-t border-white/10">
-  <button
-    onClick={(e) => {
-      e.stopPropagation();
-      setIsServicesOpen((prev) => !prev);
-    }}
-    className="w-full px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm flex items-center justify-between"
-  >
-    <span>Services</span>
-    {isServicesOpen ? (
-      <ChevronUp className="w-3 h-3" />
-    ) : (
-      <ChevronDown className="w-3 h-3" />
-    )}
-  </button>
-
-  <div
-    ref={mobileServicesRef}
-    className="overflow-hidden"
-  >
-    {services.map((service) => (
-      <Link
-        key={service.id}
-        to={`/services/${service.slug}`}
-        onClick={() => {
-          setIsServicesOpen(false);
-          setIsMenuOpen(false);
-        }}
-        className="block px-4 py-2 text-xs sm:text-sm text-white/80 hover:text-white hover:bg-white/5 transition-all"
-      >
-        {service.name}
-      </Link>
-    ))}
-  </div>
-</div>
+                <div
+                  className="hidden max-lg:block border-t border-white/10 "
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsMobileServicesOpen((prev) => !prev);
+                  }}
+                >
+                  <button className="w-full px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm flex items-center justify-between">
+                    <span>Services</span>
+                    {isMobileServicesOpen ? (
+                      <ChevronUp className="w-3 h-3" />
+                    ) : (
+                      <ChevronDown className="w-3 h-3" />
+                    )}
+                  </button>
+                  {isMobileServicesOpen && (
+                  <div ref={mobileServicesRef} className="overflow-hidden">
+                    {services.map((service) => (
+                      <Link
+                        key={service.id}
+                        to={`/services/${service.slug}`}
+                        onClick={() => {
+                          setIsMobileServicesOpen(false);
+                          setIsMenuOpen(false);
+                        }}
+                        className="block px-4 py-2 text-xs sm:text-sm text-white/80 hover:text-white hover:bg-white/5 transition-all"
+                      >
+                        {service.name}
+                      </Link>
+                    ))}
+                  </div>
+                  )}
+                </div>
 
                 <div className="drawer-bottom px-3 sm:px-4 py-2 sm:py-3 border-t border-white/10 mt-1">
                   <button
@@ -415,7 +416,7 @@ const NavBar = () => {
         >
           <div className="py-2 px-2 sm:px-3 z-100 w-56 sm:w-72 overflow-hidden z-50 max-h-96 overflow-y-auto">
             <p className="text-xs text-white/50 uppercase mb-2">
-              Search Products 
+              Search Products
             </p>
             <div className="flex items-center gap-2 bg-black/30 rounded-lg px-3 py-2 mb-2">
               <input

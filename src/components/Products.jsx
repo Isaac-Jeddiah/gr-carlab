@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setupGSAP } from "../utils/gsapSetup";
+import AnimatedOnScroll from "./AnimatedOnScroll";
 import { ShoppingCart, Plus, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +22,6 @@ import seatBeltPadsAndArmrests from "../assets/images_products/seat-belt-pads-an
 import dashboardCovers from "../assets/images_products/dashboard-covers.jpg";
 import dashCameras from "../assets/images_products/dash-cameras.jpg";
 import tyreInflators from "../assets/images_products/tyre-inflators.jpg";
-gsap.registerPlugin(ScrollTrigger);
 
 const Products = () => {
   const [showAll, setShowAll] = useState(false);
@@ -195,6 +196,7 @@ const Products = () => {
   const visibleProducts = showAll ? productsData : productsData.slice(0, 7);
 
   useEffect(() => {
+    setupGSAP();
     // Animate section title
     gsap.from(".products-title", {
       scrollTrigger: {
@@ -388,6 +390,7 @@ const Products = () => {
       ref={productsRef}
     >
       <div className="max-w-7xl mx-auto">
+        <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.9 }}>
         {/* Section Header */}
         <div className="text-center mb-16 products-title">
           <div className="text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-3 justify-center mb-6">
@@ -493,6 +496,7 @@ const Products = () => {
             </Link>
           </div>
         </div>
+        </AnimatedOnScroll>
       </div>
     </section>
   );

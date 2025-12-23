@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { setupGSAP } from "../utils/gsapSetup";
+import AnimatedOnScroll from "./AnimatedOnScroll";
 import { Award, Zap, Users, Clock, Leaf, Shield } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const WhyUs = () => {
   const sectionRef = useRef(null);
@@ -48,6 +48,7 @@ const WhyUs = () => {
   ];
 
   useEffect(() => {
+    setupGSAP();
     // Title animation
     gsap.from(sectionRef.current.querySelector(".whyus-title"), {
       scrollTrigger: {
@@ -135,6 +136,7 @@ const WhyUs = () => {
 
   return (
     <section ref={sectionRef} className="container mx-auto px-4 py-16 lg:py-24">
+      <AnimatedOnScroll options={{ from: { y: 20, opacity: 0 }, duration: 0.7 }}>
       <div className="text-center mb-16 gap-4">
         <h2 className="whyus-title text-4xl lg:text-6xl font-bold mb-6">
           Why Choose <span className="text-yellow-400">GR CAR LAB</span>
@@ -189,6 +191,7 @@ const WhyUs = () => {
           Schedule Now
         </a>
       </div>
+      </AnimatedOnScroll>
     </section>
   );
 };

@@ -18,32 +18,38 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import ContactUsPage from "./components/ContactPage.jsx";
 import NavBar from "./components/Nav.jsx";
+import AnimatedOnScroll from "./components/AnimatedOnScroll.jsx";
+import { setupGSAP } from "./utils/gsapSetup";
 const Home = ({ setIsDrawerOpen }) => {
   //const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <div className="bg-black text-white overflow-x-hidden">
-      {/* Hero Section with Integrated NavBar */}
-      <Hero />
-      {/* Services Section */}
-      <Services />
-      {/* About Section */}
-      <About />
-      {/* Why Choose Us Section */}
-      <WhyUs />
-      {/* Products Section */}
-      <Products />
-      {/* Testimonials Section */}
-      <Testimonials />
-      {/* Contact Section */}
-      <Contact />
-      {/* Footer */}
-      <Footer />
-    </div>
+    <AnimatedOnScroll options={{ duration: 0.8 }}>
+      <div className="bg-black text-white overflow-x-hidden">
+        {/* Hero Section with Integrated NavBar */}
+        <Hero />
+        {/* Services Section */}
+        <Services />
+        {/* About Section */}
+        <About />
+        {/* Why Choose Us Section */}
+        <WhyUs />
+        {/* Products Section */}
+        <Products />
+        {/* Testimonials Section */}
+        <Testimonials />
+        {/* Contact Section */}
+        <Contact />
+        {/* Footer */}
+        <Footer />
+      </div>
+    </AnimatedOnScroll>
   );
 };
 
 const App = () => {
+  React.useEffect(() => { setupGSAP(); }, []);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
