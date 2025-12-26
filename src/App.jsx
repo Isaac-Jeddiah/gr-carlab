@@ -46,17 +46,18 @@ const Home = () => {
     
       
       {/* How We Work Section */}
-      
+      <HowWeWork />
       {/* About - Scale Reveal (Zoom in) */}
       <ScaleReveal>
         <About />
       </ScaleReveal>
-
+      
       {/* Why Choose Us - Slide From Left */}
       <SlideFromLeft>
         <WhyUs />
       </SlideFromLeft>
       <HowWeWork/>
+
       {/* Products - Parallax Fade with 3D depth */}
       <BlurReveal>
 
