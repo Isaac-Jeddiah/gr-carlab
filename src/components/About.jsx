@@ -14,55 +14,56 @@ export default function About() {
 
   useEffect(() => {
     setupGSAP();
-    // Title animation
-    const titleChars = gsap.utils.toArray(".gsap-target .char");
-    gsap.set(titleChars, { opacity: 0, y: 20 });
 
-    // Stats animation
-    const statNumbers = gsap.utils.toArray(".stat-number");
+    const ctx = gsap.context(() => {
+      // Title animation
+      const titleChars = gsap.utils.toArray(".gsap-target .char");
+      gsap.set(titleChars, { opacity: 0, y: 20 });
 
-    ScrollTrigger.create({
-      trigger: "#about",
-      start: "top 80%",
-      onEnter: () => {
-        // Animate title
-        gsap.to(titleChars, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.02,
-          ease: "power2.out",
-        });
+      // Stats animation
+      const statNumbers = gsap.utils.toArray(".stat-number");
 
-        // Animate stats
-        statNumbers.forEach((stat, idx) => {
-          const value = parseInt(stat.dataset.value);
-          gsap.fromTo(
-            stat,
-            {
-              textContent: 0,
-            },
-            {
-              textContent: value,
-              duration: 2,
-              delay: idx * 0.2,
-              ease: "power2.out",
-              snap: { textContent: 1 },
-              onUpdate: function () {
-                stat.textContent =
-                  Math.floor(this.targets()[0].textContent) +
-                  (stats[idx].label === "Customer Satisfaction" ? "%" : "+");
+      ScrollTrigger.create({
+        trigger: "#about",
+        start: "top 80%",
+        onEnter: () => {
+          // Animate title
+          gsap.to(titleChars, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.02,
+            ease: "power2.out",
+          });
+
+          // Animate stats
+          statNumbers.forEach((stat, idx) => {
+            const value = parseInt(stat.dataset.value);
+            gsap.fromTo(
+              stat,
+              {
+                textContent: 0,
               },
-            }
-          );
-        });
-      },
-      once: true,
+              {
+                textContent: value,
+                duration: 2,
+                delay: idx * 0.2,
+                ease: "power2.out",
+                snap: { textContent: 1 },
+                onUpdate: function () {
+                  stat.textContent =
+                    Math.floor(this.targets()[0].textContent) +
+                    (stats[idx].label === "Customer Satisfaction" ? "%" : "+");
+                },
+              }
+            );
+          });
+        },
+        once: true,
+      });
     });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => ctx.revert();
   }, []);
 
   return (

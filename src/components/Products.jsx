@@ -197,187 +197,139 @@ const Products = () => {
 
   useEffect(() => {
     setupGSAP();
-    // Animate section title
-    gsap.from(".products-title", {
-      scrollTrigger: {
-        trigger: ".products-title",
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse",
-      },
-      opacity: 0.9,
-      y: 50,
-      duration: 1,
-      ease: "power3.out",
-    });
 
-    // Animate initial visible cards
-    cardsRef.current.slice(0, 7).forEach((card, index) => {
-      if (card) {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
-          opacity: 0.9,
-          y: 40,
-          scale: 0.95,
-          duration: 0.6,
-          delay: index * 0.08,
-          ease: "power2.out",
-        });
+    // Use a scoped GSAP context to avoid touching triggers elsewhere
+    const cleanupListeners = [];
+    const ctx = gsap.context(() => {
+      // Animate section title
+      gsap.from(".products-title", {
+        scrollTrigger: {
+          trigger: ".products-title",
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 0.9,
+        y: 50,
+        duration: 1,
+        ease: "power3.out",
+      });
 
-        // Hover animation
-        const image = card.querySelector(".product-image");
-        const cartIcon = card.querySelector(".cart-icon");
-
-        card.addEventListener("mouseenter", () => {
-          gsap.to(image, {
-            scale: 1.15,
-            duration: 0.5,
+      // Animate initial visible cards
+      cardsRef.current.slice(0, 7).forEach((card, index) => {
+        if (card) {
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%",
+              toggleActions: "play none none reverse",
+            },
+            opacity: 0.9,
+            y: 40,
+            scale: 0.95,
+            duration: 0.6,
+            delay: index * 0.08,
             ease: "power2.out",
           });
 
-          gsap.to(cartIcon, {
-            y: -5,
-            opacity: 1,
-            duration: 0.3,
-            ease: "back.out(1.7)",
-          });
+          // Hover animation (add/remove listeners explicitly so we can clean up)
+          const image = card.querySelector(".product-image");
+          const cartIcon = card.querySelector(".cart-icon");
 
-          gsap.to(card, {
-            y: -8,
-            boxShadow: "0 20px 40px rgba(212, 212, 20, 0.3)",
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
+          const enterHandler = () => {
+            gsap.to(image, { scale: 1.15, duration: 0.5, ease: "power2.out" });
+            gsap.to(cartIcon, { y: -5, opacity: 1, duration: 0.3, ease: "back.out(1.7)" });
+            gsap.to(card, { y: -8, boxShadow: "0 20px 40px rgba(212, 212, 20, 0.3)", duration: 0.3, ease: "power2.out" });
+          };
 
-        card.addEventListener("mouseleave", () => {
-          gsap.to(image, {
-            scale: 1,
-            duration: 0.5,
-            ease: "power2.out",
-          });
+          const leaveHandler = () => {
+            gsap.to(image, { scale: 1, duration: 0.5, ease: "power2.out" });
+            gsap.to(cartIcon, { y: 0, opacity: 0.7, duration: 0.3, ease: "power2.in" });
+            gsap.to(card, { y: 0, boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", duration: 0.3, ease: "power2.out" });
+          };
 
-          gsap.to(cartIcon, {
-            y: 0,
-            opacity: 0.7,
-            duration: 0.3,
-            ease: "power2.in",
-          });
+          card.addEventListener("mouseenter", enterHandler);
+          card.addEventListener("mouseleave", leaveHandler);
 
-          gsap.to(card, {
-            y: 0,
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            duration: 0.3,
-            ease: "power2.out",
+          cleanupListeners.push(() => {
+            card.removeEventListener("mouseenter", enterHandler);
+            card.removeEventListener("mouseleave", leaveHandler);
           });
+        }
+      });
+
+      // Button hover animation
+      if (buttonRef.current && !showAll) {
+        const plusIcon = buttonRef.current.querySelector(".plus-icon");
+        const enter = () => gsap.to(plusIcon, { rotation: 90, scale: 1.2, duration: 0.3, ease: "back.out(1.7)" });
+        const leave = () => gsap.to(plusIcon, { rotation: 0, scale: 1, duration: 0.3, ease: "back.out(1.7)" });
+
+        buttonRef.current.addEventListener("mouseenter", enter);
+        buttonRef.current.addEventListener("mouseleave", leave);
+
+        cleanupListeners.push(() => {
+          buttonRef.current && buttonRef.current.removeEventListener("mouseenter", enter);
+          buttonRef.current && buttonRef.current.removeEventListener("mouseleave", leave);
         });
       }
-    });
-
-    // Button hover animation
-    if (buttonRef.current && !showAll) {
-      const plusIcon = buttonRef.current.querySelector(".plus-icon");
-
-      buttonRef.current.addEventListener("mouseenter", () => {
-        gsap.to(plusIcon, {
-          rotation: 90,
-          scale: 1.2,
-          duration: 0.3,
-          ease: "back.out(1.7)",
-        });
-      });
-
-      buttonRef.current.addEventListener("mouseleave", () => {
-        gsap.to(plusIcon, {
-          rotation: 0,
-          scale: 1,
-          duration: 0.3,
-          ease: "back.out(1.7)",
-        });
-      });
-    }
+    }, productsRef);
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      // Revert all GSAP animations created in this context
+      ctx.revert();
+      // Clean up native listeners we added
+      cleanupListeners.forEach((fn) => fn());
     };
   }, [showAll]);
 
   const handleSeeMore = () => {
-    if (!showAll) {
-      setShowAll(true);
-
-      // Animate button disappearing
+    if (!showAll && buttonRef.current) {
+      // Animate the button first, then reveal items
       gsap.to(buttonRef.current, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.4,
+        scale: 0.98,
+        opacity: 0,
+        duration: 0.35,
         ease: "back.in(1.7)",
         onComplete: () => {
-          // Animate new cards appearing
-          setTimeout(() => {
-            cardsRef.current.slice(7).forEach((card, index) => {
-              if (card) {
-                gsap.from(card, {
-                  opacity: 1,
-                  y: 60,
-                  scale: 1,
-                  duration: 0.6,
-                  ease: "back.out(1.2)",
-                });
+          // Show new items after button animation completes
+          setShowAll(true);
 
-                // Add hover animations to new cards
-                const image = card.querySelector(".product-image");
-                const cartIcon = card.querySelector(".cart-icon");
-
-                card.addEventListener("mouseenter", () => {
-                  gsap.to(image, {
-                    scale: 1.15,
-                    duration: 1,
-                  });
-
-                  gsap.to(cartIcon, {
-                    y: -5,
-                    opacity: 1,
-                    duration: 0.3,
-                    ease: "back.out(1.7)",
-                  });
-
-                  gsap.to(card, {
-                    y: -2,
-                    boxShadow: "0 20px 40px rgba(212, 212, 20, 0.3)",
-                    duration: 0.3,
-                    ease: "power2.out",
-                  });
-                });
-
-                card.addEventListener("mouseleave", () => {
-                  gsap.to(image, {
+          // Give DOM a tick and animate newly shown cards
+          requestAnimationFrame(() => {
+            // small delay to ensure DOM is updated
+            setTimeout(() => {
+              cardsRef.current.slice(7).forEach((card) => {
+                if (card) {
+                  gsap.from(card, {
+                    opacity: 0,
+                    y: 60,
                     scale: 1,
-                    duration: 0.5,
-                    ease: "power2.out",
+                    duration: 0.6,
+                    ease: "back.out(1.2)",
                   });
 
-                  gsap.to(cartIcon, {
-                    y: 0,
-                    opacity: 0.7,
-                    duration: 0.3,
-                    ease: "power2.in",
-                  });
+                  // Add hover handlers to these cards (cleaned up by the main effect when necessary)
+                  const image = card.querySelector(".product-image");
+                  const cartIcon = card.querySelector(".cart-icon");
 
-                  gsap.to(card, {
-                    y: 0,
-                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                    duration: 0.3,
-                    ease: "power2.out",
-                  });
-                });
-              }
-            });
-          }, 100);
+                  const enter = () => {
+                    gsap.to(image, { scale: 1.15, duration: 1 });
+                    gsap.to(cartIcon, { y: -5, opacity: 1, duration: 0.3, ease: "back.out(1.7)" });
+                    gsap.to(card, { y: -2, boxShadow: "0 20px 40px rgba(212, 212, 20, 0.3)", duration: 0.3, ease: "power2.out" });
+                  };
+
+                  const leave = () => {
+                    gsap.to(image, { scale: 1, duration: 0.5, ease: "power2.out" });
+                    gsap.to(cartIcon, { y: 0, opacity: 0.7, duration: 0.3, ease: "power2.in" });
+                    gsap.to(card, { y: 0, boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", duration: 0.3, ease: "power2.out" });
+                  };
+
+                  card.addEventListener("mouseenter", enter);
+                  card.addEventListener("mouseleave", leave);
+                }
+              });
+            }, 50);
+          });
         },
       });
     }

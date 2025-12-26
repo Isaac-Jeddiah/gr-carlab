@@ -5,10 +5,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export function setupGSAP() {
   if (!gsap || !ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
-  // sensible defaults
+  // sensible defaults — allow reverse and re-triggering across navigations
   ScrollTrigger.defaults({
-    toggleActions: "play none none none",
-    once: true,
+    toggleActions: "play reverse play reverse",
+    once: false,
   });
 }
 

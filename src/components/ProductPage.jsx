@@ -187,14 +187,17 @@ const ProductPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // store previous overflow value and restore it on cleanup
+    const previousOverflow = document.body.style.overflow;
+
     if (selected) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previousOverflow || "";
     }
 
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previousOverflow || "";
     };
   }, [selected]);
 

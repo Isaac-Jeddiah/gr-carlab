@@ -32,6 +32,7 @@ import {
 
 import "./App.css";
 import ContactUsPage from "./components/ContactPage.jsx";
+import HowWeWork from "./components/HowWeWork.jsx";
 
 const Home = () => {
   return (
@@ -41,9 +42,11 @@ const Home = () => {
 
       {/* Services - Slide From Right */}
       
-        <Services />
+      <Services />
     
-
+      
+      {/* How We Work Section */}
+      
       {/* About - Scale Reveal (Zoom in) */}
       <ScaleReveal>
         <About />
@@ -53,11 +56,12 @@ const Home = () => {
       <SlideFromLeft>
         <WhyUs />
       </SlideFromLeft>
-
+      <HowWeWork/>
       {/* Products - Parallax Fade with 3D depth */}
-      
-        <Products />
-    
+      <BlurReveal>
+
+      <Products />
+    </BlurReveal>
 
       {/* Testimonials - Slide From Right */}
       <SlideFromRight>

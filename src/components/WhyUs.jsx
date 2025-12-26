@@ -49,88 +49,79 @@ const WhyUs = () => {
 
   useEffect(() => {
     setupGSAP();
-    // Title animation
-    gsap.from(sectionRef.current.querySelector(".whyus-title"), {
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 70%",
-        end: "top 30%",
-        toggleActions: "play none none reverse",
-      },
-      opacity: 0,
-      scale: 0.8,
-      duration: 0.2,
-      ease: "ease3.out",
-    });
-    gsap.to(sectionRef.current.querySelector(".whyus-title"), {
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 70%",
-        end: "top 30%",
-        toggleActions: "play none none reverse",
-      },
-      opacity: 1,
-      scale: 1,
-      duration: 1,
-      ease: "ease3.in",
-    });
 
-    // Stagger animation for cards
-    cardsRef.current.forEach((card, index) => {
-      if (card) {
-        // Card entrance animation
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            end: "bottom 15%",
-            toggleActions: "play none none reverse",
-          },
-          opacity: 1,
-          y: 30,
-          scale: 0.9,
-          duration: 0.8,
-          delay: index * 0.1,
-          ease: "back.out(1.1)",
-        });
+    const cleanup = [];
+    const ctx = gsap.context(() => {
+      // Title animation
+      gsap.from(sectionRef.current.querySelector(".whyus-title"), {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          end: "top 30%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.2,
+        ease: "ease3.out",
+      });
+      gsap.to(sectionRef.current.querySelector(".whyus-title"), {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          end: "top 30%",
+          toggleActions: "play none none reverse",
+        },
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: "ease3.in",
+      });
 
-        // Hover animation
-        card.addEventListener("mouseenter", () => {
-          gsap.to(card, {
-            y: -15,
-            boxShadow: "0 25px 50px -12px rgba(212, 212, 20, 0.3)",
-            duration: 0.4,
-            ease: "power2.out",
+      // Stagger animation for cards
+      cardsRef.current.forEach((card, index) => {
+        if (card) {
+          // Card entrance animation
+          gsap.from(card, {
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              end: "bottom 15%",
+              toggleActions: "play none none reverse",
+            },
+            opacity: 1,
+            y: 30,
+            scale: 0.9,
+            duration: 0.8,
+            delay: index * 0.1,
+            ease: "back.out(1.1)",
           });
 
-          gsap.to(card.querySelector(".icon-container"), {
-            scale: 1.15,
-            rotation: 5,
-            duration: 0.4,
-            ease: "power2.out",
-          });
-        });
+          // Hover animation
+          const enter = () => {
+            gsap.to(card, { y: -15, boxShadow: "0 25px 50px -12px rgba(212, 212, 20, 0.3)", duration: 0.4, ease: "power2.out" });
+            gsap.to(card.querySelector(".icon-container"), { scale: 1.15, rotation: 5, duration: 0.4, ease: "power2.out" });
+          };
 
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, {
-            y: 0,
-            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)",
-            duration: 0.4,
-            ease: "power2.out",
-          });
+          const leave = () => {
+            gsap.to(card, { y: 0, boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)", duration: 0.4, ease: "power2.out" });
+            gsap.to(card.querySelector(".icon-container"), { scale: 1, rotation: 0, duration: 0.4, ease: "power2.out" });
+          };
 
-          gsap.to(card.querySelector(".icon-container"), {
-            scale: 1,
-            rotation: 0,
-            duration: 0.4,
-            ease: "power2.out",
+          card.addEventListener("mouseenter", enter);
+          card.addEventListener("mouseleave", leave);
+
+          cleanup.push(() => {
+            card.removeEventListener("mouseenter", enter);
+            card.removeEventListener("mouseleave", leave);
           });
-        });
-      }
+        }
+      });
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      ctx.revert();
+      cleanup.forEach((fn) => fn());
     };
   }, []);
 

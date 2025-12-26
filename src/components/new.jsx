@@ -53,59 +53,65 @@ const ServicesPage = () => {
   ];
 
   useEffect(() => {
-    // Hero text slide from bottom
-    gsap.fromTo(
-      heroRef.current.querySelector('.hero-content'),
-      { y: 100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.3 }
-    );
+    const ctx = gsap.context(() => {
+      // Hero text slide from bottom
+      gsap.fromTo(
+        heroRef.current.querySelector('.hero-content'),
+        { y: 100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.3 }
+      );
 
-    // Carousel slide from bottom (slower)
-    gsap.fromTo(
-      carouselContainerRef.current,
-      { y: 150, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.5, ease: 'power3.out', delay: 0.5 }
-    );
+      // Carousel slide from bottom (slower)
+      gsap.fromTo(
+        carouselContainerRef.current,
+        { y: 150, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.5, ease: 'power3.out', delay: 0.5 }
+      );
 
-    // Pricing section animation
-    ScrollTrigger.create({
-      trigger: pricingRef.current,
-      start: 'top 80%',
-      onEnter: () => {
-        gsap.fromTo(
-          pricingRef.current.querySelectorAll('.pricing-card'),
-          { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power2.out' }
-        );
-      }
+      // Pricing section animation
+      ScrollTrigger.create({
+        trigger: pricingRef.current,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.fromTo(
+            pricingRef.current.querySelectorAll('.pricing-card'),
+            { y: 50, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power2.out' }
+          );
+        }
+      });
+
+      // Timeline line animation
+      ScrollTrigger.create({
+        trigger: processRef.current,
+        start: 'top 60%',
+        end: 'bottom 20%',
+        scrub: 1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          gsap.to(timelineLineRef.current, {
+            height: `${progress * 100}%`,
+            duration: 0.1
+          });
+        }
+      });
+
+      // Fixed specs section
+      let mmRevert = null;
+      const mm = gsap.matchMedia();
+      
+      mm.add("(min-width: 1024px)", () => {
+        // Remove GSAP pinning and use CSS sticky instead
+        // This prevents the shaking/jittering issue
+      });
+
+      mmRevert = mm.revert;
+
     });
-
-    // Timeline line animation
-    ScrollTrigger.create({
-      trigger: processRef.current,
-      start: 'top 60%',
-      end: 'bottom 20%',
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        gsap.to(timelineLineRef.current, {
-          height: `${progress * 100}%`,
-          duration: 0.1
-        });
-      }
-    });
-
-    // Fixed specs section
-    const mm = gsap.matchMedia();
     
-    mm.add("(min-width: 1024px)", () => {
-      // Remove GSAP pinning and use CSS sticky instead
-      // This prevents the shaking/jittering issue
-    });
-
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      mm.revert();
+      ctx && ctx.revert && ctx.revert();
+      mmRevert && mmRevert();
     };
   }, []);
 
