@@ -46,7 +46,6 @@ const Home = () => {
     
       
       {/* How We Work Section */}
-      <HowWeWork />
       {/* About - Scale Reveal (Zoom in) */}
       <ScaleReveal>
         <About />

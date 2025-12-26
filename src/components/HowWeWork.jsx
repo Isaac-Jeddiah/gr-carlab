@@ -1,10 +1,7 @@
 //how we work component
 import React, { useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { setupGSAP } from "../utils/gsapSetup";
 import HowWeWorkDesk from "./HowWeWorkDesktop.jsx";
-import HowWeWorkMobile from "./HowWeWorkMobile.jsx";
+import CarWorkflowMobile from "./HowWeWorkMobile.jsx";
 
 const HowWeWork = () => {
   const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
@@ -18,7 +15,7 @@ const HowWeWork = () => {
 
   return (
   <>
-    {!isMobile ? <HowWeWorkDesk /> : <HowWeWorkMobile />}
+    {!isMobile ? <HowWeWorkDesk /> : <CarWorkflowMobile />}
   </>
 );
 
