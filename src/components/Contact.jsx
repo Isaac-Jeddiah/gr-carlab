@@ -427,7 +427,7 @@ ${formData.firstName} ${formData.lastName}`;
 
                     <button
                       onClick={handleSubmit}
-                      className="contact-submit-button w-full bg-[#D4D414] text-black font-semibold px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 rounded-lg text-xs sm:text-sm md:text-base lg:text-base hover:bg-[#D4D414]/90 transition-all hover-scale"
+                      className="contact-submit-button w-full bg-[#D4D414] text-black  px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 rounded-lg text-xs sm:text-sm md:text-base lg:text-base hover:bg-[#D4D414]/90 transition-all hover-scale"
                     >
                       Send Message
                     </button>
@@ -439,7 +439,7 @@ ${formData.firstName} ${formData.lastName}`;
         </AnimatedOnScroll>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes slide-car {
           0% {
             right: -100px;

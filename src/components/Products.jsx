@@ -392,7 +392,7 @@ const Products = () => {
 
               {/* Product Info */}
               <div className="product-card-content p-3 md:p-4">
-                <h3 className="product-card-title text-white font-semibold text-sm md:text-base mb-2 line-clamp-1 group-hover:text-[#D4D414] transition-colors">
+                <h3 className="product-card-title text-white  text-sm md:text-base mb-2 line-clamp-1 group-hover:text-[#D4D414] transition-colors">
                   {product.title}
                 </h3>
               </div>

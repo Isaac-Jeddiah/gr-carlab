@@ -177,7 +177,7 @@ const WhyUs = () => {
         </p>
         <a
           href="/contact"
-          className="inline-block bg-black border border-yellow-400 text-white-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-400 hover:text-black transition-all duration-300 transform hover:scale-105"
+          className="inline-block bg-black border border-yellow-400 text-white-900 px-8 py-4 rounded-full  text-lg hover:bg-yellow-400 hover:text-black transition-all duration-300 transform hover:scale-105"
         >
           Schedule Now
         </a>

@@ -34,7 +34,7 @@ export default function Footer() {
                 className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-transparent border-2 border-yellow-400 rounded-full text-yellow-400 font-medium hover:bg-yellow-400 hover:text-black transition-all duration-300
                 hover:rounded-2xl active:scale-95"
               >
-                <span className="text-white font-semibold text-sm">
+                <span className="text-white  text-sm">
                   Book Now
                 </span>
                 <ArrowRight className="w-4 h-4" />
@@ -43,7 +43,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-heading font-semibold mb-3 sm:mb-4 text-sm sm:text-base md:text-base lg:text-base">
+            <h4 className="footer-heading  mb-3 sm:mb-4 text-sm sm:text-base md:text-base lg:text-base">
               Main Pages
             </h4>
             <div className="space-y-2">
@@ -60,7 +60,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-heading font-semibold mb-3 sm:mb-4 text-sm sm:text-base md:text-base lg:text-base">
+            <h4 className="footer-heading  mb-3 sm:mb-4 text-sm sm:text-base md:text-base lg:text-base">
               Follow Us
             </h4>
             <div className="space-y-2">
@@ -79,7 +79,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-heading font-semibold mb-3 sm:mb-4 text-sm sm:text-base md:text-base lg:text-base">
+            <h4 className="footer-heading  mb-3 sm:mb-4 text-sm sm:text-base md:text-base lg:text-base">
               Visit Us
             </h4>
             <p className="text-s sm:text-sm md:text-sm lg:text-sm mb-3 sm:mb-4">

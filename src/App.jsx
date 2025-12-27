@@ -64,7 +64,9 @@ const Home = () => {
       <Products />
 
       {/* Testimonials - Slide From Right */}
-        
+        <SlideFromRight>
+        <Testimonials />
+        </SlideFromRight>
 
       {/* Contact - Blur Reveal (Modern glassmorphism) */}
         <BlurReveal>
@@ -97,9 +99,7 @@ const App = () => {
               <div className="bg-black">
                 <NavBar />
               </div>
-              <ScaleReveal>
                 <Services />
-              </ScaleReveal>
               <Footer />
             </>
           }
@@ -107,9 +107,8 @@ const App = () => {
         <Route
           path="/services/:slug"
           element={
-            <FadeSlideUp>
               <ServicesPage data={servicesData} />
-            </FadeSlideUp>
+          
           }
         />
         <Route path="/contact" element={<ContactUsPage />} />

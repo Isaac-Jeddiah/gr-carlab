@@ -456,7 +456,7 @@ const HowWeWorkDesk = () => {
                                 `}
                     >
                       {/* Step */}
-                      <span className="text-[#D4D414] text-sm font-semibold mb-4">
+                      <span className="text-[#D4D414] text-sm  mb-4">
                         STEP {step}
                       </span>
 

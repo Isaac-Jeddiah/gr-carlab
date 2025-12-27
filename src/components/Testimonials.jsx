@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { Quote, Star, Heart, Award, Sparkles, Users } from 'lucide-react';
+import { Quote, Star, Heart, Award, Sparkles, Users, ChevronLeft, ChevronRight } from 'lucide-react';
 import rajeshKumar from '../assets/testimonial-rajesh-kumar.jpg';
 import priyaSharma from '../assets/testimonial-priya-sharma.jpg';
 import arjunMehta from '../assets/testimonial-arjun-mehta.jpg';
@@ -18,8 +18,30 @@ import ishitaBose from '../assets/testimonial-ishita-bose.jpg';
 
 import AnimatedOnScroll from './AnimatedOnScroll';
 
+// Car logo mapping function
+const getCarLogo = (role) => {
+  const logoMap = {
+    'BMW Owner': '/car_logos/bmw.svg',
+    'Mercedes Owner': '/car_logos/bmw.svg', // Using BMW as fallback for Mercedes
+    'Audi Owner': '/car_logos/audi.svg',
+    'Porsche Owner': '/car_logos/porsche.svg',
+    'Range Rover Owner': '/car_logos/volvo.svg', // Using Volvo as fallback for Range Rover
+    'Tesla Owner': '/car_logos/tesla.svg',
+    'Jaguar Owner': '/car_logos/bentley.svg', // Using Bentley as fallback for Jaguar
+    'Lexus Owner': '/car_logos/volvo.svg', // Using Volvo as fallback for Lexus
+    'Volvo Owner': '/car_logos/volvo.svg',
+    'Mini Cooper Owner': '/car_logos/mini.svg',
+    'Maserati Owner': '/car_logos/maserati.svg',
+    'Bentley Owner': '/car_logos/bentley.svg',
+    'Ferrari Owner': '/car_logos/ferrari.svg',
+    'Lamborghini Owner': '/car_logos/lamborghini.svg',
+    'Renault Owner': '/car_logos/renault.svg',
+  };
+  
+  return logoMap[role] || '/car_logos/bmw.svg'; // Default fallback
+};
+
 const Testimonials = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const cardsRef = useRef([]);
   const sectionRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -192,111 +214,235 @@ const Testimonials = () => {
     },
   ];
 
-  // Detect mobile
+   const [activeIndex, setActiveIndex] = useState(0);
+  const imageContainerRef = useRef(null);
+  const nameRef = useRef(null);
+  const designationRef = useRef(null);
+  const quoteRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  // WebGL Shader Background
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1000);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const gl = canvas.getContext('webgl');
+    if (!gl) return;
+
+    const vertexSource = `
+      attribute vec2 position;
+      varying vec2 vUv;
+      void main() {
+        vUv = position*0.9 + 0.5;
+        gl_Position = vec4(position,0,1);
+      }
+    `;
+
+    const fragmentSource = `
+      precision mediump float;
+      uniform float iTime;
+      uniform vec2 iResolution;
+      varying vec2 vUv;
+
+      float random(vec2 uv) {
+        return fract(sin(dot(uv.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+      }
+
+      float noise(vec2 uv) {
+        vec2 i = floor(uv);
+        vec2 f = fract(uv);
+        float a = random(i);
+        float b = random(i + vec2(1., 0.));
+        float c = random(i + vec2(0., 1.));
+        float d = random(i + vec2(1., 1.));
+        vec2 u = f*f*(3.0-2.0*f);
+        float v1 = mix(a, b, u.x);
+        float v2 = mix(c, d, u.x);
+        return mix(v1, v2, u.y);
+      }
+
+      vec3 palette(float t) {
+        vec3 a = vec3(0.1, 0.1, 0.0);
+        vec3 b = vec3(0.5, 0.5, 0.0);
+        vec3 c = vec3(0.5, 0.5, 0.0);
+        vec3 d = vec3(0.8, 0.6, 0.0);
+        return a + b*cos(6.28318*(c*t + d));
+      }
+
+      #define OCTAVES 6
+      float fbm(vec2 uv) {
+        float lacunarity = 3.0;
+        float gain = 0.5;
+        float amplitude = 0.5;
+        float frequency = 1.0;
+        float result = 0.0;
+        for(int i = 0; i < OCTAVES; i++) {
+          result += amplitude*noise(frequency*uv);
+          frequency *= lacunarity;
+          amplitude *= gain;
+        }
+        return result;
+      }
+
+      void main() {
+        vec2 fragCoord = vUv * iResolution;
+        vec2 uv = (fragCoord - iResolution*0.5) / iResolution.y * 10.0;
+        float uvt = sin(length(uv) - iTime);
+        vec2 uv2 = uv * fbm(uv) * uvt;
+        vec3 col = palette(fbm(uv2)) * 0.3;
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `;
+
+    const createShader = (type, source) => {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      return shader;
+    };
+
+    const createProgram = (vsrc, fsrc) => {
+      const vs = createShader(gl.VERTEX_SHADER, vsrc);
+      const fs = createShader(gl.FRAGMENT_SHADER, fsrc);
+      const prog = gl.createProgram();
+      gl.attachShader(prog, vs);
+      gl.attachShader(prog, fs);
+      gl.linkProgram(prog);
+      return prog;
+    };
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
     };
     
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener('resize', resize);
+    resize();
+
+    const prog = createProgram(vertexSource, fragmentSource);
+    const posBuf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      -1,-1, 1,-1, -1,1,
+      -1,1, 1,-1, 1,1,
+    ]), gl.STATIC_DRAW);
+
+    const posLoc = gl.getAttribLocation(prog, 'position');
+    const iTimeLoc = gl.getUniformLocation(prog, 'iTime');
+    const iResLoc = gl.getUniformLocation(prog, 'iResolution');
+
+    let animationId;
+    const render = (now) => {
+      const t = now * 0.001;
+      gl.useProgram(prog);
+      gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+      gl.enableVertexAttribArray(posLoc);
+      gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+      gl.uniform1f(iTimeLoc, t);
+      gl.uniform2f(iResLoc, canvas.width, canvas.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      animationId = requestAnimationFrame(render);
+    };
+    animationId = requestAnimationFrame(render);
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationId);
+    };
   }, []);
 
-  // Group testimonials - 5 for desktop, 3 for tablet, 2 for mobile
-  const cardsPerSet = isMobile ? 2 : 5;
-  const testimonialSets = [];
-  for (let i = 0; i < testimonials.length; i += cardsPerSet) {
-    testimonialSets.push(testimonials.slice(i, i + cardsPerSet));
-  }
-  //3 cards per set for tablet can be added similarly if needed
+  const calculateGap = (width) => {
+    const minWidth = 1024;
+    const maxWidth = 1456;
+    const minGap = 60;
+    const maxGap = 86;
 
-  useEffect(() => {
-    
+    if (width <= minWidth) return minGap;
+    if (width >= maxWidth) return Math.max(minGap, maxGap + 0.06018 * (width - maxWidth));
 
-    // Desktop positions
-    const desktopPositions = [
-      { x: -400, y: -200 }, // Top left
-      { x: 400, y: -200 },  // Top right
-      { x: -500, y: 150 },  // Bottom left
-      { x: 500, y: 150 },   // Bottom right
-      { x: 0, y: 0 }      // Bottom center
-    ];
+    return minGap + (maxGap - minGap) * ((width - minWidth) / (maxWidth - minWidth));
+  };
 
-    // Mobile positions
-    const mobilePositions = [
-      { x: 0, y: -180 },    // Top
-      { x: 0, y: 180 }      // Bottom
-    ];
+  const updateTestimonial = (direction) => {
+    const newIndex = (activeIndex + direction + testimonials.length) % testimonials.length;
+    setActiveIndex(newIndex);
 
-    const positions = isMobile ? mobilePositions : desktopPositions;
+    const containerWidth = imageContainerRef.current?.offsetWidth || 0;
+    const gap = calculateGap(containerWidth);
+    const maxStickUp = gap * 0.8;
 
-    // Set initial positions for first set
-    cardsRef.current.slice(0, cardsPerSet).forEach((card, index) => {
-      if (card) {
-        gsap.set(card, {
-          x: positions[index].x,
-          y: positions[index].y,
-          opacity: 0,
-          scale: 0
+    testimonials.forEach((_, index) => {
+      const img = imageContainerRef.current?.querySelector(`[data-index="${index}"]`);
+      if (!img) return;
+
+      const offset = (index - newIndex + testimonials.length) % testimonials.length;
+      const zIndex = testimonials.length - Math.abs(offset);
+      const opacity = 1;
+      const scale = index === newIndex ? 1 : 0.85;
+
+      let translateX, translateY, rotateY;
+      if (offset === 0) {
+        translateX = '0%';
+        translateY = '0%';
+        rotateY = 0;
+      } else if (offset === 1 || offset === -2) {
+        translateX = '20%';
+        translateY = `-${maxStickUp / img.offsetHeight * 100}%`;
+        rotateY = -15;
+      } else {
+        translateX = '-20%';
+        translateY = `-${maxStickUp / img.offsetHeight * 100}%`;
+        rotateY = 15;
+      }
+
+      gsap.to(img, {
+        zIndex,
+        opacity,
+        scale,
+        x: translateX,
+        y: translateY,
+        rotateY,
+        duration: 0.8,
+        ease: "power3.out"
+      });
+    });
+
+    gsap.to([nameRef.current, designationRef.current], {
+      opacity: 1,
+      y: -20,
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        gsap.to([nameRef.current, designationRef.current], {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out"
         });
       }
     });
 
-    // Animate first set in
-    gsap.to(cardsRef.current.slice(0, cardsPerSet), {
-      opacity: 0,
-      scale: 1,
-      
-    });
+    
+  };
 
-    // Auto-rotate testimonials
-    const rotationInterval = setInterval(() => {
-      const currentSet = Math.floor(activeIndex / cardsPerSet);
-      const nextSet = (currentSet + 1) % testimonialSets.length;
-      const currentCards = cardsRef.current.slice(currentSet * cardsPerSet, (currentSet + 1) * cardsPerSet);
-      const nextCards = cardsRef.current.slice(nextSet * cardsPerSet, (nextSet + 1) * cardsPerSet);
+  useEffect(() => {
+    updateTestimonial(0);
+  }, []);
 
-      // Fade out current set
-      gsap.to(currentCards, {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.4,
-        stagger: 0.08,
-        ease: 'power2.in'
-      });
-
-      // Set next cards to positions and fade in
-      nextCards.forEach((card, index) => {
-        if (card) {
-          gsap.set(card, {
-            x: positions[index].x,
-            y: positions[index].y,
-            opacity: 0,
-            scale: 0.8
-          });
-        }
-      });
-
-      gsap.to(nextCards, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'back.out(1.2)',
-        delay: 0.1
-      });
-
-      setActiveIndex((nextSet * cardsPerSet) % testimonials.length);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      updateTestimonial(1);
     }, 5000);
 
-    return () => clearInterval(rotationInterval);
-  }, [activeIndex, isMobile, cardsPerSet, testimonialSets.length]);
+    return () => clearInterval(interval);
+  }, [activeIndex]);
 
-  const currentSet = Math.floor(activeIndex / cardsPerSet);
+  const handleNext = () => updateTestimonial(1);
+  const handlePrev = () => updateTestimonial(-1);
 
   return (
-    <section className="testimonials-section py-32 px-6 bg-gradient-to-b from-black to-[#080805] relative overflow-hidden" ref={sectionRef}>
+    <section style={{ fontFamily: "Figtree, sans-serif" }} className="testimonials-section py-32 px-6 bg-gradient-to-b from-black to-[#080805] relative overflow-hidden" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.9 }}>
         {/* Section Header */}
@@ -314,132 +460,104 @@ const Testimonials = () => {
           </p>
         </div>
         </AnimatedOnScroll>
-
-        {/* Testimonials Container */}
-        <div className={`testimonials-container relative flex items-center justify-center ${isMobile ? 'min-h-[600px]' : 'h-[800px]'}`}>
-          {/* Center Box */}
+      
+      <div className="relative z-10 w-full max-w-7xl mx-auto p-4 md:p-8 lg:p-16">
+        <div className="bg-black backdrop-blur-xl rounded-3xl p-6 md:p-12 lg:p-16 border border-yellow-500/20 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_100px_rgba(234,179,8,0.2)] hover:shadow-[0_0_90px_25px_rgba(234,179,8,0.4),0_0_160px_50px_rgba(234,179,8,0.2)] transition-all duration-500">
+          
           
 
-          {/* Testimonial Cards */}
-          {testimonials.map((testimonial, index) => {
-            const Icon = testimonial.icon;
-            
-            return (
-              <div
-                key={testimonial.id}
-                ref={el => cardsRef.current[index] = el}
-                className={`absolute ${isMobile ? 'w-72' : 'w-80'} bg-gradient-to-br ${testimonial.color} backdrop-blur-xl border ${testimonial.borderColor} rounded-2xl p-6 shadow-2xl`}
-                style={{ opacity: 0 }}
-              >
-                {/* Icon */}
-                <div className="absolute -top-4 -right-4 w-12 h-12 bg-[#1A1A1A] rounded-full border-2 border-[#D4D414] flex items-center justify-center">
-                  <Icon className="w-6 h-6 text-[#D4D414]" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            {/* Image Container */}
+            <div 
+              ref={imageContainerRef}
+              className="relative w-full h-24 md:h-24 lg:h-24"
+            >
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={testimonial.id}
+                  data-index={index}
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ transformStyle: 'preserve-3d' }}
+                >
+                  <div className="w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-yellow-500/50 shadow-2xl shadow-yellow-500/20 bg-gray-900">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 </div>
+              ))}
+            </div>
 
-                {/* Quote Icon */}
-                <Quote className="w-8 h-8 text-[#D4D414]/40 mb-4" />
-
-                {/* Testimonial Text */}
-                <p className="text-white/90 text-sm leading-relaxed mb-6 min-h-[80px]">
-                  "{testimonial.text}"
-                </p>
-
-                {/* Rating Stars */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#D4D414] text-[#D4D414]" />
-                  ))}
-                </div>
-
-                {/* User Info */}
-                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                  <div
-                    className="w-12 h-12 rounded-full border-2 border-[#D4D414]/40"
-                    style={{
-                      backgroundImage: `url(${testimonial.image})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }}
-                  ></div>
-                  <div>
-                    <h4 className="text-white font-semibold text-sm">{testimonial.name}</h4>
-                    <p className="text-[#AAADB0] text-xs">{testimonial.role}</p>
+            {/* Content */}
+            <div className="bg-gray-900/70 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-yellow-500/30 shadow-[inset_0_0_25px_rgba(234,179,8,0.1),0_0_20px_rgba(234,179,8,0.2)]">
+              <div className="mb-6">
+                <h3 ref={nameRef} className="text-2xl md:text-3xl font-bold text-yellow-400 mb-2">
+                  {testimonials[activeIndex].name}
+                </h3>
+                <div ref={designationRef} className="flex items-center gap-3">
+                  <p className="text-sm md:text-base text-yellow-200/70">
+                    {testimonials[activeIndex].role}
+                  </p>
+                  <div className="flex items-center">
+                    <img 
+                      src={getCarLogo(testimonials[activeIndex].role)}
+                      alt={`${testimonials[activeIndex].role} logo`}
+                      className="w-6 h-6 object-contain"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                      }}
+                    />
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
+              
+              <p 
+                ref={quoteRef}
+                className="text-base md:text-lg text-gray-200 leading-relaxed mb-6"
+              >
+                {testimonials[activeIndex].text.split(' ').map((word, i) => (
+                  <span key={i} className="word inline-block mr-1">
+                    {word}
+                  </span>
+                ))}
+              </p>
 
-        {/* Pagination Dots - Fixed positioning */}
-        <div className="flex justify-center gap-3 mt-16 relative z-30">
-          {testimonialSets.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                const currentSet = Math.floor(activeIndex / cardsPerSet);
-                if (index !== currentSet) {
-                  // Get current and next cards
-                  const currentCards = cardsRef.current.slice(currentSet * cardsPerSet, (currentSet + 1) * cardsPerSet);
-                  const nextCards = cardsRef.current.slice(index * cardsPerSet, (index + 1) * cardsPerSet);
-                  const positions = isMobile ? [
-                    { x: 0, y: -180 },
-                    { x: 0, y: 180 }
-                  ] : [
-                    { x: -400, y: -200 },
-                    { x: 400, y: -200 },
-                    { x: -500, y: 150 },
-                    { x: 500, y: 150 },
-                    { x: 0, y: 0 }
-                  ];
+              <div className="grid grid-rows-2 flex items-center justify-center">
+                <div className="flex gap-1">
+                  {[...Array(testimonials[activeIndex].rating)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
 
-                  // Instantly hide current cards
-                  gsap.killTweensOf(currentCards);
-                  gsap.to(currentCards, {
-                    opacity: 0,
-                    scale: 0.8,
-                    duration: 0,
-                    immediate: true
-                  });
-
-                  // Position and animate in new cards
-                  nextCards.forEach((card, cardIndex) => {
-                    if (card) {
-                      gsap.set(card, {
-                        x: positions[cardIndex].x,
-                        y: positions[cardIndex].y,
-                        opacity: 0,
-                        scale: 0.8
-                      });
-                    }
-                  });
-
-                  gsap.to(nextCards, {
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: 'back.out(1.2)'
-                  });
-
-                  setActiveIndex(index * cardsPerSet);
-                }
-              }}
-              className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
-                currentSet === index 
-                  ? 'bg-[#D4D414] w-8' 
-                  : 'bg-white/20 hover:bg-white/40'
-              }`}
-              aria-label={`Go to testimonial set ${index + 1}`}
-            />
-          ))}
+                <div className="flex gap-3">
+                  <button
+                    onClick={handlePrev}
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-yellow-500/10 border-2 border-yellow-500/50 flex items-center justify-center hover:bg-yellow-500/20 hover:scale-110 hover:shadow-[0_8px_24px_rgba(234,179,8,0.6)] transition-all duration-300 group"
+                  >
+                    <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-yellow-400 group-hover:text-white transition-colors group-hover:-rotate-12 transition-transform" />
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-yellow-500/10 border-2 border-yellow-500/50 flex items-center justify-center hover:bg-yellow-500/20 hover:scale-110 hover:shadow-[0_8px_24px_rgba(234,179,8,0.6)] transition-all duration-300 group"
+                  >
+                    <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-yellow-400 group-hover:text-white transition-colors group-hover:rotate-12 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+   
 
-      {/* Decorative Background Elements */}
-      <div className="absolute top-20 left-10 w-64 h-64 bg-[#D4D414]/5 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#D4D414]/5 rounded-full blur-3xl pointer-events-none"></div>
-    </section>
+       
+      </div>
+
+       </section>
   );
 };
 

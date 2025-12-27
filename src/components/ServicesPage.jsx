@@ -49,70 +49,47 @@ const ServicesPage = () => {
     );
   }
   
+useEffect(() => {
+  if (!heroRef.current) return;
 
-  useEffect(() => {
-    const cleanup = [];
-    const ctx = gsap.context(() => {
-      // Mobile-specific animations - reduce complexity for better performance
-      if (isMobile) {
-        // For mobile, use simpler animations without starting at opacity: 0
-        gsap.fromTo(
-          heroRef.current.querySelector('.hero-content'),
-          { y: 30, opacity: 0.8 },
-          { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.1 }
-        );
+  const ctx = gsap.context(() => {
+    const heroContent = heroRef.current?.querySelector('.hero-content');
 
-        gsap.fromTo(
-          carouselContainerRef.current,
-          { y: 50, opacity: 0.8 },
-          { y: 0, opacity: 1, duration: 1, ease: 'power2.out', delay: 0.2 }
-        );
-      } else {
-        // Desktop animations - full GSAP experience
-        gsap.fromTo(
-          heroRef.current.querySelector('.hero-content'),
-          { y: 100, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.3 }
-        );
+    if (heroContent) {
+      gsap.fromTo(
+        heroContent,
+        { y: isMobile ? 30 : 100, opacity: isMobile ? 0 : 1 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power2.out', delay: 0.2 }
+      );
+    }
 
-        gsap.fromTo(
-          carouselContainerRef.current,
-          { y: 150, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1.5, ease: 'power3.out', delay: 0.5 }
-        );
-      }
+    if (carouselContainerRef.current) {
+      gsap.fromTo(
+        carouselContainerRef.current,
+        { y: isMobile ? 50 : 150, opacity: isMobile ? 0 : 1 },
+        { y: 0, opacity: 1, duration: 1.2, ease: 'power2.out', delay: 0.4 }
+      );
+    }
 
-      // Timeline line animation
+    if (processRef.current && timelineLineRef.current) {
       ScrollTrigger.create({
         trigger: processRef.current,
-        start: 'top 60%',
+        start: 'top 70%',
         end: 'bottom 20%',
-        scrub: 1,
+        scrub: true,
         onUpdate: (self) => {
-          const progress = self.progress;
           gsap.to(timelineLineRef.current, {
-            height: `${progress * 100}%`,
-            duration: 0.1
+            height: `${self.progress * 100}%`,
+            duration: 0.1,
           });
-        }
+        },
       });
+    }
+  });
 
-      // Fixed specs section
-      const mm = gsap.matchMedia();
-      
-      mm.add("(min-width: 1024px)", () => {
-        // Remove GSAP pinning and use CSS sticky instead
-        // This prevents the shaking/jittering issue
-      });
+  return () => ctx.revert();
+}, [isMobile]);
 
-      cleanup.push(() => mm.revert());
-    });
-
-    return () => {
-      ctx.revert();
-      cleanup.forEach((fn) => fn());
-    };
-  }, []);
 
   const carouselImages = service.images || [];
 
@@ -235,7 +212,7 @@ const ServicesPage = () => {
           <p className="text-lg lg:text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Book your service today and experience the difference of professional car care.
           </p>
-          <button onClick={() => navigate('/contact')} className="bg-black text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-zinc-900 transition-colors inline-flex items-center gap-3">
+          <button onClick={() => navigate('/contact')} className="bg-black text-white px-8 py-4 rounded-full  text-lg hover:bg-zinc-900 transition-colors inline-flex items-center gap-3">
             Schedule Now
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -287,7 +264,7 @@ const ServicesPage = () => {
                 </ul>
 
                 {/* Learn More Button */}
-                <Link to={`/services/${service.slug || service.title.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`} className="service-button group inline-flex items-center gap-2 text-[#D4D414] font-semibold text-sm sm:text-base hover:gap-3 transition-all">
+                <Link to={`/services/${service.slug || service.title.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`} className="service-button group inline-flex items-center gap-2 text-[#D4D414]  text-sm sm:text-base hover:gap-3 transition-all">
                   <span>Learn More</span>
                   <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5" />
                 </Link>

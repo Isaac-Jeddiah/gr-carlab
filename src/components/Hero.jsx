@@ -167,7 +167,7 @@ const Hero = () => {
       {/* Car from left with 3D transform */}
       <div
         
-        className="absolute sm:right-[200%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none transition-transform will-change-transform"
+        className="absolute sm:left-[-100%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none transition-transform will-change-transform"
       >
         <img
           src={heroCar}

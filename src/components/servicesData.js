@@ -24,7 +24,9 @@ import scratchWaterSpotRemoval2 from "../assets/images/scratch-water-spot-remova
 import scratchWaterSpotRemoval3 from "../assets/images/scratch-water-spot-removal-3.jpg";
 
 const servicesData = [
+
   {
+    id: 1,
     slug: "exterior-interior-detailing",
     title: "Exterior and Interior Detailing",
     short: "Complete deep clean, deodorise and restore.",
@@ -86,6 +88,7 @@ const servicesData = [
     ],
   },
   {
+    id: 2,
     slug: "washing-deep-cleaning",
     title: "Washing and Deep Cleaning",
     short: "Multi stage foam and pressure wash with underbody cleaning.",
@@ -143,6 +146,7 @@ const servicesData = [
     ],
   },
   {
+    id: 3,
     slug: "ceramic-coating",
     title: "Ceramic Coating",
     short: "Long lasting gloss and surface protection.",
@@ -201,6 +205,7 @@ const servicesData = [
     ],
   },
   {
+    id: 4,
     slug: "paint-protection-film",
     title: "Paint Protection Film (PPF)",
     short: "High grade film to prevent chips and scratches.",
@@ -262,6 +267,7 @@ const servicesData = [
     ],
   },
   {
+    id: 5,
     slug: "paint-correction-polishing",
     title: "Paint Correction and Polishing",
     short: "Remove swirl marks, scratches and restore finish.",
@@ -319,6 +325,7 @@ const servicesData = [
     ],
   },
   {
+    id: 6,
     slug: "headlight-restoration",
     title: "Headlight Restoration",
     short: "Clear, safe lighting restored to like new.",
@@ -372,6 +379,7 @@ const servicesData = [
     ],
   },
   {
+    id: 7,
     slug: "engine-bay-detailing",
     title: "Engine Bay Detailing",
     short: "Safe cleaning and dressing for the engine compartment.",
@@ -425,6 +433,7 @@ const servicesData = [
     ],
   },
   {
+    id: 8,
     slug: "scratch-water-spot-removal",
     title: "Scratch and Water Spot Removal",
     short: "Effective cosmetic repairs for visible blemishes.",

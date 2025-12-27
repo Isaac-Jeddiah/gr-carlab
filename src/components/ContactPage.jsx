@@ -528,7 +528,7 @@ ${formData.firstName} ${formData.lastName}`;
               </div>
             </div>
           </div>
-          <style jsx>{`
+          <style>{`
             @keyframes slide-car {
               0% {
                 right: -100px;

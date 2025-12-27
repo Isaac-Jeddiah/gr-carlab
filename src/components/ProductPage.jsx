@@ -226,7 +226,7 @@ const ProductPage = () => {
                   backgroundPosition: 'center',
                 }}
               ></div>
-              <h3 className="text-lg font-semibold mb-1">{p.title}</h3>
+              <h3 className="text-lg  mb-1">{p.title}</h3>
               <p className="text-gray-400 text-sm mb-2">{p.short}</p>
               <div className="text-sm text-gray-300">
                 <div className="font-medium mb-1">
@@ -268,7 +268,7 @@ const ProductPage = () => {
                   <div className="flex gap-3 items-center">
                     <button
                       onClick={() => navigate("/contact")}
-                      className="bg-yellow-400 text-black px-5 py-3 rounded-full font-semibold"
+                      className="bg-yellow-400 text-black px-5 py-3 rounded-full "
                     >
                       Enquire / Buy
                     </button>

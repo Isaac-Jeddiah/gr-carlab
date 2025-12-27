@@ -252,7 +252,7 @@ const NavBar = ({ setIsDrawerOpen }) => {
                   onClick={() => setIsMenuOpen(false)}
                   className="group relative w-full flex items-center justify-center gap-3 px-6 py-3 bg-black border-2 border-yellow-400 rounded-full transition-all duration-300 hover:rounded-2xl active:scale-95"
                 >
-                  <span className="text-white font-semibold text-sm">Book Now</span>
+                  <span className="text-white  text-sm">Book Now</span>
                 </button>
               </div>
             </div>

@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import servicesData from "./servicesData.js";
 import { setupGSAP } from "../utils/gsapSetup";
-import AnimatedOnScroll from "./AnimatedOnScroll";
 
 const Services = () => {
   const servicesRef = useRef(null);
@@ -98,7 +97,7 @@ const Services = () => {
       ref={servicesRef}
     >
       <div className="max-w-7xl mx-auto">
-        <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.9 }}>
+       
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-16 services-title">
           <div className="text-xs sm:text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
@@ -119,6 +118,7 @@ const Services = () => {
           {servicesData.map((service, index) => (
             <div
               key={service.id}
+              id={`service-${service.id}`}
               ref={(el) => (cardsRef.current[index] = el)}
               className="service-card bg-[#1A1A1A] rounded-lg sm:rounded-xl lg:rounded-2xl overflow-hidden border border-white/5 hover:border-[#D4D414]/30 transition-all duration-300 cursor-pointer"
               style={{ transformStyle: "preserve-3d" }}
@@ -165,7 +165,7 @@ const Services = () => {
                     service.slug ||
                     service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")
                   }`}
-                  className="service-button group inline-flex items-center gap-2 text-[#D4D414] font-semibold text-sm sm:text-base hover:gap-3 transition-all"
+                  className="service-button group inline-flex items-center gap-2 text-[#D4D414]  text-sm sm:text-base hover:gap-3 transition-all"
                   style={{ zIndex: 10, pointerEvents: 'auto' }}
                 >
                   <span>Learn More</span>
@@ -177,7 +177,6 @@ const Services = () => {
         </div>
 
         
-        </AnimatedOnScroll>
         
       </div>
     </section>
