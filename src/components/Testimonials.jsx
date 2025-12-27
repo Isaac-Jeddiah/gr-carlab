@@ -15,7 +15,6 @@ import siddharthJoshi from '../assets/testimonial-siddharth-joshi.jpg';
 import kavyaMenon from '../assets/testimonial-kavya-menon.jpg';
 import adityaGupta from '../assets/testimonial-aditya-gupta.jpg';
 import ishitaBose from '../assets/testimonial-ishita-bose.jpg';
-import rohanDesai from '../assets/testimonial-rohan-desai.jpg';
 
 import AnimatedOnScroll from './AnimatedOnScroll';
 
@@ -180,6 +179,17 @@ const Testimonials = () => {
       color: "from-orange-500/20 to-amber-500/20",
       borderColor: "border-orange-500/30"
     },
+     {
+      id: 15,
+      name: "Rohan Desai",
+      role: "Renault Owner",
+      image: rahulKapoor,
+      text: "Exceptional detailing service! The team at GR CAR LAB transformed my car inside and out. Highly recommended!",
+      rating: 5,
+      icon: Sparkles,
+      color: "from-orange-500/20 to-amber-500/20",
+      borderColor: "border-orange-500/30"
+    },
   ];
 
   // Detect mobile
@@ -228,7 +238,7 @@ const Testimonials = () => {
           x: positions[index].x,
           y: positions[index].y,
           opacity: 0,
-          scale: 0.8
+          scale: 0
         });
       }
     });
@@ -237,10 +247,7 @@ const Testimonials = () => {
     gsap.to(cardsRef.current.slice(0, cardsPerSet), {
       opacity: 0,
       scale: 1,
-      duration: 0.2,
-      stagger: 0.15,
-      ease: 'back.out(1.2)',
-      delay: 0.1
+      
     });
 
     // Auto-rotate testimonials
@@ -277,7 +284,7 @@ const Testimonials = () => {
         duration: 0.8,
         stagger: 0.15,
         ease: 'back.out(1.2)',
-        delay: 1
+        delay: 0.1
       });
 
       setActiveIndex((nextSet * cardsPerSet) % testimonials.length);

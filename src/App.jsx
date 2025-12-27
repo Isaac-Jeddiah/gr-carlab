@@ -36,47 +36,45 @@ import HowWeWork from "./components/HowWeWork.jsx";
 
 const Home = () => {
   return (
-    <div className="bg-black text-white overflow-x-hidden">
+    <div className="">
       {/* Hero - No animation wrapper (loads immediately) */}
       <Hero />
 
       {/* Services - Slide From Right */}
-      
+      <SlideFromRight>
       <Services />
-    
+      </SlideFromRight>
       
       {/* How We Work Section */}
       {/* About - Scale Reveal (Zoom in) */}
-      <ScaleReveal>
+        <ScaleReveal>
         <About />
-      </ScaleReveal>
+       </ScaleReveal>
       
       {/* Why Choose Us - Slide From Left */}
       <SlideFromLeft>
         <WhyUs />
-      </SlideFromLeft>
+    </SlideFromLeft>
+      {/* How We Work - Rotate In */}
       <HowWeWork/>
+      
 
       {/* Products - Parallax Fade with 3D depth */}
-      <BlurReveal>
-
+      
       <Products />
-    </BlurReveal>
 
       {/* Testimonials - Slide From Right */}
-      <SlideFromRight>
-        <Testimonials />
-      </SlideFromRight>
+        
 
       {/* Contact - Blur Reveal (Modern glassmorphism) */}
-      <BlurReveal>
+        <BlurReveal>
         <Contact />
-      </BlurReveal>
+        </BlurReveal>
 
       {/* Footer - Simple Fade Slide Up */}
-      <FadeSlideUp>
+        <BlurReveal>
         <Footer />
-      </FadeSlideUp>
+      </BlurReveal>
     </div>
   );
 };

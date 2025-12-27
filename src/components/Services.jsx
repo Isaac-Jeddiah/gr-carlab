@@ -150,7 +150,7 @@ const Services = () => {
                 <ul className="service-features space-y-1.5 sm:space-y-2 mb-4 sm:mb-6">
                   {service.details.slice(0, 3).map((detail, idx) => (
                     <li
-                      key={idx}
+                      key={`${service.id}-detail-${idx}`}
                       className="service-feature-item flex items-center gap-2 text-xs sm:text-xs md:text-xs lg:text-xs text-white/60"
                     >
                       <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-[#D4D414] flex-shrink-0"></span>

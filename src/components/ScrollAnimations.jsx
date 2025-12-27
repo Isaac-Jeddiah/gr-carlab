@@ -31,7 +31,7 @@ export const ClipPathReveal = ({ children, delay = 0 }) => {
       ref={ref}
       className="scroll-animate"
       style={{
-        opacity: 0,
+        opacity: 1,
         clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
         transition: `all 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
       }}

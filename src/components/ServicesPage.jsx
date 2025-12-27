@@ -20,6 +20,18 @@ const ServicesPage = () => {
   const navigate = useNavigate();
   const servicesRef = useRef(null);
   const cardsRef = useRef([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Find service by slug passed in route param. Do not fall back to defaults.
   const service = servicesData.find((s) => s.slug === slug);
@@ -41,19 +53,34 @@ const ServicesPage = () => {
   useEffect(() => {
     const cleanup = [];
     const ctx = gsap.context(() => {
-      // Hero text slide from bottom
-      gsap.fromTo(
-        heroRef.current.querySelector('.hero-content'),
-        { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.3 }
-      );
+      // Mobile-specific animations - reduce complexity for better performance
+      if (isMobile) {
+        // For mobile, use simpler animations without starting at opacity: 0
+        gsap.fromTo(
+          heroRef.current.querySelector('.hero-content'),
+          { y: 30, opacity: 0.8 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', delay: 0.1 }
+        );
 
-      // Carousel slide from bottom (slower)
-      gsap.fromTo(
-        carouselContainerRef.current,
-        { y: 150, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.5, ease: 'power3.out', delay: 0.5 }
-      );
+        gsap.fromTo(
+          carouselContainerRef.current,
+          { y: 50, opacity: 0.8 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power2.out', delay: 0.2 }
+        );
+      } else {
+        // Desktop animations - full GSAP experience
+        gsap.fromTo(
+          heroRef.current.querySelector('.hero-content'),
+          { y: 100, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.2, ease: 'power3.out', delay: 0.3 }
+        );
+
+        gsap.fromTo(
+          carouselContainerRef.current,
+          { y: 150, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.5, ease: 'power3.out', delay: 0.5 }
+        );
+      }
 
       // Timeline line animation
       ScrollTrigger.create({

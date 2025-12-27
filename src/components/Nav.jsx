@@ -194,7 +194,7 @@ const NavBar = () => {
   );
 
   return (
-    <div className="NavBar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 sm:pb-3 flex items-center justify-between">
+    <div className="NavBar-container relative z-200 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 sm:pb-3 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div
           className="NavBar-logo hover-scale cursor-pointer"

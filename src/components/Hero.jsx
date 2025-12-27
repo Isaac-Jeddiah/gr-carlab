@@ -28,7 +28,7 @@ const Hero = () => {
       setTimeout(() => {
         char.style.opacity = '1';
         char.style.transform = 'translateY(0) rotateX(0)';
-      }, 800 + i * 30);
+      }, 500 + i * 10);
     });
 
     words.forEach((word, i) => {
@@ -142,10 +142,10 @@ const Hero = () => {
 
   return (
     // Hero section
-    <div className="relative rounded-4xl mt-10 bg-black mb-10 ml-8 mr-8  h-screen overflow-hidden">
+    <div className="relative rounded-4xl mt-6 bg-black min-h-screen overflow-hidden mx-2 md:mx-8 lg:mx-8 mb-12">
     <section
       ref={heroRef}
-      className="relative w-full h-screen overflow-hidden bg-black"
+      className="relative w-full min-h-screen overflow-hidden bg-black"
       style={{ perspective: '100000px' }}
     >
       {/* Full Background with 3D depth */}
@@ -154,7 +154,7 @@ const Hero = () => {
         className="absolute inset-0 w-full h-full transition-transform will-change-transform"
         style={{
           backgroundImage: `url(${heroBg})`,
-          scale: 1.1,
+          scale: 1,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -166,17 +166,13 @@ const Hero = () => {
 
       {/* Car from left with 3D transform */}
       <div
-        ref={carRef}
-        className="absolute left-[-20%] lg:left-[-20%] sm:left-[-80%] md:left-[-30%] bottom-0 w-full h-full pointer-events-none transition-transform will-change-transform"
-        style={{
-          transformStyle: 'preserve-3d',
-          transform: 'translate3d(0, 0, 0)',
-        }}
+        
+        className="absolute sm:right-[200%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none transition-transform will-change-transform"
       >
         <img
           src={heroCar}
           alt="Hero car"
-          className="absolute bottom-0 left-0 h-[70%] md:h-[80%] lg:h-[90%] w-auto max-w-none object-contain"
+          className="relative lg:pb-50 left-0 h-[100%] md:h-[80%] lg:h-[140%] lg:scale-120 sm:scale-150 w-auto max-w-none object-contain"
           style={{
             filter: 'drop-shadow(20px 20px 40px rgba(0,0,0,0.5))',
             opacity: isLoaded ? 1 : 0,
@@ -192,12 +188,13 @@ const Hero = () => {
       {/* Content */}
       <div
         
-        className="relative z-40 h-full w-full flex flex-col justify-between px-4 sm:px-6 md:px-8 lg:px-12 py-20 md:py-24 lg:py-32 transition-transform will-change-transform"
+        className="relative z-40 h-full w-full flex flex-col justify-between min-h-screen  transition-transform will-change-transform"
       >
+        <div className="px-4 sm:px-6 md:px-8 lg:px-12 py-12 ">
         {/* Top Label */}
         <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
           <div className="flex items-center gap-3 text-[#D4D414] text-xs sm:text-sm tracking-wider uppercase">
-            <span className="w-8 md:w-12 h-px bg-[#D4D414]" />
+            <span className="w-24 md:w-12 h-2 rounded-full bg-[#D4D414]" />
             <span></span>
           </div>
           <div className="text-right text-xs sm:text-sm text-white/70 max-w-xs hidden lg:block">
@@ -208,15 +205,20 @@ const Hero = () => {
         {/* Main Content */}
         <div className="w-full">
           <h1 className="font-bold leading-tight">
-            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white">
-              {splitText('Welcome to GR CAR LAB')}
+            <span className=" text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white">
+              {splitWords('Welcome to GR CAR LAB')}
             </span>
             <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#D4D414] mt-2 md:mt-4">
               {splitWords('Precision Care for Every Car')}
             </span>
           </h1>
-          <p
-            className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl leading-relaxed"
+          
+        </div>
+        </div>
+        {/* CTA Buttons */}
+        <div className="grid grid-rows-2">
+        <p
+            className="px-4 sm:px-6 md:px-8 lg:px-12 text-sm sm:text-base md:text-lg text-white/80 max-w-2xl leading-relaxed"
             style={{
               opacity: isLoaded ? 1 : 0,
               transform: isLoaded ? 'translateY(0)' : 'translateY(40px)',
@@ -225,11 +227,8 @@ const Hero = () => {
           >
             Committed to premium detailing delivered with care and expertise. We refine every surface to restore shine, protect value, and delight our customers.
           </p>
-        </div>
-
-        {/* CTA Buttons */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-0 border-t border-white/20 w-full"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-0 border-t-2 border-white/20 w-full"
           style={{
             opacity: isLoaded ? 1 : 0,
             transform: isLoaded ? 'translateY(0)' : 'translateY(40px)',
@@ -238,7 +237,7 @@ const Hero = () => {
         >
           <a
             href="#services"
-            className="group flex items-center justify-between px-6 py-5 md:py-6 border-b sm:border-b-0 sm:border-r border-white/20 hover:bg-white/5 transition-all"
+            className="group flex items-center justify-between px-6 py-5 md:py-6 border-b-0 sm:border-b-0 sm:border-r border-white/20 hover:bg-white/5 transition-all"
           >
             <span className="text-base md:text-lg lg:text-xl text-white">See Our Services</span>
             <ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-2 transition-transform" />
@@ -250,6 +249,7 @@ const Hero = () => {
             <span className="text-base md:text-lg lg:text-xl text-white">Get in Touch</span>
             <ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-2 transition-transform" />
           </a>
+        </div>
         </div>
       </div>
     </section>

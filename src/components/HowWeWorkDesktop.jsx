@@ -70,9 +70,57 @@ const HowWeWorkDesk = () => {
     "bg-[#111111]",
     "bg-[#161616]",
     "bg-[#1C1C1C]",
-    "bg-gradient-to-br from-[#1C1C1C] to-[#D4D414]/10",
-    "bg-gradient-to-br from-[#111111] to-[#D4D414]/20",
+    "bg-[#212121]",
+    "bg-[#262626]",
   ];
+
+  // Utility function to dispose Three.js resources
+  const disposeObject3D = (object) => {
+    if (!object) return;
+    
+    object.traverse((child) => {
+      if (child.isMesh) {
+        // Dispose geometry
+        if (child.geometry) {
+          child.geometry.dispose();
+        }
+        
+        // Dispose material and textures
+        if (child.material) {
+          if (Array.isArray(child.material)) {
+            child.material.forEach(material => disposeMaterial(material));
+          } else {
+            disposeMaterial(child.material);
+          }
+        }
+      }
+    });
+  };
+
+  const disposeMaterial = (material) => {
+    if (!material) return;
+    
+    // Dispose all material properties that might have textures
+    const textureKeys = ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap', 'alphaMap'];
+    textureKeys.forEach(key => {
+      if (material[key]) {
+        material[key].dispose();
+      }
+    });
+    
+    material.dispose();
+  };
+
+  const cleanupWebGLResources = () => {
+    // Kill all scroll triggers first
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    
+    // Dispose of the car model
+    if (carModelRef.current) {
+      disposeObject3D(carModelRef.current);
+      carModelRef.current = null;
+    }
+  };
 
   // Initialize Three.js scene
   useEffect(() => {
@@ -80,103 +128,185 @@ const HowWeWorkDesk = () => {
 
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
+    let renderer, camera, gltfLoader, dracoLoader, animationId;
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(
-      50,
-      canvas.clientWidth / canvas.clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.set(4, 1.5, 6);
-    camera.lookAt(0, 0, 0);
+    try {
+      // Camera
+      camera = new THREE.PerspectiveCamera(
+        50,
+        canvas.clientWidth / canvas.clientHeight,
+        0.1,
+        1000
+      );
+      camera.position.set(4, 1.5, 6);
+      camera.lookAt(0, 0, 0);
 
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true,
-    });
-    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
+      // Renderer
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: true,
+      });
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
 
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambientLight);
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    directionalLight.position.set(5, 5, 5);
-    scene.add(directionalLight);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+      directionalLight.position.set(5, 5, 5);
+      scene.add(directionalLight);
 
-    const directionalLight2 = new THREE.DirectionalLight(0xd4d414, 0.5);
-    directionalLight2.position.set(-3, 2, -3);
-    scene.add(directionalLight2);
+      const directionalLight2 = new THREE.DirectionalLight(0xd4d414, 0.5);
+      directionalLight2.position.set(-3, 2, -3);
+      scene.add(directionalLight2);
 
-    const pointLight = new THREE.PointLight(0xd4d414, 1, 10);
-    pointLight.position.set(0, 2, 3);
-    scene.add(pointLight);
-    //grid plane
-    const planeGeo = new THREE.PlaneGeometry(12, 12, 24, 24);
-    const planeMat = new THREE.MeshBasicMaterial({
-      color: 0xd4d414,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.15,
-      depthWrite: false,
-    });
+      const pointLight = new THREE.PointLight(0xd4d414, 1, 10);
+      pointLight.position.set(0, 2, 3);
+      scene.add(pointLight);
+      
+      // Grid plane
+      const planeGeo = new THREE.PlaneGeometry(12, 12, 24, 24);
+      const planeMat = new THREE.MeshBasicMaterial({
+        color: 0xd4d414,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15,
+        depthWrite: false,
+      });
 
-    const gridPlane = new THREE.Mesh(planeGeo, planeMat);
-    gridPlane.rotation.x = -Math.PI / 2;
-    gridPlane.position.y = -0.8;
+      const gridPlane = new THREE.Mesh(planeGeo, planeMat);
+      gridPlane.rotation.x = -Math.PI / 2;
+      gridPlane.position.y = -0.8;
 
-    scene.add(gridPlane);
+      scene.add(gridPlane);
 
-    // Load GLB model
-    const gltfLoader = new GLTFLoader();
+      // Load GLB model with improved error handling
+      gltfLoader = new GLTFLoader();
+      dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
+      gltfLoader.setDRACOLoader(dracoLoader);
 
-    const dracoLoader = new DRACOLoader();
-    // IMPORTANT: decoder path (CDN is easiest)
-    dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
+      gltfLoader.load(
+        "/models/porsche_gt3_rs.glb",
+        (gltf) => {
+          try {
+            const car = gltf.scene;
+            carModelRef.current = car;
 
-    gltfLoader.setDRACOLoader(dracoLoader);
+            car.traverse((child) => {
+              if (child.isMesh) {
+                if (child.material) {
+                  // Ensure materials are properly configured
+                  if (Array.isArray(child.material)) {
+                    child.material.forEach(mat => {
+                      mat.metalness = 0.9;
+                      mat.roughness = 0.3;
+                      mat.needsUpdate = true;
+                    });
+                  } else {
+                    child.material.metalness = 0.9;
+                    child.material.roughness = 0.3;
+                    child.material.needsUpdate = true;
+                  }
+                }
+                child.castShadow = true;
+                child.receiveShadow = true;
+              }
+            });
 
-    // UPDATE THIS PATH TO YOUR PORSCHE GT3 RS .glb FILE
-    gltfLoader.load(
-      "/models/porsche_gt3_rs.glb",
-      (gltf) => {
-        const car = gltf.scene;
-        carModelRef.current = car;
+            const box = new THREE.Box3().setFromObject(car);
+            const center = box.getCenter(new THREE.Vector3());
+            const size = box.getSize(new THREE.Vector3());
 
-        car.traverse((child) => {
-          if (child.isMesh) {
-            if (child.material) {
-              child.material.metalness = 0.9;
-              child.material.roughness = 0.3;
-            }
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const scale = 7 / maxDim;
+            car.scale.setScalar(scale);
+
+            car.position.sub(center.multiplyScalar(scale));
+            car.position.y = -0.8;
+
+            scene.add(car);
+          } catch (error) {
+            console.warn("Error processing GLTF model:", error);
+            createFallbackCar(scene);
           }
-        });
+        },
+        (progress) => {
+          // Optional: Handle loading progress
+        },
+        (error) => {
+          console.warn("Error loading GLTF model:", error);
+          createFallbackCar(scene);
+        }
+      );
 
-        const box = new THREE.Box3().setFromObject(car);
-        const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
+      // Animation loop
+      const animate = () => {
+        animationId = requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      };
+      animate();
 
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 7 / maxDim;
-        car.scale.setScalar(scale);
+      // Handle resize
+      const handleResize = () => {
+        try {
+          const width = canvas.clientWidth;
+          const height = canvas.clientHeight;
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(width, height);
+        } catch (error) {
+          console.warn("Error during resize:", error);
+        }
+      };
+      window.addEventListener("resize", handleResize);
 
-        car.position.sub(center.multiplyScalar(scale));
-        car.position.y = -0.8;
+      // Store cleanup function in ref for later use
+      const cleanup = () => {
+        window.removeEventListener("resize", handleResize);
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+        if (dracoLoader) {
+          dracoLoader.dispose();
+        }
+        if (gltfLoader) {
+          gltfLoader = null;
+        }
+        cleanupWebGLResources();
+        if (renderer) {
+          renderer.dispose();
+        }
+      };
 
-        scene.add(car);
-      },
-      undefined,
-      (error) => {
-        console.error("Error loading model:", error);
+      // Store cleanup in component ref
+      canvas.cleanup = cleanup;
 
-        // Fallback car
-        const carGroup = new THREE.Group();
+    } catch (error) {
+      console.error("Error initializing Three.js scene:", error);
+      // Create fallback scene
+      const fallbackScene = new THREE.Scene();
+      createFallbackCar(fallbackScene);
+    }
 
+    // Cleanup function
+    return () => {
+      if (canvas.cleanup) {
+        canvas.cleanup();
+      } else {
+        cleanupWebGLResources();
+      }
+    };
+
+    // Helper function to create fallback car
+    function createFallbackCar(scene) {
+      const carGroup = new THREE.Group();
+      carModelRef.current = carGroup;
+
+      try {
         const bodyGeometry = new THREE.BoxGeometry(1.8, 0.6, 3.5);
         const bodyMaterial = new THREE.MeshStandardMaterial({
           color: 0xff0000,
@@ -185,11 +315,14 @@ const HowWeWorkDesk = () => {
         });
         const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
         body.position.y = 0.3;
+        body.castShadow = true;
+        body.receiveShadow = true;
         carGroup.add(body);
 
         const roofGeometry = new THREE.BoxGeometry(1.5, 0.5, 2);
         const roof = new THREE.Mesh(roofGeometry, bodyMaterial);
         roof.position.set(0, 0.85, -0.3);
+        roof.castShadow = true;
         carGroup.add(roof);
 
         const wheelGeometry = new THREE.CylinderGeometry(0.35, 0.35, 0.3, 32);
@@ -210,41 +343,21 @@ const HowWeWorkDesk = () => {
           const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
           wheel.rotation.z = Math.PI / 2;
           wheel.position.set(...pos);
+          wheel.castShadow = true;
           carGroup.add(wheel);
         });
 
         carGroup.position.y = -0.5;
-        carModelRef.current = carGroup;
         scene.add(carGroup);
+      } catch (error) {
+        console.error("Error creating fallback car:", error);
       }
-    );
-
-    // Animation loop
-    const animate = () => {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    // Handle resize
-    const handleResize = () => {
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      renderer.dispose();
-    };
+    }
   }, []);
 
   // GSAP ScrollTrigger Animation - Based on your working code
   useEffect(() => {
-    console.clear();
+    
 
     const cards = cardsRef.current;
     const spacer = 20; // Space between stacked cards
@@ -300,7 +413,7 @@ const HowWeWorkDesk = () => {
   }, []);
 
   return (
-    <div className="overflow-x-hidden bg-black text-white">
+    <div className=" bg-black text-white scrollbar-hide">
       {/* Section Header */}
       <div className=" mx-auto px-4 sm:px-6 md:px-8 pt-16 sm:pt-20 md:pt-24">
         <div className="border-t border-white/10 pt-16 sm:pt-20 md:pt-24 mb-20">
@@ -315,9 +428,9 @@ const HowWeWorkDesk = () => {
       </div>
 
       {/* Cards Section with 3D Car */}
-      <div ref={containerRef} className="relative w-screen h-[70vh]">
+      <div ref={containerRef} className="relative w-screen h-[70vh] scrollbar-hide">
         <div className="relative w-full h-full mx-auto px-4 sm:px-6 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center">
             {/* Left Side - Stacked Cards */}
             <div className="relative w-full h-full">
               {workflowSteps.map(
@@ -334,11 +447,11 @@ const HowWeWorkDesk = () => {
                     {/* Card */}
                     <div
                       className={`
-                                  h-inherit w-[100%]
+                                  h-[165%] w-auto
                                   ${cardThemes[index]}
                                   rounded-l-[2.5rem]
                                   shadow-2xl
-                                  flex flex-col justify-center
+                                  flex flex-col justify-start pt-50
                                   px-10 sm:px-14
                                 `}
                     >
