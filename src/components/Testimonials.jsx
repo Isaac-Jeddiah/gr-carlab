@@ -61,7 +61,7 @@ const Testimonials = () => {
     {
       id: 2,
       name: "Priya Sharma",
-      role: "Mercedes Owner",
+      role: "BMW Owner",
       image: priyaSharma,
       text: "The attention to detail is remarkable. Interior detailing brought my car's leather seats back to life. Highly recommend!",
       rating: 5,
@@ -94,7 +94,7 @@ const Testimonials = () => {
     {
       id: 5,
       name: "Vikram Singh",
-      role: "Range Rover Owner",
+      role: "Volvo Owner",
       image: vikramSingh,
       text: "Best car detailing experience ever! Engine detailing was thorough and my SUV runs smoother. 5 stars!",
       rating: 5,
@@ -116,7 +116,7 @@ const Testimonials = () => {
     {
       id: 7,
       name: "Karthik Nair",
-      role: "Jaguar Owner",
+      role: "Bentley Owner",
       image: karthikNair,
       text: "Impeccable service from start to finish. Headlight restoration brought them back to crystal clear. Fantastic!",
       rating: 5,
@@ -127,7 +127,7 @@ const Testimonials = () => {
     {
       id: 8,
       name: "Deepika Patel",
-      role: "Lexus Owner",
+      role: "Volvo Owner",
       image: deepikaPatel,
       text: "Outstanding craftsmanship! The leather conditioning made my seats feel brand new. Will definitely return!",
       rating: 5,
@@ -159,7 +159,7 @@ const Testimonials = () => {
     },
     {
       id: 11,
-      name: "Siddharth Joshi",
+      name: "Sid Joshi",
       role: "Maserati Owner",
       image: siddharthJoshi,
       text: "Unparalleled attention to detail. The paint protection is top-notch. My car has never looked this good!",
@@ -479,7 +479,7 @@ const Testimonials = () => {
                   className="absolute inset-0 flex items-center justify-center"
                   style={{ transformStyle: 'preserve-3d' }}
                 >
-                  <div className="w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-yellow-500/50 shadow-2xl shadow-yellow-500/20 bg-gray-900">
+                  <div className="w-24 h-24 md:w-56 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-3 border-[#D4D414] shadow-2xl shadow-[#D4D414]/20 bg-gray-900">
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}
@@ -491,26 +491,28 @@ const Testimonials = () => {
             </div>
 
             {/* Content */}
-            <div className="bg-gray-900/70 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-yellow-500/30 shadow-[inset_0_0_25px_rgba(234,179,8,0.1),0_0_20px_rgba(234,179,8,0.2)]">
-              <div className="mb-6">
+            <div className="bg-gray-900/70 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-[#D4D414] shadow-[inset_0_0_25px_rgba(234,179,8,0.1),0_0_20px_rgba(234,179,8,0.2)]">
+              <div className="grid grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-6">
+                <div>
                 <h3 ref={nameRef} className="text-2xl md:text-3xl font-bold text-yellow-400 mb-2">
                   {testimonials[activeIndex].name}
                 </h3>
                 <div ref={designationRef} className="flex items-center gap-3">
-                  <p className="text-sm md:text-base text-yellow-200/70">
+                  <p className="text-sm md:text-base text-[#D4D414]">
                     {testimonials[activeIndex].role}
                   </p>
-                  <div className="flex items-center">
+                </div>
+                </div>
+                  <div className="flex items-center justify-center ">
                     <img 
                       src={getCarLogo(testimonials[activeIndex].role)}
                       alt={`${testimonials[activeIndex].role} logo`}
-                      className="w-6 h-6 object-contain"
+                      className="w-24 h-24 object-contain bg-[#D4D414] rounded-2xl p-2 border-2 border-[#D4D414] shadow-2xl shadow-yellow-500/20"
                       onError={(e) => {
                         e.target.style.display = 'none';
                       }}
                     />
                   </div>
-                </div>
               </div>
               
               <p 
@@ -533,18 +535,18 @@ const Testimonials = () => {
                   ))}
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex gap-3 items-center justify-center">
                   <button
                     onClick={handlePrev}
                     className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-yellow-500/10 border-2 border-yellow-500/50 flex items-center justify-center hover:bg-yellow-500/20 hover:scale-110 hover:shadow-[0_8px_24px_rgba(234,179,8,0.6)] transition-all duration-300 group"
                   >
-                    <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-yellow-400 group-hover:text-white transition-colors group-hover:-rotate-12 transition-transform" />
+                    <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-[#D4D414] group-hover:text-white transition-colors group-hover:-rotate-12 transition-transform" />
                   </button>
                   <button
                     onClick={handleNext}
                     className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-yellow-500/10 border-2 border-yellow-500/50 flex items-center justify-center hover:bg-yellow-500/20 hover:scale-110 hover:shadow-[0_8px_24px_rgba(234,179,8,0.6)] transition-all duration-300 group"
                   >
-                    <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-yellow-400 group-hover:text-white transition-colors group-hover:rotate-12 transition-transform" />
+                    <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-[#D4D414] group-hover:text-white transition-colors group-hover:rotate-12 transition-transform" />
                   </button>
                 </div>
               </div>

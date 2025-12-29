@@ -225,8 +225,8 @@ export default function AboutUsPage() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="max-w-2xl">
             <div className="hero-content flex items-center gap-3 mb-6">
-              <div className="w-8 h-0.5 bg-yellow-400"></div>
-              <span className="text-yellow-400 text-sm font-medium tracking-wider">
+              <div className="w-8 h-0.5 bg-[#D4D414]"></div>
+              <span className="text-[#D4D414] text-sm font-medium tracking-wider">
                 ABOUT US
               </span>
             </div>
@@ -234,7 +234,7 @@ export default function AboutUsPage() {
             <h1 className="hero-content text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               Professional Automotive Care,
               <br />
-              <span className="text-yellow-400">
+              <span className="text-[#D4D414]">
                 Built on Precision and Trust
               </span>
             </h1>
@@ -264,8 +264,8 @@ export default function AboutUsPage() {
 
             <div className="mission-content">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-0.5 bg-yellow-400"></div>
-                <span className="text-yellow-400 text-sm font-medium tracking-wider">
+                <div className="w-8 h-0.5 bg-[#D4D414]"></div>
+                <span className="text-[#D4D414] text-sm font-medium tracking-wider">
                   WHO WE ARE
                 </span>
               </div>
@@ -283,7 +283,7 @@ export default function AboutUsPage() {
                 attention we would give our own.
               </p>
 
-              <button className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-black border-2 border-yellow-400 rounded-full text-yellow-400 font-medium hover:bg-yellow-400 hover:text-black transition-all duration-300">
+              <button className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-black border-2 border-[#D4D414] rounded-full text-[#D4D414] font-medium hover:bg-[#D4D414] hover:text-black transition-all duration-300">
                 Book Now
                 <ArrowRight className="w-5 h-5" />
               </button>
@@ -297,8 +297,8 @@ export default function AboutUsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12 lg:mb-16">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-0.5 bg-yellow-400"></div>
-              <span className="text-yellow-400 text-sm font-medium tracking-wider">
+              <div className="w-8 h-0.5 bg-[#D4D414]"></div>
+              <span className="text-[#D4D414] text-sm font-medium tracking-wider">
                 OUR NUMBERS
               </span>
             </div>
@@ -311,7 +311,7 @@ export default function AboutUsPage() {
             {/* Stat Card 1 */}
             <div
               ref={(el) => (statCards.current[0] = el)}
-              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-yellow-400 transition-all duration-300"
+              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-[#D4D414] transition-all duration-300"
             >
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4">
                 2.5K+
@@ -319,21 +319,21 @@ export default function AboutUsPage() {
               <p className="text-gray-400 text-base lg:text-lg">
                 Total Services
               </p>
-              <div className="mt-4 w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
             </div>
 
             {/* Stat Card 2 */}
             <div
               ref={(el) => (statCards.current[1] = el)}
-              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-yellow-400 transition-all duration-300"
+              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-[#D4D414] transition-all duration-300"
             >
-              <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4 text-yellow-400">
+              <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4 text-[#D4D414]">
                 5.0
               </h3>
               <p className="text-gray-400 text-base lg:text-lg">
                 Average Rating
               </p>
-              <div className="mt-4 w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
             </div>
 
             {/* Stat Card 3 - Image */}
@@ -353,7 +353,7 @@ export default function AboutUsPage() {
             {/* Stat Card 4 */}
             <div
               ref={(el) => (statCards.current[3] = el)}
-              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-yellow-400 transition-all duration-300"
+              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-[#D4D414] transition-all duration-300"
             >
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4">
                 15+
@@ -361,13 +361,13 @@ export default function AboutUsPage() {
               <p className="text-gray-400 text-base lg:text-lg">
                 Expert Technicians
               </p>
-              <div className="mt-4 w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
             </div>
 
             {/* Stat Card 5 */}
             <div
               ref={(el) => (statCards.current[4] = el)}
-              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-yellow-400 transition-all duration-300"
+              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-[#D4D414] transition-all duration-300"
             >
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4">
                 99%
@@ -375,13 +375,13 @@ export default function AboutUsPage() {
               <p className="text-gray-400 text-base lg:text-lg">
                 Customer Satisfaction
               </p>
-              <div className="mt-4 w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
             </div>
 
             {/* Stat Card 6 */}
             <div
               ref={(el) => (statCards.current[5] = el)}
-              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-yellow-400 transition-all duration-300"
+              className="p-6 lg:p-8 bg-gray-900 border border-gray-800 rounded-2xl hover:border-[#D4D414] transition-all duration-300"
             >
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4">
                 50+
@@ -389,7 +389,7 @@ export default function AboutUsPage() {
               <p className="text-gray-400 text-base lg:text-lg">
                 Daily Services
               </p>
-              <div className="mt-4 w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
             </div>
           </div>
         </div>
@@ -401,8 +401,8 @@ export default function AboutUsPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="showroom-content order-2 lg:order-1">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-0.5 bg-yellow-400"></div>
-                <span className="text-yellow-400 text-sm font-medium tracking-wider">
+                <div className="w-8 h-0.5 bg-[#D4D414]"></div>
+                <span className="text-[#D4D414] text-sm font-medium tracking-wider">
                   OUR FACILITY
                 </span>
               </div>
@@ -432,7 +432,7 @@ export default function AboutUsPage() {
               </div>
 
               <div className="flex items-start gap-3 mb-6">
-                <div className="w-6 h-6 text-yellow-400 mt-1 flex-shrink-0">
+                <div className="w-6 h-6 text-[#D4D414] mt-1 flex-shrink-0">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -460,7 +460,7 @@ export default function AboutUsPage() {
                 </div>
               </div>
 
-              <button className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-transparent border-2 border-yellow-400 rounded-full text-yellow-400 font-medium hover:bg-yellow-400 hover:text-black transition-all duration-300">
+              <button className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-transparent border-2 border-[#D4D414] rounded-full text-[#D4D414] font-medium hover:bg-[#D4D414] hover:text-black transition-all duration-300">
                 Contact Us
                 <ArrowRight className="w-5 h-5" />
               </button>
@@ -474,10 +474,10 @@ export default function AboutUsPage() {
                 }}
               ></div>
               <div className="absolute top-8 right-8 pointer-events-none">
-                <div className="w-12 h-12 bg-yellow-400 rounded-full"></div>
+                <div className="w-12 h-12 bg-[#D4D414] rounded-full"></div>
               </div>
               <div className="absolute bottom-8 right-8 pointer-events-none">
-                <div className="w-8 h-8 bg-yellow-400 rounded-full"></div>
+                <div className="w-8 h-8 bg-[#D4D414] rounded-full"></div>
               </div>
             </div>
           </div>

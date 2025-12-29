@@ -43,7 +43,7 @@ const ServicesPage = () => {
         <main className="container mx-auto px-4 py-20 text-center">
           <h2 className="text-3xl font-bold">Service not found</h2>
           <p className="mt-4 text-gray-400">We couldn't find the service you requested.</p>
-          <button onClick={() => navigate('/services')} className="mt-6 bg-yellow-400 text-black px-5 py-3 rounded-full">Back to Services</button>
+          <button onClick={() => navigate('/services')} className="mt-6 bg-[#D4D414] text-black px-5 py-3 rounded-full">Back to Services</button>
         </main>
       </div>
     );
@@ -115,7 +115,7 @@ useEffect(() => {
             {/* Info Pills - render from service.details if present */}
             <div className="flex flex-wrap gap-3 mb-12">
               {(service.details || []).slice(0, 6).map((d, i) => (
-                <div key={i} className="flex items-center gap-2 px-4 py-2 bg-zinc-900 rounded-full border border-yellow-400">
+                <div key={i} className="flex items-center gap-2 px-4 py-2 bg-zinc-900 rounded-full border border-[#D4D414]">
                   <span className="text-sm">{d}</span>
                 </div>
               ))}
@@ -170,7 +170,7 @@ useEffect(() => {
               <div className="space-y-4">
                 {(service.benefits || []).map((b, i) => (
                   <div key={i} className="flex items-center gap-3 bg-zinc-900 rounded-xl p-4 border border-zinc-800">
-                    <div className="bg-yellow-400 rounded-full p-1 flex-shrink-0"><Check className="w-5 h-5 text-black" /></div>
+                    <div className="bg-[#D4D414] rounded-full p-1 flex-shrink-0"><Check className="w-5 h-5 text-black" /></div>
                     <span className="text-lg">{b}</span>
                   </div>
                 ))}
@@ -182,17 +182,17 @@ useEffect(() => {
             <h3 className="text-3xl lg:text-4xl font-bold mb-12">How It Works</h3>
             <div className="relative">
               <div className="absolute left-7 md:left-8 lg:left-10 md:left-10  top-0 w-1 bg-zinc-800 h-full">
-                <div ref={timelineLineRef} className="w-full bg-yellow-400" style={{ height: '0%' }} />
+                <div ref={timelineLineRef} className="w-full bg-[#D4D414]" style={{ height: '0%' }} />
               </div>
 
               <div className="space-y-8 relative">
                 {(service.processSteps || []).map((step, idx) => (
                   <div key={idx} className="flex gap-4 md:gap-6 relative pl-16 md:pl-20 lg:pl-24">
-                    <div className="absolute left-2 md:left-4 lg:left-4 bg-yellow-400 text-black rounded-full p-3 md:p-4 z-10 flex items-center justify-center">
+                    <div className="absolute left-2 md:left-4 lg:left-4 bg-[#D4D414] text-black rounded-full p-3 md:p-4 z-10 flex items-center justify-center">
                       {/* use simple icon mapping */}
                       {idx === 0 ? <Calendar className="w-6 h-6" /> : idx === 1 ? <Car className="w-6 h-6" /> : idx === 2 ? <Droplets className="w-6 h-6" /> : <Clock className="w-6 h-6" />}
                     </div>
-                    <div className="bg-zinc-900 rounded-2xl p-5 md:p-6 lg:p-8 flex-1 border-2 border-yellow-400">
+                    <div className="bg-zinc-900 rounded-2xl p-5 md:p-6 lg:p-8 flex-1 border-2 border-[#D4D414]">
                       <h4 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h4>
                       <p className="text-gray-400 text-sm md:text-base leading-relaxed">{step.desc}</p>
                     </div>
@@ -207,7 +207,7 @@ useEffect(() => {
 
       {/* CTA Section */}
       <section className="container mx-auto px-4 py-12 lg:py-20">
-        <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-3xl p-8 lg:p-16 text-center text-black">
+        <div className="bg-gradient-to-r from-[#D4D414] to-yellow-500 rounded-3xl p-8 lg:p-16 text-center text-black">
           <h3 className="text-3xl lg:text-5xl font-bold mb-6">Ready to Get Started?</h3>
           <p className="text-lg lg:text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Book your service today and experience the difference of professional car care.

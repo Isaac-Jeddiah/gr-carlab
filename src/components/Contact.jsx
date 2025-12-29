@@ -191,7 +191,7 @@ ${formData.firstName} ${formData.lastName}`;
                 ref={successRef}
                 className="mb-8 p-6 sm:p-8 bg-gray-900 border border-gray-800 rounded-2xl text-center"
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-400 rounded-lg mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-[#D4D414] rounded-lg mb-4">
                   <Check className="w-8 h-8 text-black" />
                 </div>
                 <p className="text-lg sm:text-xl text-white">
@@ -360,52 +360,56 @@ ${formData.firstName} ${formData.lastName}`;
                       )}
                     </div>
 
-                    <div>
-                      <select
-                        name="serviceRequired"
-                        value={formData.serviceRequired}
-                        onChange={handleChange}
-                        className={`contact-input w-full bg-black/50 border ${
-                          errors.serviceRequired
-                            ? "border-red-500"
-                            : "border-white/10"
-                        } rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 text-sm sm:text-base md:text-base lg:text-base text-white placeholder-white/40 focus:border-[#D4D414] focus:outline-none transition-all`}
-                      >
-                        <option value="">Select Service Required</option>
-                        <option value="Product Enquiry">Product Enquiry</option>
-                        {servicesData.map((s) => (
-                          <option key={s.slug} value={s.title}>
-                            {s.title}
-                          </option>
-                        ))}
-                      </select>
-                      {errors.serviceRequired && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {errors.serviceRequired}
-                        </p>
-                      )}
-                    </div>
+                    <select
+  name="serviceRequired"
+  value={formData.serviceRequired}
+  onChange={handleChange}
+  className={`contact-input w-full bg-black/50 border ${
+    errors.serviceRequired ? "border-red-500" : "border-white/10"
+  } rounded-lg px-4 sm:px-6 py-2 sm:py-3 md:py-4 
+  text-sm sm:text-base text-white focus:border-[#D4D414] focus:outline-none transition-all
+  ${formData.serviceRequired === "" ? "text-white/40" : "text-white"}`}
+>
+  <option value="" disabled hidden>
+    Select Service Required
+  </option>
+
+  <option value="Product Enquiry">Product Enquiry</option>
+  {servicesData.map((s) => (
+    <option key={s.slug} value={s.title} className="text-white">
+      {s.title}
+    </option>
+  ))}
+</select>
+
 
                     <div className="relative">
-                      <input
-                        type="date"
-                        name="preferredDate"
-                        value={formData.preferredDate}
-                        placeholder="Preferred Service Date"
-                        onChange={handleChange}
-                        className={`contact-input appearance-none w-full bg-black/50 border ${
-                          errors.preferredDate
-                            ? "border-red-500"
-                            : "border-white/10"
-                        } rounded-lg px-4 sm:px-6 md:px-6 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-4 pr-10 text-sm sm:text-base md:text-base lg:text-base text-white placeholder-white focus:border-[#D4D414] focus:outline-none transition-all`}
-                      />
-                      <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/50 pointer-events-none" />
-                      {errors.preferredDate && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {errors.preferredDate}
-                        </p>
-                      )}
-                    </div>
+  <label
+    className={`absolute left-6 transition-all pointer-events-none
+    ${
+      formData.preferredDate
+        ? "top-1 text-s text-[#D4D414]"
+        : "top-3 text-sm text-white/40"
+    }`}
+  >
+    Preferred Service Date
+  </label>
+
+  <input
+    type="date"
+    name="preferredDate"
+    value={formData.preferredDate}
+    onChange={handleChange}
+    className={`contact-input w-full bg-black/50 border ${
+      errors.preferredDate ? "border-red-500" : "border-white/10"
+    } rounded-lg px-4 pt-6 pb-2
+    text-sm sm:text-base text-white
+    focus:border-[#D4D414] focus:outline-none transition-all`}
+  />
+
+  <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50 pointer-events-none" />
+</div>
+
 
                     <div>
                       <textarea

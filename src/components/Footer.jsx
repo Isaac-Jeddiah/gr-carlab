@@ -31,7 +31,7 @@ export default function Footer() {
             </p>
             <Link to={"/contact"}>
               <button
-                className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-transparent border-2 border-yellow-400 rounded-full text-yellow-400 font-medium hover:bg-yellow-400 hover:text-black transition-all duration-300
+                className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-transparent border-2 border-[#D4D414] rounded-full text-[#D4D414] font-medium hover:bg-[#D4D414] hover:text-black transition-all duration-300
                 hover:rounded-2xl active:scale-95"
               >
                 <span className="text-white  text-sm">

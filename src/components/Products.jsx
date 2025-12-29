@@ -441,7 +441,7 @@ const Products = () => {
           <div className="flex justify-center">
             <Link
               to="/contact"
-              className="group relative bg-black border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 font-bold px-10 py-4 rounded-full transition-all duration-300 flex items-center gap-3 hover-scale"
+              className="group relative bg-black border-2 border-[#D4D414] text-[#D4D414] hover:bg-[#D4D414] font-bold px-10 py-4 rounded-full transition-all duration-300 flex items-center gap-3 hover-scale"
             >
               <span className="text-lg group-hover:text-black">Book Installation Service</span>
               <ArrowRight className="w-5 h-5 group-hover:text-black group-hover:translate-x-1 transition-transform" />

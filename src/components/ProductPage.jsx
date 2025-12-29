@@ -205,9 +205,9 @@ const ProductPage = () => {
     <div className="bg-black text-white min-h-screen">
       <Nav />
       <main className="container mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-4">Car Accessories</h1>
+        <h1 className="text-4xl text-[#D4D414] font-bold mb-4">Car Accessories</h1>
         <p className="text-gray-400 mb-8">
-          Browse our curated accessories, view quick specs and price ranges.
+          Browse our curated accessories, view quick specs and brands.
           Click a product for quick view.
         </p>
 
@@ -268,7 +268,7 @@ const ProductPage = () => {
                   <div className="flex gap-3 items-center">
                     <button
                       onClick={() => navigate("/contact")}
-                      className="bg-yellow-400 text-black px-5 py-3 rounded-full "
+                      className="bg-[#D4D414] text-black px-5 py-3 rounded-full "
                     >
                       Enquire / Buy
                     </button>

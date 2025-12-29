@@ -429,8 +429,8 @@ const HowWeWorkDesk = () => {
 
       {/* Cards Section with 3D Car */}
       <div ref={containerRef} className="relative w-screen h-[70vh] scrollbar-hide">
-        <div className="relative w-full h-full mx-auto px-4 sm:px-6 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 h-full items-center">
+        <div className="relative w-full h-full mx-auto ">
+          <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
             {/* Left Side - Stacked Cards */}
             <div className="relative w-full h-full">
               {workflowSteps.map(
@@ -441,13 +441,12 @@ const HowWeWorkDesk = () => {
                     className="absolute inset-0 flex"
                     style={{ zIndex: workflowSteps.length }}
                   >
-                    {/* Right margin reveal */}
-                    <div className="flex-1" />
+                    
 
                     {/* Card */}
                     <div
                       className={`
-                                  h-[165%] w-auto
+                                  h-[165%] w-full
                                   ${cardThemes[index]}
                                   rounded-l-[2.5rem]
                                   shadow-2xl

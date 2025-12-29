@@ -260,8 +260,8 @@ ${formData.firstName} ${formData.lastName}`;
             {/* Header */}
             <div ref={headerRef} className="text-center mb-12">
               <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="w-8 h-0.5 bg-yellow-400"></div>
-                <span className="text-yellow-400 text-sm font-medium tracking-wider">
+                <div className="w-8 h-0.5 bg-[#D4D414]"></div>
+                <span className="text-[#D4D414] text-sm font-medium tracking-wider">
                   CONTACT US
                 </span>
               </div>
@@ -273,13 +273,13 @@ ${formData.firstName} ${formData.lastName}`;
                 appointment, request a quote, or ask about our premium services.
                 Fast responses and personalised care for every vehicle.
               </p>
-              <div className="w-2 h-2 bg-yellow-400 rounded-full mx-auto mt-6"></div>
+              <div className="w-2 h-2 bg-[#D4D414] rounded-full mx-auto mt-6"></div>
             </div>
 
             {/* Success Message */}
             {isSubmitted && (
               <div className="mb-8 p-8 bg-gray-900 border border-gray-800 rounded-2xl text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-400 rounded-lg mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-[#D4D414] rounded-lg mb-4">
                   <Check className="w-8 h-8 text-black" />
                 </div>
                 <p className="text-xl">
@@ -311,7 +311,7 @@ ${formData.firstName} ${formData.lastName}`;
                       onChange={handleChange}
                       className={`w-full px-6 py-4 bg-gray-900 border ${
                         errors.firstName ? "border-red-500" : "border-gray-800"
-                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                     />
                     {errors.firstName && (
                       <p className="text-red-500 text-sm mt-1">
@@ -328,7 +328,7 @@ ${formData.firstName} ${formData.lastName}`;
                       onChange={handleChange}
                       className={`w-full px-6 py-4 bg-gray-900 border ${
                         errors.lastName ? "border-red-500" : "border-gray-800"
-                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                     />
                     {errors.lastName && (
                       <p className="text-red-500 text-sm mt-1">
@@ -348,7 +348,7 @@ ${formData.firstName} ${formData.lastName}`;
                       onChange={handleChange}
                       className={`w-full px-6 py-4 bg-gray-900 border ${
                         errors.email ? "border-red-500" : "border-gray-800"
-                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                     />
                     {errors.email && (
                       <p className="text-red-500 text-sm mt-1">
@@ -365,7 +365,7 @@ ${formData.firstName} ${formData.lastName}`;
                       onChange={handleChange}
                       className={`w-full px-6 py-4 bg-gray-900 border ${
                         errors.phone ? "border-red-500" : "border-gray-800"
-                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                     />
                     {errors.phone && (
                       <p className="text-red-500 text-sm mt-1">
@@ -385,7 +385,7 @@ ${formData.firstName} ${formData.lastName}`;
                       onChange={handleChange}
                       className={`w-full px-6 py-4 bg-gray-900 border ${
                         errors.vehicle ? "border-red-500" : "border-gray-800"
-                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                     />
                     {errors.vehicle && (
                       <p className="text-red-500 text-sm mt-1">
@@ -404,7 +404,7 @@ ${formData.firstName} ${formData.lastName}`;
                           errors.serviceRequired
                             ? "border-red-500"
                             : "border-gray-800"
-                        } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                        } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                       >
                         <option value="">Select Service Required</option>
                         <option value="Product Enquiry">Product Enquiry</option>
@@ -432,7 +432,7 @@ ${formData.firstName} ${formData.lastName}`;
                           errors.preferredDate
                             ? "border-red-500"
                             : "border-gray-800"
-                        } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors`}
+                        } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                       />
                       {errors.preferredDate && (
                         <p className="text-red-500 text-sm mt-1">
@@ -451,7 +451,7 @@ ${formData.firstName} ${formData.lastName}`;
                       rows="6"
                       className={`w-full px-6 py-4 bg-gray-900 border ${
                         errors.message ? "border-red-500" : "border-gray-800"
-                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors resize-none`}
+                      } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors resize-none`}
                     ></textarea>
                     {errors.message && (
                       <p className="text-red-500 text-sm mt-1">
@@ -463,7 +463,7 @@ ${formData.firstName} ${formData.lastName}`;
 
                 <button
                   onClick={handleSubmit}
-                  className="w-full px-8 py-5 bg-black border-2 border-yellow-400 rounded-full text-yellow-400 text-lg font-medium hover:bg-yellow-400 hover:text-black transition-all duration-300 active:scale-95"
+                  className="w-full px-8 py-5 bg-black border-2 border-[#D4D414] rounded-full text-[#D4D414] text-lg font-medium hover:bg-[#D4D414] hover:text-black transition-all duration-300 active:scale-95"
                 >
                   Send Message
                 </button>
@@ -474,7 +474,7 @@ ${formData.firstName} ${formData.lastName}`;
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div
                 ref={(el) => (cardsRef.current[0] = el)}
-                className="p-8 bg-gray-900 border border-gray-800 rounded-2xl text-center hover:border-yellow-400 transition-colors cursor-pointer"
+                className="p-8 bg-gray-900 border border-gray-800 rounded-2xl text-center hover:border-[#D4D414] transition-colors cursor-pointer"
                 onMouseEnter={(e) =>
                   gsap.to(e.currentTarget, { y: -5, duration: 0.3 })
                 }
@@ -482,7 +482,7 @@ ${formData.firstName} ${formData.lastName}`;
                   gsap.to(e.currentTarget, { y: 0, duration: 0.3 })
                 }
               >
-                <Phone className="w-8 h-8 text-yellow-400 mx-auto mb-4" />
+                <Phone className="w-8 h-8 text-[#D4D414] mx-auto mb-4" />
                 <h3 className="text-white font-medium mb-2">
                   {getPrimaryPhone()}
                 </h3>
@@ -493,7 +493,7 @@ ${formData.firstName} ${formData.lastName}`;
 
               <div
                 ref={(el) => (cardsRef.current[1] = el)}
-                className="p-8 bg-gray-900 border border-gray-800 rounded-2xl text-center hover:border-yellow-400 transition-colors cursor-pointer"
+                className="p-8 bg-gray-900 border border-gray-800 rounded-2xl text-center hover:border-[#D4D414] transition-colors cursor-pointer"
                 onMouseEnter={(e) =>
                   gsap.to(e.currentTarget, { y: -5, duration: 0.3 })
                 }
@@ -501,7 +501,7 @@ ${formData.firstName} ${formData.lastName}`;
                   gsap.to(e.currentTarget, { y: 0, duration: 0.3 })
                 }
               >
-                <Mail className="w-8 h-8 text-yellow-400 mx-auto mb-4" />
+                <Mail className="w-8 h-8 text-[#D4D414] mx-auto mb-4" />
                 <h3 className="text-white font-medium mb-2">
                   {contactConfig.email}
                 </h3>
@@ -512,7 +512,7 @@ ${formData.firstName} ${formData.lastName}`;
 
               <div
                 ref={(el) => (cardsRef.current[2] = el)}
-                className="p-8 bg-gray-900 border border-gray-800 rounded-2xl text-center hover:border-yellow-400 transition-colors cursor-pointer"
+                className="p-8 bg-gray-900 border border-gray-800 rounded-2xl text-center hover:border-[#D4D414] transition-colors cursor-pointer"
                 onMouseEnter={(e) =>
                   gsap.to(e.currentTarget, { y: -5, duration: 0.3 })
                 }
@@ -520,7 +520,7 @@ ${formData.firstName} ${formData.lastName}`;
                   gsap.to(e.currentTarget, { y: 0, duration: 0.3 })
                 }
               >
-                <MessageCircle className="w-8 h-8 text-yellow-400 mx-auto mb-4" />
+                <MessageCircle className="w-8 h-8 text-[#D4D414] mx-auto mb-4" />
                 <h3 className="text-white font-medium mb-2">Chat With Us</h3>
                 <p className="text-gray-500 text-sm">
                   Chat for quick questions and scheduling help

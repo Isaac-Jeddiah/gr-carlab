@@ -130,7 +130,7 @@ const WhyUs = () => {
       <AnimatedOnScroll options={{ from: { y: 20, opacity: 0 }, duration: 0.7 }}>
       <div className="text-center mb-16 gap-4">
         <h2 className="whyus-title text-4xl lg:text-6xl font-bold mb-6">
-          Why Choose <span className="text-yellow-400">GR CAR LAB</span>
+          Why Choose <span className="text-[#D4D414]">GR CAR LAB</span>
         </h2>
         <p className="text-gray-400 text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
           We are committed to delivering exceptional automotive care with
@@ -146,10 +146,10 @@ const WhyUs = () => {
             <div
               key={index}
               ref={(el) => (cardsRef.current[index] = el)}
-              className="group bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 rounded-2xl p-8 lg:p-10 hover:border-yellow-400 transition-all duration-300 cursor-pointer"
+              className="group bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 rounded-2xl p-8 lg:p-10 hover:border-[#D4D414] transition-all duration-300 cursor-pointer"
             >
               {/* Icon Container */}
-              <div className="icon-container mb-6 w-16 h-16 rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-500 flex items-center justify-center group-hover:shadow-lg transition-all">
+              <div className="icon-container mb-6 w-16 h-16 rounded-xl bg-gradient-to-br from-[#D4D414] to-yellow-500 flex items-center justify-center group-hover:shadow-lg transition-all">
                 <IconComponent className="w-8 h-8 text-black" />
               </div>
 
@@ -177,7 +177,7 @@ const WhyUs = () => {
         </p>
         <a
           href="/contact"
-          className="inline-block bg-black border border-yellow-400 text-white-900 px-8 py-4 rounded-full  text-lg hover:bg-yellow-400 hover:text-black transition-all duration-300 transform hover:scale-105"
+          className="inline-block bg-black border border-[#D4D414] text-white-900 px-8 py-4 rounded-full  text-lg hover:bg-[#D4D414] hover:text-black transition-all duration-300 transform hover:scale-105"
         >
           Schedule Now
         </a>
