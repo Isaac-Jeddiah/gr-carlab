@@ -6,10 +6,10 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import {
   ClipboardCheck,
-  Sparkles,
-  Droplets,
-  Shield,
-  Camera,
+  FileText,
+  MessageSquare,
+  Search,
+  Settings,
   ThumbsUp,
 } from "lucide-react";
 
@@ -22,49 +22,62 @@ const HowWeWorkDesk = () => {
   const carModelRef = useRef(null);
 
   const workflowSteps = [
-    {
-      step: 1,
-      title: "Initial Inspection",
-      description:
-        "Thorough assessment of your vehicle's condition, documenting existing issues and discussing your specific needs.",
-      icon: ClipboardCheck,
-    },
-    {
-      step: 2,
-      title: "Pre-Wash & Decontamination",
-      description:
-        "Careful removal of surface dirt, road grime, and contaminants using pH-balanced solutions.",
-      icon: Sparkles,
-    },
-    {
-      step: 3,
-      title: "Deep Cleaning",
-      description:
-        "Meticulous hand washing, wheel detailing, and interior deep cleaning with premium products.",
-      icon: Droplets,
-    },
-    {
-      step: 4,
-      title: "Paint Correction",
-      description:
-        "Professional polishing to remove swirls, scratches, and imperfections, restoring paint clarity.",
-      icon: Shield,
-    },
-    {
-      step: 5,
-      title: "Protection Application",
-      description:
-        "Application of ceramic coating or sealant to protect and enhance your vehicle's finish.",
-      icon: Camera,
-    },
-    {
-      step: 6,
-      title: "Final Inspection",
-      description:
-        "Comprehensive quality check and walk-through to ensure every detail meets our standards.",
-      icon: ThumbsUp,
-    },
-  ];
+  {
+    step: 1,
+    title: "Understand Requirements",
+    description:
+      "We discuss your expectations, usage needs, and desired outcomes to plan the right service.",
+    icon: ClipboardCheck,
+    cameraPosition: { x: -0.034, y: 4, z: -0.230 },
+    lookAt: { x: -0.034, y: 0, z: -0.230 },
+  },
+  {
+    step: 2,
+    title: "Detailed Inspection",
+    description:
+      "A thorough inspection is carried out to document the vehicle’s current condition and problem areas.",
+    icon: Search,
+    cameraPosition: { x: 4.45, y: 1, z: -0.078 },
+    lookAt: { x: 0.45, y: 0, z: -1 },
+  },
+  {
+    step: 3,
+    title: "Job Sheet Preparation",
+    description:
+      "We prepare a clear job sheet outlining recommended services, products, pricing, and timelines.",
+    icon: FileText,
+    cameraPosition: { x: -4.45, y: 1, z: -0.078 },
+    lookAt: { x: 0, y: 0.5, z: 1 },
+  },
+  {
+    step: 4,
+    title: "Customer Briefing",
+    description:
+      "The service plan, timeline, and products are explained to ensure clarity before approval.",
+    icon: MessageSquare,
+    cameraPosition: { x: 0.015, y: 0.5, z: -0.842 },
+    lookAt: { x: 0.015, y: -2, z: 0.22 },
+  },
+  {
+    step: 5,
+    title: "Service Execution",
+    description:
+      "Approved services are carried out by trained technicians using advanced tools and methods.",
+    icon: Settings,
+    cameraPosition: { x: 0.020, y: 1.456, z: -4.048 },
+    lookAt: { x: 0, y: 0.3, z: 0 },
+  },
+  {
+    step: 6,
+    title: "Final Check & Handover",
+    description:
+      "A final quality inspection is done followed by a customer walkthrough before handover.",
+    icon: ThumbsUp,
+    cameraPosition: { x: -0.056, y: 4, z: 4.116 },
+    lookAt: { x: 0, y: 0, z: 0 },
+  },
+];
+
   const cardThemes = [
     "bg-[#0B0B0B]",
     "bg-[#111111]",
