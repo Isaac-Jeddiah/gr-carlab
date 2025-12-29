@@ -36,7 +36,7 @@ import HowWeWork from "./components/HowWeWork.jsx";
 
 const Home = () => {
   return (
-    <div className="">
+    <div className="overflow-x-hidden">
       {/* Hero - No animation wrapper (loads immediately) */}
       <Hero />
 
@@ -56,7 +56,11 @@ const Home = () => {
         <WhyUs />
     </SlideFromLeft>
       {/* How We Work - Rotate In */}
-      <HowWeWork/>
+      
+      <div className="transform-none">
+  <HowWeWork />
+</div>
+
       
 
       {/* Products - Parallax Fade with 3D depth */}

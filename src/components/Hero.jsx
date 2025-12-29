@@ -167,12 +167,12 @@ const Hero = () => {
       {/* Car from left with 3D transform */}
       <div
         
-        className="absolute sm:left-[-100%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none transition-transform will-change-transform"
+        className="absolute right-[220%] md:right-[50%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none transition-transform will-change-transform"
       >
         <img
           src={heroCar}
           alt="Hero car"
-          className="relative lg:pb-50 left-0 h-[100%] md:h-[80%] lg:h-[140%] lg:scale-120 sm:scale-150 w-auto max-w-none object-contain"
+          className="relative lg:pb-50  h-[100%] md:h-[80%] lg:h-[140%] lg:scale-110 scale-110 md:scale-110 w-auto max-w-none object-contain"
           style={{
             filter: 'drop-shadow(20px 20px 40px rgba(0,0,0,0.5))',
             opacity: isLoaded ? 1 : 0,
@@ -236,7 +236,7 @@ const Hero = () => {
           }}
         >
           <a
-            href="#services"
+            href="/services"
             className="group flex items-center justify-between px-6 py-5 md:py-6 border-b-0 sm:border-b-0 sm:border-r border-white/20 hover:bg-white/5 transition-all"
           >
             <span className="text-base md:text-lg lg:text-xl text-white">See Our Services</span>

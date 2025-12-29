@@ -3,11 +3,7 @@
   padding: 0;
   scrollbar-width: none;
 }
-.container-ref {
-  position: relative;
-  height: 100vh; /* Force exact viewport height */
-  overflow: hidden;
-}
+
 
 
 
