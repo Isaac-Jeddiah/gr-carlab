@@ -175,7 +175,7 @@ const Hero = () => {
 
       {/* Car with 3D transform */}
       <div
-        className="absolute right-[260%] md:right-[50%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none"
+        className="absolute right-[60%] md:right-[50%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none"
       >
         <img loading="lazy" 
           ref={carRef}
