@@ -12,6 +12,7 @@ const Hero = () => {
   const mousePos = useRef({ x: 0.5, y: 0.5 });
   const currentPos = useRef({ x: 0.5, y: 0.5 });
   const [isLoaded, setIsLoaded] = useState(false);
+  const isMobileDevice = () => window.innerWidth < 768;
 
   // Throttled lerp function
   const lerp = useCallback((start, end, factor) => {
@@ -80,9 +81,8 @@ const Hero = () => {
 
   // Animation loop with optimization
   useEffect(() => {
-    const isMobile = () => window.innerWidth < 768;
-    const isTablet = () => window.innerWidth >= 768 && window.innerWidth < 1024;
     
+    isMobileDevice() && document.body.classList.add('no-cursor');
     // Use Page Visibility API to pause when not visible
     let isPageVisible = true;
     
@@ -175,7 +175,7 @@ const Hero = () => {
 
       {/* Car with 3D transform */}
       <div
-        className="absolute right-[60%] md:right-[50%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none"
+        className="absolute right-[30%] bottom-0 w-full h-full pointer-events-none"
       >
         <img loading="lazy" 
           ref={carRef}
@@ -185,7 +185,15 @@ const Hero = () => {
           style={{
             filter: 'drop-shadow(20px 20px 40px rgba(0,0,0,0.5))',
             opacity: isLoaded ? 1 : 0,
-            transform: isLoaded ? 'translateX(0)' : 'translateX(-50%)',
+            transform: (() => {
+              const isMobile = isMobileDevice();
+              if (isMobile) {
+                return isLoaded ? 'translateX(-50%)' : 'translateX(-80%)';
+              }
+              else{
+                return isLoaded ? 'translateX(0)' : 'translateX(-40%)';
+              }
+            })(),
             transition: 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
             willChange: 'transform',
           }}
