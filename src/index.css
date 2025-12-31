@@ -99,4 +99,188 @@ button:focus-visible {
   }
 }
 
+/* ============================================
+   OPTIMIZED SCROLL ANIMATIONS
+   Single-pass CSS for 60fps mobile performance
+   ============================================ */
+
+.scroll-animate {
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* 1. Clip Path Reveal */
+.clip-path-reveal {
+  opacity: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  transition: opacity 0.8s ease, clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.clip-path-reveal.animate-visible {
+  opacity: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* 2. Scale Reveal */
+.scale-reveal {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.scale-reveal.animate-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 3. Parallax Fade (no 3D transforms for mobile) */
+.parallax-fade {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.parallax-fade.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 4. Slide From Left */
+.slide-from-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.slide-from-left.animate-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 5. Slide From Right */
+.slide-from-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.slide-from-right.animate-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 6. Fade Slide Up */
+.fade-slide-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.fade-slide-up.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 7. Blur Reveal (simplified for mobile - no heavy blur) */
+.blur-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.blur-reveal.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 8. Rotate In */
+.rotate-in {
+  opacity: 0;
+  transform: rotate(-5deg) scale(0.95);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
+.rotate-in.animate-visible {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* ============================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .scroll-animate {
+    transition-duration: 0.6s !important;
+    will-change: opacity, transform;
+  }
+  
+  /* Disable hover animations on touch devices */
+  .group:hover .icon-container,
+  .group:hover h3,
+  .group:hover p,
+  .group:hover .mt-6 {
+    transform: none !important;
+    scale: 1 !important;
+    rotation: 0deg !important;
+  }
+  
+  /* Simplify card hover states */
+  .group:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-animate,
+  .scroll-animate *,
+  [class*="animate"] {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+  
+  .scroll-animate {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+  
+  .clip-path-reveal,
+  .scale-reveal,
+  .parallax-fade,
+  .slide-from-left,
+  .slide-from-right,
+  .fade-slide-up,
+  .blur-reveal,
+  .rotate-in {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* GPU acceleration helpers */
+.gpu-accelerated {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Smooth scrolling for iOS */
+@supports (-webkit-touch-callout: none) {
+  html {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Performance helper for animated elements */
+.performance-optimized {
+  contain: layout style paint;
+}

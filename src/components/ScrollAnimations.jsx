@@ -1,374 +1,297 @@
-// ScrollAnimations.jsx - Import this file and use these wrapper components
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback, memo } from "react";
+
+// ============================================
+// OPTIMIZED MOBILE SCROLL ANIMATIONS
+// Uses single IntersectionObserver for all components
+// Minimal CSS, smooth 60fps animations
+// ============================================
+
+// Shared IntersectionObserver instance
+let sharedObserver = null;
+const animatedElements = new Set();
+
+const getSharedObserver = () => {
+  if (sharedObserver) return sharedObserver;
+  
+  const options = {
+    root: null,
+    rootMargin: "-50px",
+    threshold: 0.1,
+  };
+  
+  sharedObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-visible');
+        // Unobserve after animation triggers (better performance)
+        if (sharedObserver) {
+          sharedObserver.unobserve(entry.target);
+        }
+      }
+    });
+  }, options);
+  
+  return sharedObserver;
+};
+
+// Hook to use shared observer with cleanup
+const useSharedObserver = () => {
+  const observerRef = useRef(null);
+  
+  useEffect(() => {
+    observerRef.current = getSharedObserver();
+    return () => {
+      // Don't disconnect shared observer, just cleanup references
+    };
+  }, []);
+  
+  const observe = useCallback((element) => {
+    if (element && observerRef.current) {
+      observerRef.current.observe(element);
+    }
+  }, []);
+  
+  const unobserve = useCallback((element) => {
+    if (element && observerRef.current) {
+      observerRef.current.unobserve(element);
+    }
+  }, []);
+  
+  return { observe, unobserve };
+};
+
+// ============================================
+// ANIMATION COMPONENTS
+// All animations work on mobile touch scroll
+// No expensive CSS properties (blur, 3D transforms)
+// ============================================
 
 // 1. Clip Path Reveal - Curtain effect from top
-export const ClipPathReveal = ({ children, delay = 0 }) => {
+export const ClipPathReveal = memo(({ children, delay = 0 }) => {
   const ref = useRef(null);
+  const { observe, unobserve } = useSharedObserver();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            element.classList.add('animate-in');
-          } else {
-            element.classList.remove('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "-50px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    if (element) {
+      observe(element);
+    }
+    return () => {
+      if (element) unobserve(element);
+    };
+  }, [observe, unobserve]);
 
   return (
     <div
       ref={ref}
-      className="scroll-animate"
-      style={{
-        opacity: 1,
-        clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
-        transition: `all 1.2s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-      }}
+      className="scroll-animate clip-path-reveal"
+      style={{ "--delay": `${delay}s` }}
     >
-      <style>{`
-        .scroll-animate.animate-in {
-          opacity: 1 !important;
-          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
-        }
-      `}</style>
       {children}
     </div>
   );
-};
+});
 
-// 2. Scale Reveal - Zoom in effect
-export const ScaleReveal = ({ children, delay = 0 }) => {
+// 2. Scale Reveal - Zoom in effect (works great on mobile)
+export const ScaleReveal = memo(({ children, delay = 0 }) => {
   const ref = useRef(null);
+  const { observe, unobserve } = useSharedObserver();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            element.classList.add('animate-in');
-          } else {
-            element.classList.remove('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "-50px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    if (element) {
+      observe(element);
+    }
+    return () => {
+      if (element) unobserve(element);
+    };
+  }, [observe, unobserve]);
 
   return (
     <div
       ref={ref}
-      className="scroll-animate"
-      style={{
-        opacity: 0,
-        transform: "scale(0.9)",
-        transition: `all 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-      }}
+      className="scroll-animate scale-reveal"
+      style={{ "--delay": `${delay}s` }}
     >
-      <style>{`
-        .scroll-animate.animate-in {
-          opacity: 1 !important;
-          transform: scale(1) !important;
-        }
-      `}</style>
       {children}
     </div>
   );
-};
+});
 
-// 3. Parallax Fade - 3D depth effect
-export const ParallaxFade = ({ children, delay = 0 }) => {
+// 3. Parallax Fade - Simple vertical fade (no 3D transforms for mobile)
+export const ParallaxFade = memo(({ children, delay = 0 }) => {
   const ref = useRef(null);
+  const { observe, unobserve } = useSharedObserver();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            element.classList.add('animate-in');
-          } else {
-            element.classList.remove('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "-50px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    if (element) {
+      observe(element);
+    }
+    return () => {
+      if (element) unobserve(element);
+    };
+  }, [observe, unobserve]);
 
   return (
     <div
       ref={ref}
-      className="scroll-animate"
-      style={{
-        opacity: 0,
-        transform: "translateY(80px) rotateX(10deg)",
-        transformStyle: "preserve-3d",
-        perspective: "1000px",
-        transition: `all 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-      }}
+      className="scroll-animate parallax-fade"
+      style={{ "--delay": `${delay}s` }}
     >
-      <style>{`
-        .scroll-animate.animate-in {
-          opacity: 1 !important;
-          transform: translateY(0) rotateX(0) !important;
-        }
-      `}</style>
       {children}
     </div>
   );
-};
+});
 
-// 4. Slide From Left
-export const SlideFromLeft = ({ children, delay = 0 }) => {
+// 4. Slide From Left - Smooth left entry
+export const SlideFromLeft = memo(({ children, delay = 0 }) => {
   const ref = useRef(null);
+  const { observe, unobserve } = useSharedObserver();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            element.classList.add('animate-in');
-          } else {
-            element.classList.remove('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "-50px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    if (element) {
+      observe(element);
+    }
+    return () => {
+      if (element) unobserve(element);
+    };
+  }, [observe, unobserve]);
 
   return (
     <div
       ref={ref}
-      className="scroll-animate"
-      style={{
-        opacity: 0,
-        transform: "translateX(-100px)",
-        transition: `all 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-      }}
+      className="scroll-animate slide-from-left"
+      style={{ "--delay": `${delay}s` }}
     >
-      <style>{`
-        .scroll-animate.animate-in {
-          opacity: 1 !important;
-          transform: translateX(0) !important;
-        }
-      `}</style>
       {children}
     </div>
   );
-};
+});
 
-// 5. Slide From Right
-export const SlideFromRight = ({ children, delay = 0 }) => {
+// 5. Slide From Right - Smooth right entry
+export const SlideFromRight = memo(({ children, delay = 0 }) => {
   const ref = useRef(null);
+  const { observe, unobserve } = useSharedObserver();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            element.classList.add('animate-in');
-          } else {
-            element.classList.remove('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "-50px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    if (element) {
+      observe(element);
+    }
+    return () => {
+      if (element) unobserve(element);
+    };
+  }, [observe, unobserve]);
 
   return (
     <div
       ref={ref}
-      className="scroll-animate"
-      style={{
-        opacity: 0,
-        transform: "translateX(100px)",
-        transition: `all 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-      }}
+      className="scroll-animate slide-from-right"
+      style={{ "--delay": `${delay}s` }}
     >
-      <style>{`
-        .scroll-animate.animate-in {
-          opacity: 1 !important;
-          transform: translateX(0) !important;
-        }
-      `}</style>
       {children}
     </div>
   );
-};
+});
 
 // 6. Fade Slide Up - Classic elegant reveal
-export const FadeSlideUp = ({ children, delay = 0 }) => {
+export const FadeSlideUp = memo(({ children, delay = 0 }) => {
   const ref = useRef(null);
+  const { observe, unobserve } = useSharedObserver();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            element.classList.add('animate-in');
-          } else {
-            element.classList.remove('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "-50px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    if (element) {
+      observe(element);
+    }
+    return () => {
+      if (element) unobserve(element);
+    };
+  }, [observe, unobserve]);
 
   return (
     <div
       ref={ref}
-      className="scroll-animate"
-      style={{
-        opacity: 0,
-        transform: "translateY(60px)",
-        transition: `all 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-      }}
+      className="scroll-animate fade-slide-up"
+      style={{ "--delay": `${delay}s` }}
     >
-      <style>{`
-        .scroll-animate.animate-in {
-          opacity: 1 !important;
-          transform: translateY(0) !important;
-        }
-      `}</style>
       {children}
     </div>
   );
-};
+});
 
-// 7. Blur Reveal - Modern glassmorphism effect
-export const BlurReveal = ({ children, delay = 0 }) => {
+// 7. Blur Reveal - Simple opacity fade (no blur for mobile performance)
+export const BlurReveal = memo(({ children, delay = 0 }) => {
   const ref = useRef(null);
+  const { observe, unobserve } = useSharedObserver();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            element.classList.add('animate-in');
-          } else {
-            element.classList.remove('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "-50px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    if (element) {
+      observe(element);
+    }
+    return () => {
+      if (element) unobserve(element);
+    };
+  }, [observe, unobserve]);
 
   return (
     <div
       ref={ref}
-      className="scroll-animate"
-      style={{
-        opacity: 0,
-        filter: "blur(20px)",
-        transform: "scale(0.95)",
-        transition: `all 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-      }}
+      className="scroll-animate blur-reveal"
+      style={{ "--delay": `${delay}s` }}
     >
-      <style>{`
-        .scroll-animate.animate-in {
-          opacity: 1 !important;
-          filter: blur(0px) !important;
-          transform: scale(1) !important;
-        }
-      `}</style>
       {children}
     </div>
   );
-};
+});
 
-// 8. Rotate In - Spin entrance
-export const RotateIn = ({ children, delay = 0 }) => {
+// 8. Rotate In - Gentle rotation entry
+export const RotateIn = memo(({ children, delay = 0 }) => {
   const ref = useRef(null);
+  const { observe, unobserve } = useSharedObserver();
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            element.classList.add('animate-in');
-          } else {
-            element.classList.remove('animate-in');
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "-50px" }
-    );
-
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+    if (element) {
+      observe(element);
+    }
+    return () => {
+      if (element) unobserve(element);
+    };
+  }, [observe, unobserve]);
 
   return (
     <div
       ref={ref}
-      className="scroll-animate"
-      style={{
-        opacity: 0,
-        transform: "rotate(-10deg) scale(0.9)",
-        transition: `all 1s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
-      }}
+      className="scroll-animate rotate-in"
+      style={{ "--delay": `${delay}s` }}
     >
-      <style>{`
-        .scroll-animate.animate-in {
-          opacity: 1 !important;
-          transform: rotate(0deg) scale(1) !important;
-        }
-      `}</style>
       {children}
     </div>
   );
+});
+
+// Export cleanup function
+export const cleanupAnimations = () => {
+  if (sharedObserver) {
+    sharedObserver.disconnect();
+    sharedObserver = null;
+  }
+  animatedElements.clear();
 };
+
+export default {
+  ClipPathReveal,
+  ScaleReveal,
+  ParallaxFade,
+  SlideFromLeft,
+  SlideFromRight,
+  FadeSlideUp,
+  BlurReveal,
+  RotateIn,
+  cleanupAnimations,
+};
+
