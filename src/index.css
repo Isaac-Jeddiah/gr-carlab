@@ -35,7 +35,17 @@ html, body { margin: 0; padding: 0; }
   scrollbar-width: none;
 }
 
-
+ @keyframes slide-car {
+              0% {
+                right: -100px;
+              }
+              100% {
+                right: calc(100% + 100px);
+              }
+            }
+            .animate-slide-car {
+              animation: slide-car 3s linear;
+            }
 
 /* If you need to allow breaking extremely long tokens use .long-token-wrap */
 .long-token-wrap { overflow-wrap: anywhere; }

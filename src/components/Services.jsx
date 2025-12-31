@@ -125,7 +125,7 @@ const Services = () => {
             >
               {/* Service Image */}
               <div className="relative h-40 sm:h-48 md:h-52 lg:h-56 overflow-hidden bg-[#222222]">
-                <img
+                <img loading="lazy" 
                   src={service.images[0]}
                   alt={service.title}
                   className="service-image w-full h-full object-cover"

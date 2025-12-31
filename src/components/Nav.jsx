@@ -200,7 +200,7 @@ const NavBar = () => {
           className="NavBar-logo hover-scale cursor-pointer"
           onClick={() => navigate("/")}
         >
-          <img
+          <img loading="lazy" 
             src={logo}
             alt="GR CAR LAB"
             className="h-16 xs:h-13 sm:h-19 md:h-10 py-0 mb-0 lg:h-26 w-auto object-contain"

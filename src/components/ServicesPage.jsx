@@ -126,7 +126,7 @@ useEffect(() => {
           <div ref={carouselContainerRef} className="flex-1 w-full">
             <div className="relative">
               <div className="overflow-hidden rounded-3xl">
-                <img 
+                <img loading="lazy"  
                   src={carouselImages[currentSlide] || (service.images && service.images[0])} 
                   alt={`Slide ${currentSlide + 1}`}
                   className="w-full h-96 lg:h-[600px] object-cover"
@@ -232,7 +232,7 @@ useEffect(() => {
             >
               {/* Service Image */}
               <div className="relative h-40 sm:h-48 md:h-52 lg:h-56 overflow-hidden bg-[#222222]">
-                <img
+                <img loading="lazy" 
                   src={service.images[0]}
                   alt={service.title}
                   className="service-image w-full h-full object-cover"

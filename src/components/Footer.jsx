@@ -24,7 +24,7 @@ export default function Footer() {
             <div className="grid grid-cols-2 sm:items-center gap-12">
               <div className="">
                 <div className="footer-logo mb-4 hover-scale cursor-pointer">
-                  <img
+                  <img loading="lazy" 
                     src={logo}
                     alt="GR CAR LAB"
                     className="h-20 sm:h-20 md:h-20 lg:h-32 w-auto object-contain"

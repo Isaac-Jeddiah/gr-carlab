@@ -1,12 +1,5 @@
 import React, { useEffect, useRef, useCallback, memo } from "react";
 
-// ============================================
-// OPTIMIZED MOBILE SCROLL ANIMATIONS
-// Uses single IntersectionObserver for all components
-// Minimal CSS, smooth 60fps animations
-// ============================================
-
-// Shared IntersectionObserver instance
 let sharedObserver = null;
 const animatedElements = new Set();
 

@@ -80,7 +80,7 @@ const NavBar = ({ setIsDrawerOpen }) => {
     <div className="NavBar-container relative z-20 px-2 xs:px-3 sm:px-4 md:px-8 lg:px-12 pt-0 pb-3 sm:pb-3 md:pb-4 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <div className="NavBar-logo hover-scale cursor-pointer">
-          <img src={logo} alt="GR CAR LAB" className="h-32 xs:h-26 sm:h-38 md:h-0 lg:h-52 w-auto object-contain" />
+          <img loading="lazy"  src={logo} alt="GR CAR LAB" className="h-32 xs:h-26 sm:h-38 md:h-0 lg:h-52 w-auto object-contain" />
         </div>
         <button
           onClick={() => {

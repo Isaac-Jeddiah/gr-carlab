@@ -177,7 +177,7 @@ const Hero = () => {
       <div
         className="absolute right-[260%] md:right-[50%] lg:left-[-20%] bottom-0 w-full h-full pointer-events-none"
       >
-        <img
+        <img loading="lazy" 
           ref={carRef}
           src={heroCar}
           alt="Hero car"
@@ -189,7 +189,7 @@ const Hero = () => {
             transition: 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
             willChange: 'transform',
           }}
-          loading="lazy"
+          
         />
       </div>
 

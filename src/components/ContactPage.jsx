@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { Phone, Mail, MessageCircle, Check, Calendar } from "lucide-react";
 import { gsap } from "gsap";
 import car from "../assets/car_1.png";
-import { validateFormData } from "../services/emailService";
 import servicesData from "./servicesData";
 import NavBar from "./Nav";
 import Footer from "./Footer";
@@ -169,9 +168,7 @@ export default function ContactUsPage() {
       newErrors.phone = "Please enter a valid phone number";
     }
 
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
-    }
+    
 
     return newErrors;
   };
@@ -227,7 +224,7 @@ Preferred Date: ${formData.preferredDate}
 --- ADDITIONAL DETAILS ---
 ${formData.message}
 
-Please advise on availability and pricing.
+
 
 Best regards,
 ${formData.firstName} ${formData.lastName}`;
@@ -293,7 +290,7 @@ ${formData.firstName} ${formData.lastName}`;
               <div className="mb-8 p-8 bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden relative h-32">
                 <div className="absolute bottom-4 left-0 right-0 h-0.5 bg-gray-700"></div>
                 <div className="animate-slide-car absolute bottom-4">
-                  <img src={car} alt="Moving Car" className="h-16 w-auto" />
+                  <img loading="lazy"  src={car} alt="Moving Car" className="h-16 w-auto" />
                 </div>
               </div>
             )}
@@ -421,21 +418,32 @@ ${formData.firstName} ${formData.lastName}`;
                       )}
                     </div>
 
-                    <div>
-                      <input
-                        type="date"
-                        name="preferredDate"
-                        value={formData.preferredDate}
-                        onChange={handleChange}
-                        placeholder="Preferred Service Date"
-                        className={`w-full appearance-none px-6 py-4 bg-gray-900 border ${
-                          errors.preferredDate
-                            ? "border-red-500"
-                            : "border-gray-800"
-                        } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
-                      />
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="preferredDate"
+                        className="block text-sm text-gray-400 ml-1"
+                      >
+                        Select Your Preferred Date
+                      </label>
+                      <div className="relative">
+                        <input
+                          id="preferredDate"
+                          type="date"
+                          name="preferredDate"
+                          value={formData.preferredDate}
+                          onChange={handleChange}
+                          className={`w-full appearance-none px-6 py-4 bg-gray-900 border ${
+                            errors.preferredDate
+                              ? "border-red-500"
+                              : "border-gray-800"
+                          } rounded-xl text-white focus:outline-none focus:border-[#D4D414] transition-colors
+                          [&::-webkit-calendar-picker-indicator]:filter [&::-webkit-calendar-picker-indicator]:invert
+                          [&::-webkit-calendar-picker-indicator]:cursor-pointer`}
+                        />
+                        <Calendar className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4D414] pointer-events-none" />
+                      </div>
                       {errors.preferredDate && (
-                        <p className="text-red-500 text-sm mt-1">
+                        <p className="text-red-500 text-sm mt-1 ml-1">
                           {errors.preferredDate}
                         </p>
                       )}
@@ -528,19 +536,6 @@ ${formData.firstName} ${formData.lastName}`;
               </div>
             </div>
           </div>
-          <style>{`
-            @keyframes slide-car {
-              0% {
-                right: -100px;
-              }
-              100% {
-                right: calc(100% + 100px);
-              }
-            }
-            .animate-slide-car {
-              animation: slide-car 3s linear;
-            }
-          `}</style>
         </div>
         <Footer />
       </div>

@@ -372,7 +372,7 @@ const Products = () => {
             >
               {/* Product Image */}
               <div className="product-card-image relative h-36 md:h-44 overflow-hidden bg-[#222222]">
-                <img
+                <img loading="lazy" 
                   src={product.image}
                   alt={product.title}
                   className="product-image w-full h-full object-cover"

@@ -480,7 +480,7 @@ const Testimonials = () => {
                   style={{ transformStyle: 'preserve-3d' }}
                 >
                   <div className="w-24 h-24 md:w-56 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-3 border-[#D4D414] shadow-2xl shadow-[#D4D414]/20 bg-gray-900">
-                    <img
+                    <img loading="lazy" 
                       src={testimonial.image}
                       alt={testimonial.name}
                       className="w-full h-full object-cover"
@@ -504,7 +504,7 @@ const Testimonials = () => {
                 </div>
                 </div>
                   <div className="flex items-center justify-center ">
-                    <img 
+                    <img loading="lazy"  
                       src={getCarLogo(testimonials[activeIndex].role)}
                       alt={`${testimonials[activeIndex].role} logo`}
                       className="w-24 h-24 object-contain bg-[#D4D414] rounded-2xl p-2 border-2 border-[#D4D414] shadow-2xl shadow-yellow-500/20"
