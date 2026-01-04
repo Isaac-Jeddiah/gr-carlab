@@ -153,7 +153,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative rounded-4xl mt-6 bg-black min-h-screen overflow-hidden mx-2 md:mx-8 lg:mx-8 mb-12">
+    <div className="relative rounded-3xl mt-6 bg-black min-h-screen overflow-hidden mx-4 md:mx-8 lg:mx-15 mb-8 sm:mb-4 lg:mb-4">
     <section
       ref={heroRef}
       className="relative w-full min-h-screen overflow-hidden bg-black"
@@ -214,9 +214,6 @@ const Hero = () => {
             <div className="flex items-center gap-3 text-[#D4D414] text-xs sm:text-sm tracking-wider uppercase">
               <span className="w-24 md:w-12 h-2 rounded-full bg-[#D4D414]" />
               <span></span>
-            </div>
-            <div className="text-right text-xs sm:text-sm text-white/70 max-w-xs hidden lg:block">
-              Expert car care with cutting-edge technology
             </div>
           </div>
 

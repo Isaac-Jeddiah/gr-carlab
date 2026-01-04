@@ -338,13 +338,13 @@ const Products = () => {
   return (
     <section
       id="products"
-      className="products-section py-24 px-6 bg-[#080805]"
+      className="products-section pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-6 mb-8 sm:mb-4 lg:mb-4 bg-[#080805]"
       ref={productsRef}
     >
       <div className="max-w-7xl mx-auto">
         <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.9 }}>
         {/* Section Header */}
-        <div className="text-center mb-16 products-title">
+        <div className="text-center mb-4 sm:mb-4 lg:mb-12 products-title">
           <div className="text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-3 justify-center mb-6">
             <span className="w-10 h-px bg-[#D4D414]"></span>
             <span>ACCESSORIES</span>

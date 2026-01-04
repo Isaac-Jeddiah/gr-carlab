@@ -93,13 +93,13 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="services-section sm:-py-2 md:-py-4 lg:-py-8 px-2 xs:px-3 sm:px-4 md:px-6 lg:px-6 bg-black"
+      className="services-section pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-2 xs:px-3 sm:px-4 md:px-6 lg:px-6 bg-black mb-8 sm:mb-4 lg:mb-4"
       ref={servicesRef}
     >
       <div className="max-w-7xl mx-auto">
        
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-16 services-title">
+        <div className="text-center mb-4 sm:mb-4 lg:mb-12 services-title">
           <div className="text-xs sm:text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
             <span className="w-6 sm:w-8 md:w-10 h-px bg-[#D4D414]"></span>
             <span>OUR SERVICES</span>
@@ -151,7 +151,7 @@ const Services = () => {
                   {service.details.slice(0, 3).map((detail, idx) => (
                     <li
                       key={`${service.id}-detail-${idx}`}
-                      className="service-feature-item flex items-center gap-2 text-xs sm:text-xs md:text-xs lg:text-xs text-white/60"
+                      className="service-feature-item flex items-center gap-2 text-sm sm:text-sm md:text-sm lg:text-sm text-white/60"
                     >
                       <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-[#D4D414] flex-shrink-0"></span>
                       <span className="line-clamp-2">{detail}</span>

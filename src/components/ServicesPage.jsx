@@ -212,10 +212,25 @@ useEffect(() => {
           <p className="text-lg lg:text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Book your service today and experience the difference of professional car care.
           </p>
-          <button onClick={() => navigate('/contact')} className="bg-black text-white px-8 py-4 rounded-full  text-lg hover:bg-zinc-900 transition-colors inline-flex items-center gap-3">
-            Schedule Now
+          <div className="flex justify-center mt-12">
+            <button
+              
+              onClick={() => navigate('/contact')} 
+              className="schedule-button group relative bg-gradient-to-r from-[black] to-[black] text-white font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-3 text-lg">
+                Schedule Now
             <ChevronRight className="w-5 h-5" />
-          </button>
+              </span>
+
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[black] to-[black] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 -left-full group-hover:left-full transition-all duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"></div>
+            </button>
+          </div>
+          
         </div>
       </section>
 

@@ -442,11 +442,11 @@ const Testimonials = () => {
   const handlePrev = () => updateTestimonial(-1);
 
   return (
-    <section style={{ fontFamily: "Figtree, sans-serif" }} className="testimonials-section py-32 px-6 bg-gradient-to-b from-black to-[#080805] relative overflow-hidden" ref={sectionRef}>
+    <section style={{ fontFamily: "Figtree, sans-serif" }} className="testimonials-section pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-6 bg-gradient-to-b from-black to-[#080805] relative overflow-hidden" ref={sectionRef}>
       <div className="max-w-7xl mx-auto">
         <AnimatedOnScroll options={{ from: { y: 30, opacity: 0 }, duration: 0.9 }}>
         {/* Section Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-4 sm:mb-4 lg:mb-12">
           <div className="text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-3 justify-center mb-6">
             <span className="w-10 h-px bg-[#D4D414]"></span>
             <span>TESTIMONIALS</span>
@@ -462,7 +462,7 @@ const Testimonials = () => {
         </AnimatedOnScroll>
       
       <div className="relative z-10 w-full max-w-7xl mx-auto p-4 md:p-8 lg:p-16">
-        <div className="bg-black backdrop-blur-xl rounded-3xl p-6 md:p-12 lg:p-16 border border-yellow-500/20 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_100px_rgba(234,179,8,0.2)] hover:shadow-[0_0_90px_25px_rgba(234,179,8,0.4),0_0_160px_50px_rgba(234,179,8,0.2)] transition-all duration-500">
+        <div className="bg-black backdrop-blur-xl rounded-3xl p-6 md:p-2 lg:p-2 shadow-[0_0_50px_rgba(0,0,0,0.8),0_0_100px_rgba(234,179,8,0.2)] transition-all duration-500">
           
           
 
@@ -479,7 +479,7 @@ const Testimonials = () => {
                   className="absolute inset-0 flex items-center justify-center"
                   style={{ transformStyle: 'preserve-3d' }}
                 >
-                  <div className="w-24 h-24 md:w-56 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-3 border-[#D4D414] shadow-2xl shadow-[#D4D414]/20 bg-gray-900">
+                  <div className="w-24 h-24 md:w-56 md:h-48 lg:w-56 lg:h-56 rounded-full overflow-hidden border-3 border-[#D4D414] bg-gray-900">
                     <img loading="lazy" 
                       src={testimonial.image}
                       alt={testimonial.name}

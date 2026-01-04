@@ -128,7 +128,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-2 text-xs sm:text-sm">
               <span className="text-[#D4D414]">★</span>
-              <span>Premium Car Detailing</span>
+              <span>Precision Care For Every Car</span>
               <span className="text-[#D4D414]">★</span>
             </div>
           </div>

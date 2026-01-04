@@ -48,40 +48,52 @@ const Home = () => {
         <Services />
       </SlideFromRight>
 
-      {/* How We Work Section */}
       {/* About - Scale Reveal (Zoom in) */}
-      <ScaleReveal>
-        <About />
-      </ScaleReveal>
+      <div className="relative z-10">
+        <ScaleReveal>
+          <About />
+        </ScaleReveal>
+      </div>
 
       {/* Why Choose Us - Slide From Left */}
-      <SlideFromLeft>
-        <WhyUs />
-      </SlideFromLeft>
+      <div className="relative z-10 bg-black">
+        <SlideFromLeft>
+          <WhyUs />
+        </SlideFromLeft>
+      </div>
+      
       {/* How We Work - Rotate In */}
-
-      <div className="transform-none">
-        <HowWeWork />
+      <div className="relative z-10 bg-black">
+        <div className="transform-none">
+          <HowWeWork />
+        </div>
       </div>
 
       {/* Products - Parallax Fade with 3D depth */}
-
-      <Products />
+      <div className="relative z-10 bg-[#080805]">
+        <Products />
+      </div>
 
       {/* Testimonials - Slide From Right */}
-      <SlideFromRight>
-        <Testimonials />
-      </SlideFromRight>
+      <div className="relative z-10 bg-black">
+        <SlideFromRight>
+          <Testimonials />
+        </SlideFromRight>
+      </div>
 
       {/* Contact - Blur Reveal (Modern glassmorphism) */}
-      <BlurReveal>
-        <Contact />
-      </BlurReveal>
+      <div className="relative z-10">
+        <BlurReveal>
+          <Contact />
+        </BlurReveal>
+      </div>
 
       {/* Footer - Simple Fade Slide Up */}
-      <BlurReveal>
-        <Footer />
-      </BlurReveal>
+      <div className="relative z-10">
+        <BlurReveal>
+          <Footer />
+        </BlurReveal>
+      </div>
     </div>
   );
 };

@@ -295,7 +295,7 @@ export default function AboutUsPage() {
       {/* Statistics Section */}
       <section ref={statsRef} className="py-16 lg:py-24 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 lg:mb-16">
+          <div className="mb-12 lg:mb-4">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-8 h-0.5 bg-[#D4D414]"></div>
               <span className="text-[#D4D414] text-sm font-medium tracking-wider">

@@ -74,7 +74,7 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={aboutRef} id="about" className="py-24 px-6 bg-black">
+    <section ref={aboutRef} id="about" className="pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-6 bg-black mb-8 sm:mb-4 lg:mb-4">
       <div className="max-w-7xl mx-auto">
         <AnimatedOnScroll
           options={{ from: { y: 30, opacity: 0 }, duration: 0.8 }}

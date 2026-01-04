@@ -254,7 +254,7 @@ ${formData.firstName} ${formData.lastName}`;
   return (
     <>
       <div className="bg-black">
-        <div className="min-h-screen bg-black text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-black text-white pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             {/* Header */}
             <div ref={headerRef} className="text-center mb-12">
@@ -393,8 +393,14 @@ ${formData.firstName} ${formData.lastName}`;
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-strech">
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="serviceRequired"
+                        className="block text-sm text-gray-400 ml-1"
+                      >
+                        Select Service Required
+                      </label>
                       <select
                         name="serviceRequired"
                         value={formData.serviceRequired}
@@ -405,7 +411,7 @@ ${formData.firstName} ${formData.lastName}`;
                             : "border-gray-800"
                         } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                       >
-                        <option value="">Select Service Required</option>
+                        <option value="">Select</option>
                         <option value="Product Enquiry">Product Enquiry</option>
                         {servicesData.map((s) => (
                           <option key={s.slug} value={s.title}>
