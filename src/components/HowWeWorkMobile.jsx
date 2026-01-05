@@ -437,10 +437,10 @@ const CarWorkflowMobile = () => {
       {/* Header Section */}
       <div className="container mx-auto px-4 sm:px-6 md:px-8 pt-20 sm:pt-24 md:pt-28">
         <div className="pt-2 sm:pt-4 md:pt-4 mb-12 sm:mb-4">
-          <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4">
+          <h3 className="text-4xl sm:text-4xl md:text-4xl lg:text-6xl font-bold text-center mb-4">
             How We Work on Your Car
           </h3>
-          <p className="text-center text-gray-400 text-sm sm:text-base md:text-lg mb-6 max-w-2xl mx-auto px-4">
+          <p className="text-center text-gray-400 text-sm sm:text-lg md:text-lg mb-6 max-w-2xl mx-auto px-4">
             A clear six-step process designed to ensure transparency, quality
             and consistent results.
           </p>
@@ -487,7 +487,7 @@ const CarWorkflowMobile = () => {
                     </h4>
 
                     {/* Description */}
-                    <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
+                    <p className="text-gray-300 text-sm sm:text-lg md:text-lg leading-relaxed">
                       {step.description}
                     </p>
 

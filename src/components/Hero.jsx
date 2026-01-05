@@ -211,7 +211,7 @@ const Hero = () => {
         <div className="px-4 sm:px-6 md:px-8 lg:px-12 py-12">
           {/* Top Label */}
           <div className="flex flex-col sm:flex-row items-start justify-between gap-4">
-            <div className="flex items-center gap-3 text-[#D4D414] text-xs sm:text-sm tracking-wider uppercase">
+            <div className="flex items-center gap-3 text-[#D4D414] text-sm tracking-wider uppercase">
               <span className="w-24 md:w-12 h-2 rounded-full bg-[#D4D414]" />
               <span></span>
             </div>
@@ -220,10 +220,10 @@ const Hero = () => {
           {/* Main Content */}
           <div className="w-full">
             <h1 className="font-bold leading-tight">
-              <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white">
+              <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white">
                 {splitWords('Welcome to GR CAR LAB')}
               </span>
-              <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#D4D414] mt-2 md:mt-4">
+              <span className="block text-3xl sm:text-4xl md:text-5xl text-[#D4D414] mt-2 md:mt-4">
                 {splitWords('Precision Care for Every Car')}
               </span>
             </h1>
@@ -233,7 +233,7 @@ const Hero = () => {
         {/* CTA Buttons */}
         <div className="grid grid-rows-2">
           <p
-            className="px-4 sm:px-6 md:px-8 lg:px-12 text-sm sm:text-base md:text-lg text-white/80 max-w-2xl leading-relaxed"
+            className="px-4 sm:px-6 md:px-8 lg:px-12 text-lg text-white/80 max-w-2xl leading-relaxed"
             style={{
               opacity: isLoaded ? 1 : 0,
               transform: isLoaded ? 'translateY(0)' : 'translateY(40px)',
@@ -254,15 +254,15 @@ const Hero = () => {
               href="/services"
               className="group flex items-center justify-between px-6 py-5 md:py-6 border-b-0 sm:border-b-0 sm:border-r border-white/20 hover:bg-white/5 transition-all"
             >
-              <span className="text-base md:text-lg lg:text-xl text-white">See Our Services</span>
-              <ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-2 transition-transform" />
+              <span className="text-lg text-white">See Our Services</span>
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </a>
             <a
               href="#contact"
               className="group flex items-center justify-between px-6 py-5 md:py-6 hover:bg-white/5 transition-all"
             >
-              <span className="text-base md:text-lg lg:text-xl text-white">Get in Touch</span>
-              <ChevronRight className="w-6 h-6 md:w-7 md:h-7 group-hover:translate-x-2 transition-transform" />
+              <span className="text-lg text-white">Get in Touch</span>
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </a>
           </div>
         </div>

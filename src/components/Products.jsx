@@ -392,7 +392,7 @@ const Products = () => {
 
               {/* Product Info */}
               <div className="product-card-content p-3 md:p-4">
-                <h3 className="product-card-title text-white  text-sm md:text-base mb-2 line-clamp-1 group-hover:text-[#D4D414] transition-colors">
+                <h3 className="product-card-title text-white  text-lg mb-2 line-clamp-1 group-hover:text-[#D4D414] transition-colors">
                   {product.title}
                 </h3>
               </div>
@@ -425,7 +425,7 @@ const Products = () => {
         {/* Book Now CTA Section */}
         <div className="mt-20 pt-12 border-t border-white/10">
           <div className="text-center mb-8">
-            <p className="text-[#AAADB0] text-sm md:text-base mb-4">
+            <p className="text-[#AAADB0] text-lg mb-4">
               Ready to enhance your vehicle with premium products?
             </p>
             <h3 className="text-2xl md:text-4xl font-bold mb-6">
@@ -443,7 +443,7 @@ const Products = () => {
               to="/contact"
               className="group relative bg-black border-2 border-[#D4D414] text-[#D4D414] hover:bg-[#D4D414] font-bold px-10 py-4 rounded-full transition-all duration-300 flex items-center gap-3 hover-scale"
             >
-              <span className="text-lg group-hover:text-black">Book Installation Service</span>
+              <span className="text-xl group-hover:text-black">Book Installation Service</span>
               <ArrowRight className="w-5 h-5 group-hover:text-black group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>

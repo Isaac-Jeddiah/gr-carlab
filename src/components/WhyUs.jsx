@@ -105,7 +105,7 @@ const WhyUs = () => {
         <h2 className="whyus-title text-4xl lg:text-6xl font-bold mb-6">
           Why Choose <span className="text-[#D4D414]">GR CAR LAB</span>
         </h2>
-        <p className="text-gray-400 text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
+        <p className="text-gray-400 text-lg lg:text-lg max-w-3xl mx-auto leading-relaxed">
           We are committed to delivering exceptional automotive care with
           skilled technicians, modern equipment, and customer-first service that
           guarantees satisfaction.
@@ -132,7 +132,7 @@ const WhyUs = () => {
               </h3>
 
               {/* Description */}
-              <p className="text-gray-400 text-sm lg:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+              <p className="text-gray-400 text-sm lg:text-lg leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                 {reason.description}
               </p>
 

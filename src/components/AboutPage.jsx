@@ -274,7 +274,7 @@ export default function AboutUsPage() {
                 Dedicated to Quality, Transparency and Care
               </h2>
 
-              <p className="text-gray-400 text-base lg:text-lg mb-8 leading-relaxed">
+              <p className="text-gray-400 text-lg lg:text-lg mb-8 leading-relaxed">
                 GR CAR LAB combines advanced techniques, bio-friendly products
                 and experienced technicians to deliver high-quality automotive
                 care. Our mission is to provide transparent, reliable services
@@ -316,7 +316,7 @@ export default function AboutUsPage() {
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4">
                 2.5K+
               </h3>
-              <p className="text-gray-400 text-base lg:text-lg">
+              <p className="text-gray-400 text-lg lg:text-lg">
                 Total Services
               </p>
               <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
@@ -330,7 +330,7 @@ export default function AboutUsPage() {
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4 text-[#D4D414]">
                 5.0
               </h3>
-              <p className="text-gray-400 text-base lg:text-lg">
+              <p className="text-gray-400 text-lg lg:text-lg">
                 Average Rating
               </p>
               <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
@@ -358,7 +358,7 @@ export default function AboutUsPage() {
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4">
                 15+
               </h3>
-              <p className="text-gray-400 text-base lg:text-lg">
+              <p className="text-gray-400 text-lg lg:text-lg">
                 Expert Technicians
               </p>
               <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
@@ -372,7 +372,7 @@ export default function AboutUsPage() {
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4">
                 99%
               </h3>
-              <p className="text-gray-400 text-base lg:text-lg">
+              <p className="text-gray-400 text-lg lg:text-lg">
                 Customer Satisfaction
               </p>
               <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
@@ -386,7 +386,7 @@ export default function AboutUsPage() {
               <h3 className="stat-number text-4xl lg:text-5xl font-bold mb-4">
                 50+
               </h3>
-              <p className="text-gray-400 text-base lg:text-lg">
+              <p className="text-gray-400 text-lg lg:text-lg">
                 Daily Services
               </p>
               <div className="mt-4 w-2 h-2 bg-[#D4D414] rounded-full"></div>
@@ -411,7 +411,7 @@ export default function AboutUsPage() {
                 Discover GR CAR LAB Automotive Care Studio
               </h2>
 
-              <p className="text-gray-300 text-base lg:text-lg mb-6">
+              <p className="text-gray-300 text-lg lg:text-lg mb-6">
                 Our facility is equipped with professional tools and a
                 controlled environment designed to deliver consistent,
                 high-quality automotive care.
@@ -454,7 +454,7 @@ export default function AboutUsPage() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-gray-300 text-base lg:text-lg">
+                  <p className="text-gray-300 text-lg lg:text-lg">
                     {contactConfig.address}
                   </p>
                 </div>

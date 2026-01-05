@@ -100,14 +100,14 @@ const Services = () => {
        
         {/* Section Header */}
         <div className="text-center mb-4 sm:mb-4 lg:mb-12 services-title">
-          <div className="text-xs sm:text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
+          <div className="text-sm text-[#D4D414] tracking-wider uppercase flex items-center gap-2 sm:gap-3 justify-center mb-4 sm:mb-6">
             <span className="w-6 sm:w-8 md:w-10 h-px bg-[#D4D414]"></span>
             <span>OUR SERVICES</span>
           </div>
-          <h2 className="services-title-main text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 sm:mb-4 md:mb-6">
+          <h2 className="services-title-main text-4xl font-bold mb-3 sm:mb-4 md:mb-6">
             Premium Car Care Services
           </h2>
-          <p className="services-description text-[#AAADB0] max-w-3xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl">
+          <p className="services-description text-[#AAADB0] max-w-3xl mx-auto text-lg">
             Expert detailing solutions with advanced technology, premium
             products, and meticulous attention to every detail
           </p>
@@ -134,7 +134,7 @@ const Services = () => {
 
                 {/* Service Title Overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 lg:p-6">
-                  <h3 className="service-card-title text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                  <h3 className="service-card-title text-xl font-bold text-white">
                     {service.title}
                   </h3>
                 </div>
@@ -142,7 +142,7 @@ const Services = () => {
 
               {/* Service Content */}
               <div className="p-3 sm:p-4 md:p-5 lg:p-6">
-                <p className="service-card-description text-[#AAADB0] text-sm sm:text-base md:text-base lg:text-base mb-3 sm:mb-4 leading-relaxed">
+                <p className="service-card-description text-[#AAADB0] text-lg mb-3 sm:mb-4 leading-relaxed">
                   {service.description}
                 </p>
 
@@ -151,7 +151,7 @@ const Services = () => {
                   {service.details.slice(0, 3).map((detail, idx) => (
                     <li
                       key={`${service.id}-detail-${idx}`}
-                      className="service-feature-item flex items-center gap-2 text-sm sm:text-sm md:text-sm lg:text-sm text-white/60"
+                      className="service-feature-item flex items-center gap-2 text-sm text-white/60"
                     >
                       <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-[#D4D414] flex-shrink-0"></span>
                       <span className="line-clamp-2">{detail}</span>
@@ -165,11 +165,11 @@ const Services = () => {
                     service.slug ||
                     service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")
                   }`}
-                  className="service-button group inline-flex items-center gap-2 text-[#D4D414]  text-sm sm:text-base hover:gap-3 transition-all"
+                  className="service-button group inline-flex items-center gap-2 text-[#D4D414]  text-lg hover:gap-3 transition-all"
                   style={{ zIndex: 10, pointerEvents: 'auto' }}
                 >
                   <span>Learn More</span>
-                  <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5" />
+                  <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
             </div>

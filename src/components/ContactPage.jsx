@@ -265,7 +265,7 @@ ${formData.firstName} ${formData.lastName}`;
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
                 Get In Touch
               </h1>
-              <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+              <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-lg">
                 We're here to help. Contact us to schedule your detailing
                 appointment, request a quote, or ask about our premium services.
                 Fast responses and personalised care for every vehicle.

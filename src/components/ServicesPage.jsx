@@ -110,7 +110,7 @@ useEffect(() => {
           {/* Left Content */}
             <div className="flex-1 w-full hero-content">
             <h1 className="text-5xl lg:text-7xl font-bold mb-6">{service.title}</h1>
-            <p className="text-gray-400 text-base lg:text-lg leading-relaxed mb-8">{service.description}</p>
+            <p className="text-gray-400 text-lg lg:text-lg leading-relaxed mb-8">{service.description}</p>
 
             {/* Info Pills - render from service.details if present */}
             <div className="flex flex-wrap gap-3 mb-12">
@@ -194,7 +194,7 @@ useEffect(() => {
                     </div>
                     <div className="bg-zinc-900 rounded-2xl p-5 md:p-6 lg:p-8 flex-1 border-2 border-[#D4D414]">
                       <h4 className="text-xl md:text-2xl font-bold mb-3">{step.title}</h4>
-                      <p className="text-gray-400 text-sm md:text-base leading-relaxed">{step.desc}</p>
+                      <p className="text-gray-400 text-sm md:text-lg leading-relaxed">{step.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -264,7 +264,7 @@ useEffect(() => {
 
               {/* Service Content */}
               <div className="p-3 sm:p-4 md:p-5 lg:p-6">
-                <p className="service-card-description text-[#AAADB0] text-sm sm:text-base md:text-base lg:text-base mb-3 sm:mb-4 leading-relaxed">
+                <p className="service-card-description text-[#AAADB0] text-sm sm:text-lg md:text-lg lg:text-lg mb-3 sm:mb-4 leading-relaxed">
                   {service.description}
                 </p>
 
@@ -279,7 +279,7 @@ useEffect(() => {
                 </ul>
 
                 {/* Learn More Button */}
-                <Link to={`/services/${service.slug || service.title.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`} className="service-button group inline-flex items-center gap-2 text-[#D4D414]  text-sm sm:text-base hover:gap-3 transition-all">
+                <Link to={`/services/${service.slug || service.title.toLowerCase().replace(/[^a-z0-9]+/g,'-')}`} className="service-button group inline-flex items-center gap-2 text-[#D4D414]  text-sm sm:text-lg hover:gap-3 transition-all">
                   <span>Learn More</span>
                   <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5" />
                 </Link>

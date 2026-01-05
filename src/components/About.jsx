@@ -88,7 +88,7 @@ export default function About() {
 
               <h2
                 ref={titleRef}
-                className="about-title text-4xl md:text-5xl font-bold mb-6 leading-tight break-words overflow-wrap-normal"
+                className="about-title text-4xl md:text-4xl lg:text-4xl font-bold mb-6 leading-tight break-words overflow-wrap-normal"
               >
                 A professional automotive care studio focused on restoring,
                 protecting and enhancing vehicles

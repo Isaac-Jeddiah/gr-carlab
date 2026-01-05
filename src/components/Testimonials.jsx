@@ -494,11 +494,11 @@ const Testimonials = () => {
             <div className="bg-gray-900/70 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-[#D4D414] shadow-[inset_0_0_25px_rgba(234,179,8,0.1),0_0_20px_rgba(234,179,8,0.2)]">
               <div className="grid grid-cols-2 lg:grid-cols-2 md:grid-cols-2 mb-6">
                 <div>
-                <h3 ref={nameRef} className="text-2xl md:text-3xl font-bold text-yellow-400 mb-2">
+                <h3 ref={nameRef} className="text-3xl font-bold text-yellow-400 mb-2">
                   {testimonials[activeIndex].name}
                 </h3>
                 <div ref={designationRef} className="flex items-center gap-3">
-                  <p className="text-sm md:text-base text-[#D4D414]">
+                  <p className="text-lg text-[#D4D414]">
                     {testimonials[activeIndex].role}
                   </p>
                 </div>
@@ -517,7 +517,7 @@ const Testimonials = () => {
               
               <p 
                 ref={quoteRef}
-                className="text-base md:text-lg text-gray-200 leading-relaxed mb-6"
+                className="text-lg text-gray-200 leading-relaxed mb-6"
               >
                 {testimonials[activeIndex].text.split(' ').map((word, i) => (
                   <span key={i} className="word inline-block mr-1">
