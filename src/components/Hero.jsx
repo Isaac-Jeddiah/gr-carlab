@@ -195,7 +195,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative rounded-3xl mt-6 bg-black min-h-screen overflow-hidden mx-4 md:mx-8 lg:mx-15 mb-8 sm:mb-4 lg:mb-4">
+    <div className="relative rounded-3xl mt-6 bg-black min-h-screen overflow-hidden mx-4 md:mx-8 lg:mx-15 mb-16 sm:mb-4 lg:mb-16">
     <section
       ref={heroRef}
       className="relative w-full min-h-screen overflow-hidden bg-black"

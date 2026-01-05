@@ -74,7 +74,7 @@ export default function About() {
   }, []);
 
   return (
-    <section ref={aboutRef} id="about" className="pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-6 bg-black mb-8 sm:mb-4 lg:mb-4">
+    <section ref={aboutRef} id="about" className="pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-6 bg-black mb-16 sm:mb-4 lg:mb-16">
       <div className="max-w-7xl mx-auto">
         <AnimatedOnScroll
           options={{ from: { y: 30, opacity: 0 }, duration: 0.8 }}
@@ -88,7 +88,7 @@ export default function About() {
 
               <h2
                 ref={titleRef}
-                className="about-title text-4xl md:text-4xl lg:text-4xl font-bold mb-6 leading-tight break-words overflow-wrap-normal"
+                className="about-title text-6xl md:text-4xl lg:text-6xl font-bold mb-6 leading-tight break-words overflow-wrap-normal"
               >
                 A professional automotive care studio focused on restoring,
                 protecting and enhancing vehicles

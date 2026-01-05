@@ -100,9 +100,9 @@ const WhyUs = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="container mx-auto px-4 pt-2 sm:pt-4 md:pt-8 lg:pt-8 mb-8 sm:mb-4 lg:mb-4">
+    <section ref={sectionRef} className="container mx-auto px-4 pt-2 sm:pt-4 md:pt-8 lg:pt-8 mb-16 sm:mb-4 lg:mb-16">
       <div className="text-center mb-4 sm:mb-4 lg:mb-12 gap-4">
-        <h2 className="whyus-title text-4xl lg:text-6xl font-bold mb-6">
+        <h2 className="whyus-title text-6xl lg:text-6xl font-bold mb-6">
           Why Choose <span className="text-[#D4D414]">GR CAR LAB</span>
         </h2>
         <p className="text-gray-400 text-lg lg:text-lg max-w-3xl mx-auto leading-relaxed">

@@ -338,7 +338,7 @@ const Products = () => {
   return (
     <section
       id="products"
-      className="products-section pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-6 mb-8 sm:mb-4 lg:mb-4 bg-[#080805]"
+      className="products-section pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-6 mb-16 sm:mb-4 lg:mb-16 bg-[#080805]"
       ref={productsRef}
     >
       <div className="max-w-7xl mx-auto">

@@ -433,7 +433,7 @@ const CarWorkflowMobile = () => {
   }, []);
 
   return (
-    <div className="bg-black text-white overflow-x-hidden mb-8 sm:mb-4 lg:mb-4">
+    <div className="bg-black text-white overflow-x-hidden mb-16 sm:mb-16 lg:mb-16">
       {/* Header Section */}
       <div className="container mx-auto px-4 sm:px-6 md:px-8 pt-20 sm:pt-24 md:pt-28">
         <div className="pt-2 sm:pt-4 md:pt-4 mb-12 sm:mb-4">

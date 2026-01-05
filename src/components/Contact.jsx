@@ -253,7 +253,7 @@ ${formData.firstName} ${formData.lastName}`;
 
   return (
     <>
-      <div className="bg-black">
+      <div className="bg-black mb-16">
         <div className="min-h-screen bg-black text-white pt-2 sm:pt-4 md:pt-8 lg:pt-8 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             {/* Header */}
