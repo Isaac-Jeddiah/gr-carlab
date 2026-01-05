@@ -23,7 +23,7 @@
 @tailwind utilities;
 
 /* App defaults */
-html, body { margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; overflow: auto !important; height: auto !important; min-height: 100vh; -webkit-overflow-scrolling: touch; }
 
 :root {
   font-family: 'Figtree', sans-serif;
@@ -33,6 +33,26 @@ html, body { margin: 0; padding: 0; }
   color: rgba(255, 255, 255, 0.87);
   background-color: black;
   scrollbar-width: none;
+}
+
+/* Fix for Mobile Safari Scrolling - CRITICAL */
+* {
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fix for Safari iOS overflow handling */
+@media screen and (max-width: 768px) {
+  html, body {
+    overflow: auto !important;
+    height: auto !important;
+    min-height: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
  @keyframes slide-car {

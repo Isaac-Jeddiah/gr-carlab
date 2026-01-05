@@ -387,6 +387,13 @@ const HowWeWorkDesk = () => {
   // GSAP ScrollTrigger Animation - Optimized for performance
   useEffect(() => {
     const cards = cardsRef.current;
+    let isPageVisible = true;
+    
+    // Track visibility state to pause animation when tab is hidden
+    const handleVisibilityChange = () => {
+      isPageVisible = document.visibilityState === 'visible';
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     
     // Use shorter scroll distance on Safari for better performance
     const scrollDistance = isSafariBrowser.current ? 2500 : 4000;
@@ -399,8 +406,8 @@ const HowWeWorkDesk = () => {
         start: "top 20%",
         end: `+=${scrollDistance}px`,
         onUpdate: (self) => {
-          // Rotate 3D car based on scroll progress
-          if (carModelRef.current) {
+          // Only update 3D car when page is visible
+          if (isPageVisible && carModelRef.current) {
             const progress = self.progress;
             carModelRef.current.rotation.y = progress * Math.PI * 2;
             carModelRef.current.position.y =
