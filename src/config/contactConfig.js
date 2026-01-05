@@ -3,16 +3,16 @@
 
 export const contactConfig = {
   // Email
-  email: "yourmail@gmail.com",
+  email: "grcarlab@gmail.com",
 
   // Phone numbers (array for multiple numbers)
   phones: [
-    "+91 123456789", // Primary phone
+    "9008001225", "7353639033" // Primary phone
     // Add more phones as needed
   ],
 
   // Address
-  address: "123 Clean Street, Auto District, Your City, State 12345",
+  address:"#153, 80 feet road,  3rd stage, R R Nagar, Dattagalli, Mysuru - 570025",
 
   // Location coordinates for Google Maps
   coordinates: {
