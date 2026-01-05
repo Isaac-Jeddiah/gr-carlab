@@ -19,6 +19,7 @@ const Hero = () => {
   const currentPos = useRef({ x: 0.5, y: 0.5 });
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSafariBrowser, setIsSafariBrowser] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const isMobileDevice = useCallback(() => window.innerWidth < 768, []);
 
   // Throttled lerp function
@@ -178,14 +179,19 @@ const Hero = () => {
 
   // Get shadow style - simplified for Safari
   const getCarShadowStyle = () => {
-    if (isSafariBrowser) {
+    if (isSafariBrowser || imageError) {
+      // Simple box shadow for Safari instead of drop-shadow filter
       return {
-        filter: 'none',
+        boxShadow: '30px 30px 60px rgba(0,0,0,0.6)',
       };
     }
     return {
       filter: 'drop-shadow(20px 20px 40px rgba(0,0,0,0.5))',
     };
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
   };
 
   return (
@@ -213,22 +219,39 @@ const Hero = () => {
       <div
         className="absolute right-[30%] bottom-0 w-full h-full pointer-events-none"
       >
-        <img loading="lazy" 
-          ref={carRef}
-          src={heroCar}
-          alt="Hero car"
-          className={`relative lg:pb-50 h-[100%] md:h-[80%] lg:h-[140%] lg:scale-110 scale-110 md:scale-110 w-auto max-w-none object-contain ${
-            isSafariBrowser ? '' : 'will-change-transform'
-          }`}
-          style={{
-            ...getCarShadowStyle(),
-            opacity: isLoaded ? 1 : 0,
-            transform: getCarTransform(),
-            transition: 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
-            willChange: 'transform, opacity',
-            WebkitTransform: getCarTransform(),
-          }}
-        />
+        {!imageError ? (
+          <img
+            ref={carRef}
+            src={heroCar}
+            alt="Hero car"
+            className={`relative lg:pb-50 h-[100%] md:h-[80%] lg:h-[140%] lg:scale-110 scale-110 md:scale-110 w-auto max-w-none object-contain ${
+              isSafariBrowser ? '' : 'will-change-transform'
+            }`}
+            style={{
+              ...getCarShadowStyle(),
+              opacity: isLoaded ? 1 : 0,
+              transform: getCarTransform(),
+              transition: 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
+              willChange: 'transform, opacity',
+              WebkitTransform: getCarTransform(),
+            }}
+            onError={handleImageError}
+          />
+        ) : (
+          /* Fallback if image fails to load */
+          <div 
+            className="relative lg:pb-50 h-[100%] md:h-[80%] lg:h-[140%] lg:scale-110 scale-110 md:scale-110 w-auto max-w-none flex items-center justify-center"
+            style={{
+              opacity: isLoaded ? 1 : 0,
+              transform: getCarTransform(),
+              transition: 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
+            }}
+          >
+            <div className="text-[#D4D414] text-4xl font-bold">
+              GR CAR LAB
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Navigation */}

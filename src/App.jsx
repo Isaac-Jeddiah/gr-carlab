@@ -99,23 +99,45 @@ const Home = () => {
 };
 
 const App = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
   React.useEffect(() => {
     setupGSAP();
+    
+    // Check if device is desktop (>= 1024px)
+    const checkDevice = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    setIsLoaded(true);
+    
+    return () => window.removeEventListener('resize', checkDevice);
   }, []);
+
+  // Don't render blob cursor until after mount to avoid hydration issues
+  if (!isLoaded) {
+    return null;
+  }
 
   return (
     <>
-    <BlobCursor
+    {/* Only show blob cursor on desktop (lg breakpoint and above) */}
+    {isDesktop && (
+      <BlobCursor
         fillColor="#D4D414"
-        trailCount={4}
-        sizes={[10,30,50,60,60]}
-        innerSizes={[49,20,20,20,20]}
-        innerColor="rgba(255,255,255,0.8)"
-        opacities={[1, 0.6, 1]}
-        fastDuration={0.1}
-        slowDuration={0.5}
+        trailCount={3}
+        sizes={[60, 80, 100]}
+        innerSizes={[25, 35, 45]}
+        innerColor="rgba(255,255,255,0.9)"
+        opacities={[0.7, 0.5, 0.3]}
+        fastDuration={0.15}
+        slowDuration={0.4}
         useFilter={true}
       />
+    )}
     <BrowserRouter>
       <ScrollToTop />
       
@@ -147,3 +169,4 @@ const App = () => {
   );
 };
 export default App;
+

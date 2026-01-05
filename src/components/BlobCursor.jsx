@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useCallback, useState, useMemo } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import './BlobCursor.css';
 
@@ -10,24 +10,30 @@ const isSafari = () => {
   return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 };
 
+// Detect device type
+const isTouchDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+};
+
 export default function BlobCursor({
   blobType = 'circle',
   fillColor = '#D4D414',
-  trailCount = 5,
-  sizes = [30, 125, 75],
-  innerSizes = [20, 35, 25],
-  innerColor = 'rgba(255,255,255,0.8)',
-  opacities = [0.6, 0.6, 0.6],
-  shadowColor = 'rgba(0,0,0,0.75)',
-  shadowBlur = 5,
-  shadowOffsetX = 10,
-  shadowOffsetY = 10,
-  filterStdDeviation = 30,
-  filterColorMatrixValues = '1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 35 -10',
+  trailCount = 3,
+  sizes = [60, 80, 100],
+  innerSizes = [25, 35, 45],
+  innerColor = 'rgba(255,255,255,0.9)',
+  opacities = [0.7, 0.5, 0.3],
+  shadowColor = 'rgba(0,0,0,0.5)',
+  shadowBlur = 20,
+  shadowOffsetX = 0,
+  shadowOffsetY = 0,
+  filterStdDeviation = 20,
+  filterColorMatrixValues = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 40 -15',
   useFilter = true,
-  fastDuration = 0.9,
-  slowDuration = 0.1,
-  fastEase = 'power3.out',
+  fastDuration = 0.15,
+  slowDuration = 0.4,
+  fastEase = 'power2.out',
   slowEase = 'power1.out',
   zIndex = 1000000000
 }) {
@@ -35,20 +41,37 @@ export default function BlobCursor({
   const blobsRef = useRef([]);
   const [filterId] = useState(() => `blob-filter-${Math.random().toString(36).substr(2, 9)}`);
   const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
+  const [isVisible, setIsVisible] = useState(false);
   const isFirstMove = useRef(true);
-  const isSafariBrowser = useMemo(() => typeof window !== 'undefined' && isSafari(), []);
+  const [isSafariBrowser, setIsSafariBrowser] = useState(false);
 
-  // Initialize blob positions to be off-screen
+  // Initialize blob positions to be off-screen and detect Safari
   useEffect(() => {
+    setIsSafariBrowser(isSafari());
+    
+    // Check if device supports hover (not touch) and is desktop size
+    const checkDevice = () => {
+      const isDesktop = window.innerWidth >= 1024 && !isTouchDevice();
+      setIsVisible(isDesktop);
+    };
+    
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
+    
+    // Initialize blob positions off-screen
     blobsRef.current.forEach((el) => {
       if (el) {
         gsap.set(el, { x: -200, y: -200 });
       }
     });
+
+    return () => window.removeEventListener('resize', checkDevice);
   }, []);
 
   // Handle mouse/touch movement
   useEffect(() => {
+    if (!isVisible) return;
+
     const handleMove = (e) => {
       const x = 'clientX' in e ? e.clientX : (e.touches?.[0]?.clientX ?? -100);
       const y = 'clientY' in e ? e.clientY : (e.touches?.[0]?.clientY ?? -100);
@@ -66,15 +89,11 @@ export default function BlobCursor({
           return;
         }
 
-        // Use shorter durations on Safari for better performance
-        const safariFastDuration = 0.3;
-        const safariSlowDuration = 0.1;
-
         gsap.to(el, {
           x,
           y,
-          duration: isSafariBrowser ? (isLead ? safariFastDuration : safariSlowDuration) : (isLead ? fastDuration : slowDuration),
-          ease: isSafariBrowser ? 'power2.out' : (isLead ? fastEase : slowEase)
+          duration: isLead ? fastDuration : slowDuration,
+          ease: isLead ? fastEase : slowEase
         });
       });
     };
@@ -94,7 +113,14 @@ export default function BlobCursor({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [fastDuration, slowDuration, fastEase, slowEase, isSafariBrowser]);
+  }, [isVisible, fastDuration, slowDuration, fastEase, slowEase]);
+
+  // Don't render on touch devices or small screens
+  if (typeof window !== 'undefined') {
+    if (window.innerWidth < 1024 || isTouchDevice()) {
+      return null;
+    }
+  }
 
   // Disable filter on Safari for better performance
   const shouldUseFilter = useFilter && !isSafariBrowser;
@@ -108,14 +134,14 @@ export default function BlobCursor({
       {shouldUseFilter && (
         <svg style={{ position: 'absolute', width: 0, height: 0 }}>
           <filter id={filterId}>
-            <feGaussianBlur in="SourceGraphic" result="" stdDeviation={filterStdDeviation} />
-            <feColorMatrix  in="" mode="matrix" values={filterColorMatrixValues} />
+            <feGaussianBlur in="SourceGraphic" stdDeviation={filterStdDeviation} />
+            <feColorMatrix mode="matrix" values={filterColorMatrixValues} />
           </filter>
         </svg>
       )}
 
       <div 
-        className="blob-main" 
+        className="blob-main"
         style={{ 
           filter: shouldUseFilter ? `url(#${filterId})` : undefined,
           opacity: mousePos.x < 0 ? 0 : 1,
@@ -134,9 +160,9 @@ export default function BlobCursor({
               borderRadius: blobType === 'circle' ? '50%' : '0%',
               backgroundColor: fillColor,
               opacity: opacities[i],
-              boxShadow: `${shadowOffsetX}px ${shadowOffsetY}px ${shadowBlur}px 0 ${shadowColor}`,
+              boxShadow: `${shadowOffsetX}px ${shadowOffsetY}px ${shadowBlur}px ${shadowColor}`,
               marginLeft: -sizes[i] / 2,
-              marginTop: -sizes[i] / 2
+              marginTop: -sizes[i] / 2,
             }}
           >
             <div
@@ -147,7 +173,8 @@ export default function BlobCursor({
                 top: (sizes[i] - innerSizes[i]) / 2,
                 left: (sizes[i] - innerSizes[i]) / 2,
                 backgroundColor: innerColor,
-                borderRadius: blobType === 'circle' ? '50%' : '0%'
+                borderRadius: blobType === 'circle' ? '50%' : '0%',
+                position: 'absolute',
               }}
             />
           </div>

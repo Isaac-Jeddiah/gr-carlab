@@ -6,40 +6,41 @@
   height: 100vh;
   pointer-events: none;
   z-index: 1000000000;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  overflow: hidden;
 }
 
 .blob-main {
   pointer-events: none;
-  position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
   background: transparent;
   user-select: none;
-  -webkit-transform: translateZ(0);
   transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 .blob {
-  position: absolute;
+  position: fixed;
   will-change: transform;
-  transform: translate3d(-100px, -100px, 0);
+  transform: translate3d(0, 0, 0);
   top: 0;
   left: 0;
   image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+  /* This creates the liquid blob effect when combined with SVG filter */
 }
 
 .inner-dot {
   position: absolute;
+  border-radius: 50%;
 }
 
 /* Safari-specific fixes */
@@ -47,21 +48,34 @@
   @supports (-webkit-appearance: none) {
     .blob-main {
       mix-blend-mode: normal !important;
-      -webkit-filter: none !important;
-      filter: none !important;
     }
     
     .blob {
-      -webkit-filter: blur(0) !important;
+      -webkit-filter: none !important;
       filter: none !important;
+      backdrop-filter: none !important;
     }
   }
 }
 
-/* Reduce motion for accessibility and performance */
+/* Disable blob cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .blob-container {
+    display: none !important;
+  }
+}
+
+/* Hide on smaller screens */
+@media (max-width: 1023px) {
+  .blob-container {
+    display: none !important;
+  }
+}
+
+/* Reduce motion preference */
 @media (prefers-reduced-motion: reduce) {
   .blob {
-    transition: transform 0.1s ease-out !important;
+    transition: transform 0.05s ease-out !important;
     will-change: auto !important;
   }
 }
