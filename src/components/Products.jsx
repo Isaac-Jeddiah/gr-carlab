@@ -403,27 +403,23 @@ const Products = () => {
         {/* See More Button */}
         {!showAll && (
           <div className="flex justify-center mt-12">
-            <button
+            
+               <button
               ref={buttonRef}
               onClick={handleSeeMore}
-              className="see-more-button group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
-            >
-              <span className="relative z-10 flex items-center gap-3 text-lg">
-                <span>See More Products</span>
-                <Plus className="see-more-icon plus-icon w-6 h-6" />
-              </span>
-
-              {/* Animated background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#B8B812] to-[#D4D414] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-              {/* Shine effect */}
-              <div className="absolute inset-0 -left-full group-hover:left-full transition-all duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"></div>
+                className="group relative bg-black border-2 border-[#D4D414] text-[#D4D414] hover:bg-[#D4D414] font-bold px-10 py-4 rounded-full transition-all duration-300 flex items-center gap-3 hover-scale"
+            
+           >
+              <span className="text-xl group-hover:text-black">See More Products</span>
+                 <Plus className="see-more-icon plus-icon w-6 h-6 group-hover:text-black" />
             </button>
+            
+           
           </div>
         )}
 
         {/* Book Now CTA Section */}
-        <div className="mt-20 pt-12 border-t border-white/10">
+        <div className="pt-12 border-white/10">
           <div className="text-center mb-8">
             <p className="text-[#AAADB0] text-lg mb-4">
               Ready to enhance your vehicle with premium products?
@@ -441,11 +437,24 @@ const Products = () => {
           <div className="flex justify-center">
             <Link
               to="/contact"
-              className="group relative bg-black border-2 border-[#D4D414] text-[#D4D414] hover:bg-[#D4D414] font-bold px-10 py-4 rounded-full transition-all duration-300 flex items-center gap-3 hover-scale"
             >
-              <span className="text-xl group-hover:text-black">Book Installation Service</span>
-              <ArrowRight className="w-5 h-5 group-hover:text-black group-hover:translate-x-1 transition-transform" />
-            </Link>
+              <button
+              className="see-more-button group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-3 text-lg">
+                <span>Book Installation Service</span>
+                
+                   <ArrowRight className="w-5 h-5 group-hover:text-black group-hover:translate-x-1 transition-transform" />
+           
+              </span>
+
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#B8B812] to-[#D4D414] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 -left-full group-hover:left-full transition-all duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"></div>
+            </button>
+             </Link>
           </div>
         </div>
         </AnimatedOnScroll>

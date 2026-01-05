@@ -282,11 +282,22 @@ export default function AboutUsPage() {
                 confidence. Every car is treated with the same care and
                 attention we would give our own.
               </p>
+              <a href="/contact">
+                <button 
+              className="see-more-button group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-3 text-lg">
+                <span>Book Now</span>
+                 <ArrowRight className="w-5 h-5" />
+              </span>
 
-              <button className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-black border-2 border-[#D4D414] rounded-full text-[#D4D414] font-medium hover:bg-[#D4D414] hover:text-black transition-all duration-300">
-                Book Now
-                <ArrowRight className="w-5 h-5" />
-              </button>
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#B8B812] to-[#D4D414] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 -left-full group-hover:left-full transition-all duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"></div>
+            </button>
+             </a>
             </div>
           </div>
         </div>
@@ -459,11 +470,8 @@ export default function AboutUsPage() {
                   </p>
                 </div>
               </div>
-
-              <button className="flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-transparent border-2 border-[#D4D414] rounded-full text-[#D4D414] font-medium hover:bg-[#D4D414] hover:text-black transition-all duration-300">
-                Contact Us
-                <ArrowRight className="w-5 h-5" />
-              </button>
+               
+              
             </div>
 
             <div className="showroom-image relative rounded-3xl overflow-hidden order-1 lg:order-2 h-[400px] lg:h-[600px]">

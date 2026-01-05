@@ -443,7 +443,7 @@ const HowWeWorkDesk = () => {
       {/* Cards Section with 3D Car */}
       <div ref={containerRef} className="relative w-screen h-[70vh] scrollbar-hide">
         <div className="relative w-full h-full mx-auto ">
-          <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 h-full">
             {/* Left Side - Stacked Cards */}
             <div className="relative w-full h-full">
               {workflowSteps.map(
@@ -488,7 +488,7 @@ const HowWeWorkDesk = () => {
             </div>
 
             {/* Right Side - 3D Car */}
-            <div className="hidden lg:block relative h-full">
+            <div className="hidden md:block relative h-full">
               <div className="absolute inset-0 bg-gradient-radial from-[#D4D414]/10 to-transparent rounded-full blur-3xl" />
               <canvas ref={canvasRef} className="w-full h-full" />
               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">

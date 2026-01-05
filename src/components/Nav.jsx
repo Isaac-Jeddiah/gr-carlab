@@ -208,8 +208,10 @@ const NavBar = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-        <div className="hidden lg:flex items-center gap-3 md:gap-4 mr-2 md:mr-4">
+      <div className="flex items-center gap-2 sm:gap-3 md:gap-4 ">
+        
+        <div className="hidden lg:flex items-center gap-3 md:gap-4 mr-2 md:mr-4 items-stretch">
+          {/* Services Dropdown */}
           <div className="relative" ref={servicesRef}>
             <button
               onClick={() => {
@@ -217,7 +219,8 @@ const NavBar = () => {
                 setIsMenuOpen(false);
                 setIsSearchOpen(false);
               }}
-              className="services-dropdown-button hidden lg:flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:border-white/40 transition-all hover:bg-white/15"
+              style={{borderRadius:'12px'}}
+              className="services-dropdown-button hidden h-full lg:flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-3 sm:px-4 md:px-5  rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:border-white/40 transition-all hover:bg-white/15"
             >
               <span className="hidden md:inline">Services</span>
               {isServicesOpen ? (
@@ -244,9 +247,9 @@ const NavBar = () => {
               </div>
             )}
           </div>
-
-          <div className="relative" ref={searchRef}>
-            <div className="search-bar-desktop hidden lg:flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl overflow-hidden transition-all">
+            {/* Search Bar */}
+          <div className="relative " ref={searchRef}>
+            <div className="items-center bg-white/10 backdrop-blur-md border border-white/20  rounded-lg sm:rounded-xl overflow-hidden transition-all">
               <input
                 type="text"
                 value={searchQuery}
@@ -261,7 +264,7 @@ const NavBar = () => {
               />
               <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="bg-white/10 z-100 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl hover:bg-white/15 hover:bg-white/20 px-2 sm:px-3 py-2 sm:py-2.5 transition-all"
+                className="items-center bg-white/10 z-100 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl hover:bg-white/15 hover:bg-white/20 px-2 sm:px-3 py-3  transition-all"
                 aria-label="Toggle search"
               >
                 <Search className="w-3 sm:w-4 h-3 sm:h-4 text-white" />
@@ -299,7 +302,7 @@ const NavBar = () => {
             )}
           </div>
         </div>
-
+        {/* Mobile Buttons */}
         <button
           onClick={() => {
             setIsSearchOpen((prev) => !prev);
@@ -311,7 +314,7 @@ const NavBar = () => {
         >
           <Search className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
         </button>
-
+        {/* Menu */}
         <div className="drawer-menu relative" ref={menuRef}>
           <button
             onClick={() => {
@@ -319,7 +322,7 @@ const NavBar = () => {
               setIsServicesOpen(false);
               setIsSearchOpen(false);
             }}
-            className="drawer-close-button p-2 w-9 h-9 sm:w-10 sm:h-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg hover:bg-white/10 transition-all hover-scale flex items-center justify-center"
+            className="drawer-close-button w-9 h-9 lg:w-11 lg:h-11 sm:w-9 sm:h-9 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg hover:bg-white/10 transition-all hover-scale flex items-center justify-center"
             aria-label="Toggle menu"
             style={{
               WebkitTransition: "transform 0.3s ease-in-out",

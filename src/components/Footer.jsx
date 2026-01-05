@@ -36,12 +36,22 @@ export default function Footer() {
               </div>
               
               <Link to={"/contact"} className="lg:flex lg:items-start lg:justify-start flex items-center justify-center">
+                
                 <button
-                  className="flex items-center justify-center gap-3 px-8 py-3.5 bg-[#D4D414] rounded-full text-black font-semibold hover:bg-[#E5E515] transition-all duration-300 shadow-lg shadow-[#D4D414]/20 hover:shadow-[#D4D414]/40 hover:scale-105 active:scale-95 w-full sm:w-auto"
-                >
+             
+              className="see-more-button group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-3">
                   <span className="text-lg">Book Now</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
+              </span>
+
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#B8B812] to-[#D4D414] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 -left-full group-hover:left-full transition-all duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"></div>
+            </button>
               </Link>
             </div>
           </div>

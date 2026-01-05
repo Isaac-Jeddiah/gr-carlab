@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Phone, Mail, MessageCircle, Check, Calendar } from "lucide-react";
+import { Phone, Mail, MessageCircle, Check, Calendar,ChevronDown } from "lucide-react";
 import { gsap } from "gsap";
 import car from "../assets/car_1.png";
 import servicesData from "./servicesData";
@@ -373,7 +373,7 @@ ${formData.firstName} ${formData.lastName}`;
                 </div>
 
                 <div className="grid grid-cols-1 gap-6">
-                  <div>
+                   <div>
                     <input
                       type="text"
                       name="vehicle"
@@ -391,19 +391,26 @@ ${formData.firstName} ${formData.lastName}`;
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-strech">
+                    <div className="space-y-2">
+                      <label
+                        htmlFor="serviceRequired"
+                        className="block text-sm text-gray-400 ml-1"
+                      >
+                        Select Service Required
+                      </label>
+                      <div className="relative">
                       <select
                         name="serviceRequired"
                         value={formData.serviceRequired}
                         onChange={handleChange}
-                        className={`w-full px-6 py-4 bg-gray-900 border ${
+                        className={`w-full appearance-none px-6 py-4 bg-gray-900 border ${
                           errors.serviceRequired
                             ? "border-red-500"
                             : "border-gray-800"
                         } rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#D4D414] transition-colors`}
                       >
-                        <option value="">Select Service Required</option>
+                        <option value="">Select</option>
                         <option value="Product Enquiry">Product Enquiry</option>
                         {servicesData.map((s) => (
                           <option key={s.slug} value={s.title}>
@@ -411,11 +418,13 @@ ${formData.firstName} ${formData.lastName}`;
                           </option>
                         ))}
                       </select>
+                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4D414] pointer-events-none" />
                       {errors.serviceRequired && (
                         <p className="text-red-500 text-sm mt-1">
                           {errors.serviceRequired}
                         </p>
                       )}
+                      </div>
                     </div>
 
                     <div className="space-y-2">

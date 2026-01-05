@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useMemo } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { setupGSAP } from "../utils/gsapSetup";
-import { Award, Zap, Users, Clock, Leaf, Shield } from "lucide-react";
+import { Award, Zap, Users, Clock, Leaf, Shield, ArrowRight } from "lucide-react";
 
 // Memoized icon components to prevent re-renders
 const IconWrapper = React.memo(({ icon: Icon, className }) => (
@@ -137,7 +137,7 @@ const WhyUs = () => {
               </p>
 
               {/* Bottom Accent Line */}
-              <div className="mt-6 h-1 w-12 bg-gradient-to-r from-yellow-400 to-transparent group-hover:w-full transition-all duration-300"></div>
+              <div className="mt-6 h-1 w-full bg-gradient-to-r from-yellow-400 to-transparent group-hover:w-full transition-all duration-300"></div>
             </div>
           );
         })}
@@ -150,9 +150,21 @@ const WhyUs = () => {
         </p>
         <a
           href="/contact"
-          className="inline-block bg-black border border-[#D4D414] text-white px-8 py-4 rounded-full text-lg hover:bg-[#D4D414] hover:text-black transition-all duration-300 transform hover:scale-105"
         >
-          Schedule Now
+          <button
+              className="see-more-button group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-3 text-lg">
+                <span>Schedule Now</span>
+                <ArrowRight className="w-5 h-5" />
+              </span>
+
+              {/* Animated background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#B8B812] to-[#D4D414] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 -left-full group-hover:left-full transition-all duration-700 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"></div>
+            </button>
         </a>
       </div>
     </section>

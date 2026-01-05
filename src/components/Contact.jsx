@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Phone, Mail, MapPin, Check, Calendar, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Check, Calendar, MessageCircle, ArrowBigDown, ChevronDownSquareIcon, ChevronDown } from "lucide-react";
 import { gsap } from "gsap";
 import car from "../assets/car_1.png";
 import servicesData from "./servicesData.js";
@@ -401,11 +401,12 @@ ${formData.firstName} ${formData.lastName}`;
                       >
                         Select Service Required
                       </label>
+                      <div className="relative">
                       <select
                         name="serviceRequired"
                         value={formData.serviceRequired}
                         onChange={handleChange}
-                        className={`w-full px-6 py-4 bg-gray-900 border ${
+                        className={`w-full appearance-none px-6 py-4 bg-gray-900 border ${
                           errors.serviceRequired
                             ? "border-red-500"
                             : "border-gray-800"
@@ -419,11 +420,13 @@ ${formData.firstName} ${formData.lastName}`;
                           </option>
                         ))}
                       </select>
+                      <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#D4D414] pointer-events-none" />
                       {errors.serviceRequired && (
                         <p className="text-red-500 text-sm mt-1">
                           {errors.serviceRequired}
                         </p>
                       )}
+                      </div>
                     </div>
 
                     <div className="space-y-2">

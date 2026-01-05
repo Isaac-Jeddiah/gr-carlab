@@ -470,7 +470,7 @@ const Testimonials = () => {
             {/* Image Container */}
             <div 
               ref={imageContainerRef}
-              className="relative w-full h-24 md:h-24 lg:h-24"
+              className="relative w-full h-32 md:h-64 lg:h-64"
             >
               {testimonials.map((testimonial, index) => (
                 <div
