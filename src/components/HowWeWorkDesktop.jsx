@@ -13,6 +13,12 @@ import {
   ThumbsUp,
 } from "lucide-react";
 
+// Detect Safari browser
+const isSafari = () => {
+  if (typeof window === 'undefined') return false;
+  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+};
+
 gsap.registerPlugin(ScrollTrigger);
 
 const HowWeWorkDesk = () => {
@@ -20,6 +26,7 @@ const HowWeWorkDesk = () => {
   const cardsRef = useRef([]);
   const canvasRef = useRef(null);
   const carModelRef = useRef(null);
+  const isSafariBrowser = React.useRef(false);
 
   const workflowSteps = [
   {
@@ -35,7 +42,7 @@ const HowWeWorkDesk = () => {
     step: 2,
     title: "Detailed Inspection",
     description:
-      "A thorough inspection is carried out to document the vehicle’s current condition and problem areas.",
+      "A thorough inspection is carried out to document the vehicle's current condition and problem areas.",
     icon: Search,
     cameraPosition: { x: 4.45, y: 1, z: -0.078 },
     lookAt: { x: 0.45, y: 0, z: -1 },
@@ -139,6 +146,9 @@ const HowWeWorkDesk = () => {
   useEffect(() => {
     if (!canvasRef.current) return;
 
+    // Check for Safari
+    isSafariBrowser.current = isSafari();
+
     const canvas = canvasRef.current;
     const scene = new THREE.Scene();
     let renderer, camera, gltfLoader, dracoLoader, animationId;
@@ -154,14 +164,17 @@ const HowWeWorkDesk = () => {
       camera.position.set(4, 1.5, 6);
       camera.lookAt(0, 0, 0);
 
-      // Renderer
+      // Renderer - use lower pixel ratio on Safari for performance
+      const pixelRatio = isSafariBrowser.current ? Math.min(window.devicePixelRatio, 1) : Math.min(window.devicePixelRatio, 2);
+      
       renderer = new THREE.WebGLRenderer({
         canvas,
-        antialias: true,
+        antialias: !isSafariBrowser.current,
         alpha: true,
+        powerPreference: "high-performance",
       });
       renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(pixelRatio);
       renderer.setClearColor(0x000000, 0);
 
       // Lights
@@ -256,10 +269,13 @@ const HowWeWorkDesk = () => {
         }
       );
 
-      // Animation loop
+      // Animation loop with visibility check
       const animate = () => {
+        // Only render when page is visible
+        if (document.visibilityState === 'visible') {
+          renderer.render(scene, camera);
+        }
         animationId = requestAnimationFrame(animate);
-        renderer.render(scene, camera);
       };
       animate();
 
@@ -368,20 +384,20 @@ const HowWeWorkDesk = () => {
     }
   }, []);
 
-  // GSAP ScrollTrigger Animation - Based on your working code
+  // GSAP ScrollTrigger Animation - Optimized for performance
   useEffect(() => {
-    
-
     const cards = cardsRef.current;
-    const spacer = 20; // Space between stacked cards
+    
+    // Use shorter scroll distance on Safari for better performance
+    const scrollDistance = isSafariBrowser.current ? 2500 : 4000;
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         pin: true,
-        scrub: true,
+        scrub: 1, // Smoother scrubbing
         start: "top 20%",
-        end: "+=5000px",
+        end: `+=${scrollDistance}px`,
         onUpdate: (self) => {
           // Rotate 3D car based on scroll progress
           if (carModelRef.current) {
@@ -406,7 +422,7 @@ const HowWeWorkDesk = () => {
         y: (i) => -i * 80, // 🔑 NEGATIVE = ABOVE
         scale: 1,
         opacity: 1,
-        stagger: 0.6,
+        stagger: 0.5, // Slightly reduced stagger
         ease: "power2.out",
       }
     );
@@ -504,3 +520,4 @@ const HowWeWorkDesk = () => {
 };
 
 export default HowWeWorkDesk;
+

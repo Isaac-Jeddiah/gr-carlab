@@ -1,8 +1,14 @@
 'use client';
 
-import { useRef, useEffect, useCallback, useState } from 'react';
+import { useRef, useEffect, useCallback, useState, useMemo } from 'react';
 import gsap from 'gsap';
 import './BlobCursor.css';
+
+// Detect Safari browser
+const isSafari = () => {
+  if (typeof window === 'undefined') return false;
+  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+};
 
 export default function BlobCursor({
   blobType = 'circle',
@@ -30,6 +36,7 @@ export default function BlobCursor({
   const [filterId] = useState(() => `blob-filter-${Math.random().toString(36).substr(2, 9)}`);
   const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
   const isFirstMove = useRef(true);
+  const isSafariBrowser = useMemo(() => typeof window !== 'undefined' && isSafari(), []);
 
   // Initialize blob positions to be off-screen
   useEffect(() => {
@@ -59,11 +66,15 @@ export default function BlobCursor({
           return;
         }
 
+        // Use shorter durations on Safari for better performance
+        const safariFastDuration = 0.3;
+        const safariSlowDuration = 0.1;
+
         gsap.to(el, {
           x,
           y,
-          duration: isLead ? fastDuration : slowDuration,
-          ease: isLead ? fastEase : slowEase
+          duration: isSafariBrowser ? (isLead ? safariFastDuration : safariSlowDuration) : (isLead ? fastDuration : slowDuration),
+          ease: isSafariBrowser ? 'power2.out' : (isLead ? fastEase : slowEase)
         });
       });
     };
@@ -83,7 +94,10 @@ export default function BlobCursor({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [fastDuration, slowDuration, fastEase, slowEase]);
+  }, [fastDuration, slowDuration, fastEase, slowEase, isSafariBrowser]);
+
+  // Disable filter on Safari for better performance
+  const shouldUseFilter = useFilter && !isSafariBrowser;
 
   return (
     <div
@@ -91,7 +105,7 @@ export default function BlobCursor({
       className="blob-container"
       style={{ zIndex }}
     >
-      {useFilter && (
+      {shouldUseFilter && (
         <svg style={{ position: 'absolute', width: 0, height: 0 }}>
           <filter id={filterId}>
             <feGaussianBlur in="SourceGraphic" result="" stdDeviation={filterStdDeviation} />
@@ -103,10 +117,10 @@ export default function BlobCursor({
       <div 
         className="blob-main" 
         style={{ 
-          filter: useFilter ? `url(#${filterId})` : undefined,
+          filter: shouldUseFilter ? `url(#${filterId})` : undefined,
           opacity: mousePos.x < 0 ? 0 : 1,
           transition: 'opacity 0.3s ease',
-          mixBlendMode: 'difference'
+          mixBlendMode: isSafariBrowser ? 'normal' : 'difference'
         }}
       >
         {Array.from({ length: trailCount }).map((_, i) => (
@@ -142,3 +156,4 @@ export default function BlobCursor({
     </div>
   );
 }
+

@@ -6,6 +6,8 @@
   height: 100vh;
   pointer-events: none;
   z-index: 1000000000;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .blob-main {
@@ -16,6 +18,8 @@
   overflow: hidden;
   background: transparent;
   user-select: none;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .blob {
@@ -30,8 +34,35 @@
   -webkit-backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .inner-dot {
   position: absolute;
 }
+
+/* Safari-specific fixes */
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
+    .blob-main {
+      mix-blend-mode: normal !important;
+      -webkit-filter: none !important;
+      filter: none !important;
+    }
+    
+    .blob {
+      -webkit-filter: blur(0) !important;
+      filter: none !important;
+    }
+  }
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    transition: transform 0.1s ease-out !important;
+    will-change: auto !important;
+  }
+}
+

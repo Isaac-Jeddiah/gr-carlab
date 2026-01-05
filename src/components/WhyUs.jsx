@@ -137,7 +137,7 @@ const WhyUs = () => {
               </p>
 
               {/* Bottom Accent Line */}
-              <div className="mt-6 h-1 w-full bg-gradient-to-r from-yellow-400 to-transparent group-hover:w-full transition-all duration-300"></div>
+              <div className="mt-6 h-1 w-full bg-gradient-to-r from-[#D4D414] to-transparent group-hover:w-full transition-all duration-300"></div>
             </div>
           );
         })}

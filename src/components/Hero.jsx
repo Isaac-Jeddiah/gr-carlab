@@ -4,6 +4,12 @@ import heroBg from "../assets/car-background.jpg";
 import heroCar from "../assets/car-hero1.png";
 import NavBar from "./Nav";
 
+// Detect Safari browser
+const isSafari = () => {
+  if (typeof window === 'undefined') return false;
+  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+};
+
 const Hero = () => {
   const heroRef = useRef(null);
   const bgRef = useRef(null);
@@ -12,11 +18,17 @@ const Hero = () => {
   const mousePos = useRef({ x: 0.5, y: 0.5 });
   const currentPos = useRef({ x: 0.5, y: 0.5 });
   const [isLoaded, setIsLoaded] = useState(false);
-  const isMobileDevice = () => window.innerWidth < 768;
+  const [isSafariBrowser, setIsSafariBrowser] = useState(false);
+  const isMobileDevice = useCallback(() => window.innerWidth < 768, []);
 
   // Throttled lerp function
   const lerp = useCallback((start, end, factor) => {
     return start + (end - start) * factor;
+  }, []);
+
+  // Check for Safari on mount
+  useEffect(() => {
+    setIsSafariBrowser(isSafari());
   }, []);
 
   // Throttled mouse move handler
@@ -81,8 +93,10 @@ const Hero = () => {
 
   // Animation loop with optimization
   useEffect(() => {
+    if (isMobileDevice()) {
+      document.body.classList.add('no-cursor');
+    }
     
-    isMobileDevice() && document.body.classList.add('no-cursor');
     // Use Page Visibility API to pause when not visible
     let isPageVisible = true;
     
@@ -98,13 +112,14 @@ const Hero = () => {
         return;
       }
 
-      currentPos.current.x = lerp(currentPos.current.x, mousePos.current.x, 0.05);
-      currentPos.current.y = lerp(currentPos.current.y, mousePos.current.y, 0.05);
+      // Skip lerp calculations on Safari for better performance
+      if (!isSafariBrowser) {
+        currentPos.current.x = lerp(currentPos.current.x, mousePos.current.x, 0.05);
+        currentPos.current.y = lerp(currentPos.current.y, mousePos.current.y, 0.05);
+      }
 
       const xOffset = (currentPos.current.x - 0.5) * 2;
       const yOffset = (currentPos.current.y - 0.5) * 2;
-
-      
 
       requestRef.current = requestAnimationFrame(animate);
     };
@@ -117,7 +132,7 @@ const Hero = () => {
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [lerp]);
+  }, [lerp, isMobileDevice, isSafariBrowser]);
 
   const splitText = (text) => {
     return text.split('').map((char, i) => (
@@ -152,6 +167,27 @@ const Hero = () => {
     ));
   };
 
+  // Get car transform based on device
+  const getCarTransform = () => {
+    const isMobile = isMobileDevice();
+    if (isMobile) {
+      return isLoaded ? 'translateX(-50%)' : 'translateX(-80%)';
+    }
+    return isLoaded ? 'translateX(0)' : 'translateX(-40%)';
+  };
+
+  // Get shadow style - simplified for Safari
+  const getCarShadowStyle = () => {
+    if (isSafariBrowser) {
+      return {
+        filter: 'none',
+      };
+    }
+    return {
+      filter: 'drop-shadow(20px 20px 40px rgba(0,0,0,0.5))',
+    };
+  };
+
   return (
     <div className="relative rounded-3xl mt-6 bg-black min-h-screen overflow-hidden mx-4 md:mx-8 lg:mx-15 mb-8 sm:mb-4 lg:mb-4">
     <section
@@ -173,7 +209,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
       </div>
 
-      {/* Car with 3D transform */}
+      {/* Car with 3D transform - Safari-compatible */}
       <div
         className="absolute right-[30%] bottom-0 w-full h-full pointer-events-none"
       >
@@ -181,23 +217,17 @@ const Hero = () => {
           ref={carRef}
           src={heroCar}
           alt="Hero car"
-          className="relative lg:pb-50 h-[100%] md:h-[80%] lg:h-[140%] lg:scale-110 scale-110 md:scale-110 w-auto max-w-none object-contain"
+          className={`relative lg:pb-50 h-[100%] md:h-[80%] lg:h-[140%] lg:scale-110 scale-110 md:scale-110 w-auto max-w-none object-contain ${
+            isSafariBrowser ? '' : 'will-change-transform'
+          }`}
           style={{
-            filter: 'drop-shadow(20px 20px 40px rgba(0,0,0,0.5))',
+            ...getCarShadowStyle(),
             opacity: isLoaded ? 1 : 0,
-            transform: (() => {
-              const isMobile = isMobileDevice();
-              if (isMobile) {
-                return isLoaded ? 'translateX(-50%)' : 'translateX(-80%)';
-              }
-              else{
-                return isLoaded ? 'translateX(0)' : 'translateX(-40%)';
-              }
-            })(),
+            transform: getCarTransform(),
             transition: 'all 1.2s cubic-bezier(0.22, 1, 0.36, 1)',
-            willChange: 'transform',
+            willChange: 'transform, opacity',
+            WebkitTransform: getCarTransform(),
           }}
-          
         />
       </div>
 
