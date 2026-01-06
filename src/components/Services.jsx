@@ -151,7 +151,7 @@ const Services = () => {
                   {service.details.slice(0, 3).map((detail, idx) => (
                     <li
                       key={`${service.id}-detail-${idx}`}
-                      className="service-feature-item flex items-center gap-2 text-sm text-white/60"
+                      className="service-feature-item flex items-center gap-2 text-lg text-white/60"
                     >
                       <span className="w-1 sm:w-1.5 h-1 sm:h-1.5 rounded-full bg-[#D4D414] flex-shrink-0"></span>
                       <span className="line-clamp-2">{detail}</span>

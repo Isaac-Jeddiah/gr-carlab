@@ -16,14 +16,14 @@ export const contactConfig = {
 
   // Location coordinates for Google Maps
   coordinates: {
-    lat: 13.057486053838888,
-    lng: 79.72490962887022,
+    lat: 12.29177174805135,
+    lng: 76.60325432798595
+    
   },
 
   // Social media links
   socialLinks: {
     instagram: "https://instagram.com/grcarlab",
-    facebook: "https://facebook.com/grcarlab",
   },
 };
 

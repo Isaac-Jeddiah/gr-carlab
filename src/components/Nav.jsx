@@ -222,7 +222,7 @@ const NavBar = () => {
               style={{borderRadius:'12px'}}
               className="services-dropdown-button hidden h-full lg:flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-3 sm:px-4 md:px-5  rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium focus:outline-none focus:border-white/40 transition-all hover:bg-white/15"
             >
-              <span className="hidden md:inline">Services</span>
+              <span className="hidden md:inline text-base">Services</span>
               {isServicesOpen ? (
                 <ChevronUp className="w-3 sm:w-4 h-3 sm:h-4" />
               ) : (
@@ -232,7 +232,7 @@ const NavBar = () => {
 
             {isServicesOpen && window.innerWidth >= 1024 && (
               <div className="dropdown-menu absolute top-full left-0 mt-2 w-56 sm:w-64 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl shadow-2xl overflow-hidden z-50 max-h-96 overflow-y-auto">
-                <div className="py-2">
+                <div className="py-2 text-base">
                   {services.map((service) => (
                     <Link
                       key={service.id}
@@ -260,7 +260,7 @@ const NavBar = () => {
                   setIsMenuOpen(false);
                 }}
                 placeholder="Search..."
-                className="bg-transparent text-white placeholder-white/50 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm focus:outline-none w-32 sm:w-48"
+                className="bg-transparent text-white text-base placeholder-white/50 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm focus:outline-none w-32 sm:w-48"
               />
               <button
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -274,7 +274,7 @@ const NavBar = () => {
             {isSearchOpen && window.innerWidth >= 1024 && (
               <div className="dropdown-menu absolute top-full right-0 mt-2 w-56 sm:w-72 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl shadow-2xl overflow-hidden z-50 max-h-96 overflow-y-auto">
                 <div className="p-2 sm:p-3 border-b border-white/10">
-                  <p className="text-xs text-white/50 uppercase tracking-wider">
+                  <p className="text-base text-white/50 uppercase tracking-wider">
                     Products
                   </p>
                 </div>
@@ -293,7 +293,7 @@ const NavBar = () => {
                     </button>
                   ))}
                   {searchQuery && filteredProducts.length === 0 && (
-                    <div className="px-3 sm:px-5 py-2 sm:py-3 text-xs sm:text-sm">
+                    <div className="px-3 sm:px-5 py-2 sm:py-3 text-base sm:text-sm">
                       No products found
                     </div>
                   )}
@@ -338,14 +338,14 @@ const NavBar = () => {
 
           {isMenuOpen && (
             <div className="drawer-content absolute top-full right-0 mt-2 w-48 sm:w-56 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg sm:rounded-xl shadow-2xl overflow-hidden z-50">
-              <div className="drawer-menu-items py-2">
+              <div className="drawer-menu-items py-2 text-base">
                 {menuItems.map((item, idx) =>
                   item.name === "Services" ? (
                     <Link
                       key={idx}
                       to="/services"
                       onClick={() => setIsMenuOpen(false)}
-                      className="drawer-menu-link block px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm border-b border-white/5 last:border-0"
+                      className="drawer-menu-link text-base block px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all sm:text-sm border-b border-white/5 last:border-0"
                     >
                       {item.name}
                     </Link>
@@ -354,7 +354,7 @@ const NavBar = () => {
                       key={idx}
                       href={item.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className="drawer-menu-link block px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm border-b border-white/5 last:border-0"
+                      className="drawer-menu-link text-base block px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all sm:text-sm border-b border-white/5 last:border-0"
                     >
                       {item.name}
                     </a>
@@ -368,7 +368,7 @@ const NavBar = () => {
                     setIsMobileServicesOpen((prev) => !prev);
                   }}
                 >
-                  <button className="w-full px-3 sm:px-5 py-2 sm:py-3 text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm flex items-center justify-between">
+                  <button className="w-full px-3 sm:px-5 py-2 sm:py-3 text-base text-white/80 hover:text-white hover:bg-white/5 transition-all text-xs sm:text-sm flex items-center justify-between">
                     <span>Services</span>
                     {isMobileServicesOpen ? (
                       <ChevronUp className="w-3 h-3" />
@@ -377,7 +377,7 @@ const NavBar = () => {
                     )}
                   </button>
                   {isMobileServicesOpen && (
-                  <div ref={mobileServicesRef} className="overflow-hidden">
+                  <div ref={mobileServicesRef} className="overflow-hidden text-base">
                     {services.map((service) => (
                       <Link
                         key={service.id}
@@ -386,7 +386,7 @@ const NavBar = () => {
                           setIsMobileServicesOpen(false);
                           setIsMenuOpen(false);
                         }}
-                        className="block px-4 py-2 text-xs sm:text-sm text-white/80 hover:text-white hover:bg-white/5 transition-all"
+                        className="block px-4 py-2 text-sm sm:text-sm text-white/80 hover:text-white hover:bg-white/5 transition-all"
                       >
                         {service.name}
                       </Link>
@@ -395,7 +395,7 @@ const NavBar = () => {
                   )}
                 </div>
 
-                <div className="drawer-bottom px-3 sm:px-4 py-2 sm:py-3 border-t border-white/10 mt-1">
+                <div className="drawer-bottom text-base px-3 sm:px-4 py-2 sm:py-3 border-t border-white/10 mt-1">
                   <button
                     onClick={() => {
                       navigate("/contact");
@@ -418,7 +418,7 @@ const NavBar = () => {
           aria-hidden={!isSearchOpen}
         >
           <div className="py-2 px-2 sm:px-3 z-100 w-56 sm:w-72 overflow-hidden z-50 max-h-96 overflow-y-auto">
-            <p className="text-xs text-white/50 uppercase mb-2">
+            <p className="text-base text-white/50 uppercase mb-2">
               Search Products
             </p>
             <div className="flex items-center gap-2 bg-black/30 rounded-lg px-3 py-2 mb-2">
@@ -434,7 +434,7 @@ const NavBar = () => {
                 className="w-3 h-3 text-white/50 cursor-pointer"
               />
             </div>
-            <div className="max-h-40 overflow-y-auto space-y-1">
+            <div className="max-h-40 overflow-y-auto space-y-1 text-base">
               {filteredProducts.slice(0, 5).map((product, idx) => (
                 <button
                   key={idx}

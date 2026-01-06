@@ -39,11 +39,11 @@ export default function Footer() {
                 
                 <button
              
-              className="see-more-button group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-10 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
+              className="see-more-button w-fit whitespace-nowrap group relative bg-gradient-to-r from-[#D4D414] to-[#B8B812] text-black font-bold px-4 py-4 rounded-full shadow-2xl hover:shadow-[0_0_40px_rgba(212,212,20,0.6)] transition-all duration-300 overflow-hidden"
             >
               <span className="relative z-10 flex items-center gap-3">
                   <span className="text-lg">Book Now</span>
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
               </span>
 
               {/* Animated background */}
@@ -134,7 +134,7 @@ export default function Footer() {
           {/* Footer Bottom */}
           <div className="footer-bottom pt-6 sm:pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-4 justify-between items-center text-lg text-[#AAADB0]">
             <p className="footer-bottom-text">
-              © 2025 GR CAR LAB. All rights reserved.
+              © 2026 GR CAR LAB. All rights reserved.
             </p>
             <div className="flex items-center gap-2 text-sm">
               <span className="text-[#D4D414]">★</span>
